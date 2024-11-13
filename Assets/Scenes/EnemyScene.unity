@@ -137,6 +137,7 @@ GameObject:
   - component: {fileID: 206629449}
   - component: {fileID: 206629448}
   - component: {fileID: 206629452}
+  - component: {fileID: 206629453}
   m_Layer: 0
   m_Name: Stage1Enemy
   m_TagString: Untagged
@@ -261,6 +262,18 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &206629453
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 206629447}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f67fbf4dff9aed940b1a1885786ed692, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &758019264
 GameObject:
   m_ObjectHideFlags: 0
