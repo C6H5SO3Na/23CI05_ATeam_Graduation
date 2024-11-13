@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerStopState : PlayerStateMachine
 {
@@ -24,6 +25,12 @@ public class PlayerStopState : PlayerStateMachine
 
     void PlayerStateMachine.Move()
     {
+        Debug.Log("Stop");
+    }
 
+    void PlayerStateMachine.HandleInput(InputAction.CallbackContext context)
+    {
+        var axis = context.ReadValue<Vector2>();
+        Debug.Log("“ü—Í");
     }
 }

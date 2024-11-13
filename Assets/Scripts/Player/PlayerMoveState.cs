@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerMoveState : PlayerStateMachine
 {
     PlayerController player { get; set; }
-
+    Vector3 velocity;
     //コンストラクタ
     public PlayerMoveState(in PlayerController player)
     {
@@ -24,6 +25,13 @@ public class PlayerMoveState : PlayerStateMachine
 
     void PlayerStateMachine.Move()
     {
-        player.Move();
+        Debug.Log("Move");
+        player.transform.position += velocity * Time.deltaTime;
+    }
+
+    void PlayerStateMachine.HandleInput(InputAction.CallbackContext context)
+    {
+        var axis = context.ReadValue<Vector2>();
+        velocity = new Vector3(axis.x, 0, axis.y);
     }
 }
