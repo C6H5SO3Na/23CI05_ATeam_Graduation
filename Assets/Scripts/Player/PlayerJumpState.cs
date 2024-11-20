@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-
-public class PlayerMoveState : PlayerStateMachine
+/// <summary>
+/// プレイヤー停止状態
+/// </summary>
+public class PlayerJumpState : PlayerStateMachine
 {
-    bool leaveMove = false;
-    bool isJump = false;
+
     //コンストラクタ
-    public PlayerMoveState(in PlayerController player)
+    public PlayerJumpState(in PlayerController player, Vector3 vec)
     {
         this.player = player;
+        velocity += new Vector3(vec.x, 11f, vec.z);
     }
 
     public override void Initialize()
@@ -22,13 +23,22 @@ public class PlayerMoveState : PlayerStateMachine
 
     public override void Think()
     {
-        if (isJump) { player.ChangeState(new PlayerJumpState(player, velocity)); }
-        if (leaveMove) { player.ChangeState(new PlayerIdleState(player)); }
+        if (player.GetComponent<CharacterController>().isGrounded)
+        {
+            if (player.preState is PlayerMoveState)
+            {
+                player.ChangeState(new PlayerMoveState(player));
+            }
+            else if (player.preState is PlayerIdleState)
+            {
+                player.ChangeState(new PlayerIdleState(player));
+            }
+        }
     }
 
     public override void Move()
     {
-        //Debug.Log("Move");
+        //Debug.Log("Jump");
         //Debug.Log(velocity);
     }
 
@@ -38,12 +48,10 @@ public class PlayerMoveState : PlayerStateMachine
         velocity = new Vector3(moveVec.x, velocity.y, moveVec.y);
         float normalizedDir = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
         player.transform.rotation = Quaternion.Euler(0.0f, velocity.x + normalizedDir, 0.0f);
-        if (context.canceled) { leaveMove = true; }
     }
 
     public override void JumpButton(InputAction.CallbackContext context)
     {
-        if (context.started) { isJump = true; }
     }
 
     public override void HoldButton(InputAction.CallbackContext context)

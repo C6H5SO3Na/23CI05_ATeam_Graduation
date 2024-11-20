@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-
-public class PlayerMoveState : PlayerStateMachine
+/// <summary>
+/// プレイヤー停止状態
+/// </summary>
+public class PlayerIdleState : PlayerStateMachine
 {
-    bool leaveMove = false;
+    bool toMove = false;
     bool isJump = false;
     //コンストラクタ
-    public PlayerMoveState(in PlayerController player)
+    public PlayerIdleState(in PlayerController player)
     {
         this.player = player;
+        toMove = false;
+        isJump = false;
     }
 
     public override void Initialize()
@@ -23,22 +26,17 @@ public class PlayerMoveState : PlayerStateMachine
     public override void Think()
     {
         if (isJump) { player.ChangeState(new PlayerJumpState(player, velocity)); }
-        if (leaveMove) { player.ChangeState(new PlayerIdleState(player)); }
+        if (toMove) { player.ChangeState(new PlayerMoveState(player)); }
     }
 
     public override void Move()
     {
-        //Debug.Log("Move");
-        //Debug.Log(velocity);
+        //Debug.Log("Stop");
     }
 
     public override void MoveButton(InputAction.CallbackContext context)
     {
-        var moveVec = context.ReadValue<Vector2>();
-        velocity = new Vector3(moveVec.x, velocity.y, moveVec.y);
-        float normalizedDir = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
-        player.transform.rotation = Quaternion.Euler(0.0f, velocity.x + normalizedDir, 0.0f);
-        if (context.canceled) { leaveMove = true; }
+        toMove = true;
     }
 
     public override void JumpButton(InputAction.CallbackContext context)

@@ -4,28 +4,32 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour ,IPlayerInput
+public class PlayerController : MonoBehaviour, IPlayerInput
 {
     PlayerStateMachine state;
-    PlayerStateMachine preState;
-
-    Rigidbody rb;
+    public PlayerStateMachine preState;
+    [SerializeField] float gravity;
+    [SerializeField] float speed;
+    CharacterController controller;
+    Vector3 moveVec;
+    public static int cnt = 0;
     //èâä˙âª
     void Start()
     {
-        state = new PlayerStopState(this);
+        state = new PlayerIdleState(this);
         state.Initialize();
-        rb = GetComponent<Rigidbody>();
+        controller = GetComponent<CharacterController>();
     }
-    public void OnActionPerformed(InputAction.CallbackContext context)
-    {
-        state.HandleInput(context);
-    }
+
     // Update is called once per frame
     void Update()
     {
         state.Think();
         state.Move();
+        moveVec = state.GetMoveVec();
+        moveVec = new Vector3(moveVec.x * speed, moveVec.y, moveVec.z * speed);
+        state.WorkGravity(gravity);
+        controller.Move(moveVec * Time.deltaTime);
     }
 
     public void ChangeState(PlayerStateMachine state)
@@ -37,22 +41,18 @@ public class PlayerController : MonoBehaviour ,IPlayerInput
 
     public void MoveButton(InputAction.CallbackContext context)
     {
+        Debug.Log(++cnt);
         var axis = context.ReadValue<Vector2>();
-        Debug.Log(axis);
+        //Debug.Log(axis);
+        state.MoveButton(context);
     }
 
     public void JumpButton(InputAction.CallbackContext context)
     {
-        Debug.Log("Jump");
+        state.JumpButton(context);
     }
 
     public void HoldButton(InputAction.CallbackContext context)
     {
-        Debug.Log("Hold");
-    }
-
-    public void Move(InputAction.CallbackContext context)
-    {
-
     }
 }

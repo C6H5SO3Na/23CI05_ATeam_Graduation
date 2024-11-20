@@ -3,11 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public interface PlayerStateMachine
+public abstract class PlayerStateMachine : IPlayerStateMachine, IPlayerInput
 {
-    void Initialize();
-    void Think();
-    void Move();
+    /// <summary>
+    /// プレイヤー本体
+    /// </summary>
+    protected PlayerController player;
+    protected Vector3 velocity;
 
-    void HandleInput(InputAction.CallbackContext context);
+    public abstract void Initialize();
+    public abstract void Think();
+    public abstract void Move();
+    public abstract void MoveButton(InputAction.CallbackContext context);
+    public abstract void JumpButton(InputAction.CallbackContext context);
+    public abstract void HoldButton(InputAction.CallbackContext context);
+    public Vector3 GetMoveVec() { return velocity; }
+    public void WorkGravity(float g) { velocity.y -= g; }
 }
