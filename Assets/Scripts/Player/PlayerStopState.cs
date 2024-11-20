@@ -25,7 +25,7 @@ public class PlayerStopState : PlayerStateMachine
 
     void PlayerStateMachine.Move()
     {
-        Debug.Log("Stop");
+        //Debug.Log("Stop");
     }
 
     void PlayerStateMachine.HandleInput(InputAction.CallbackContext context)

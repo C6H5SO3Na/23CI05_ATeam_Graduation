@@ -25,7 +25,7 @@ public class PlayerMoveState : PlayerStateMachine
 
     void PlayerStateMachine.Move()
     {
-        Debug.Log("Move");
+        //Debug.Log("Move");
         player.transform.position += velocity * Time.deltaTime;
     }
 
