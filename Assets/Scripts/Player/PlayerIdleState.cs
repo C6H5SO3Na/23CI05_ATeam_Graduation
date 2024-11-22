@@ -36,7 +36,7 @@ public class PlayerIdleState : PlayerStateMachine
 
     public override void MoveButton(InputAction.CallbackContext context)
     {
-        toMove = true;
+        player.ChangeState(new PlayerMoveState(player));
     }
 
     public override void JumpButton(InputAction.CallbackContext context)

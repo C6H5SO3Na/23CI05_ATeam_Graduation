@@ -28,17 +28,20 @@ public class PlayerMoveState : PlayerStateMachine
 
     public override void Move()
     {
-        //Debug.Log("Move");
-        //Debug.Log(velocity);
+        Debug.Log("Move");
     }
 
     public override void MoveButton(InputAction.CallbackContext context)
     {
         var moveVec = context.ReadValue<Vector2>();
         velocity = new Vector3(moveVec.x, velocity.y, moveVec.y);
+        Debug.Log(velocity);
         float normalizedDir = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
         player.transform.rotation = Quaternion.Euler(0.0f, velocity.x + normalizedDir, 0.0f);
-        if (context.canceled) { leaveMove = true; }
+        if (!context.performed)
+        {
+            leaveMove = true;
+        }
     }
 
     public override void JumpButton(InputAction.CallbackContext context)

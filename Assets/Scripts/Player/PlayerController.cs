@@ -41,15 +41,16 @@ public class PlayerController : MonoBehaviour, IPlayerInput
 
     public void MoveButton(InputAction.CallbackContext context)
     {
-        Debug.Log(++cnt);
+        //Debug.Log(++cnt);
         var axis = context.ReadValue<Vector2>();
-        //Debug.Log(axis);
+        //Debug.Log(state);
         state.MoveButton(context);
     }
 
     public void JumpButton(InputAction.CallbackContext context)
     {
         state.JumpButton(context);
+        Debug.Log(state);
     }
 
     public void HoldButton(InputAction.CallbackContext context)
