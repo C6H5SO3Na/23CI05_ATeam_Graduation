@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDecreaseHP
+public interface IStartedOperation
 {
     /// <summary>
-    /// HP‚ªŒ¸‚éˆ—
+    /// ƒ{ƒ^ƒ““™‚Å‹N“®‚³‚ê‚é“®ì
     /// </summary>
-    void DecreaseHP(int damage);
+    void StartedOperation();
 }

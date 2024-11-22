@@ -7,6 +7,9 @@ public class Break : MonoBehaviour
     //プレイヤー、もしくは敵にぶつかった場合壊れる
     void OnCollisionEnter(Collision collision)
     {
-        Destroy(this.gameObject);
+        if(collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Enemy"))
+        {
+            Destroy(this.gameObject);
+        }
     }
 }
