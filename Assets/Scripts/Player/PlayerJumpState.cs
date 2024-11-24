@@ -25,7 +25,7 @@ public class PlayerJumpState : PlayerStateMachine
     {
         if (player.GetComponent<CharacterController>().isGrounded)
         {
-            if (player.preState is PlayerMoveState)
+            if (player.preState is PlayerMoveState || (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f))
             {
                 player.ChangeState(new PlayerMoveState(player));
             }
@@ -38,16 +38,23 @@ public class PlayerJumpState : PlayerStateMachine
 
     public override void Move()
     {
-        //Debug.Log("Jump");
-        //Debug.Log(velocity);
+        if (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f)
+        {
+            var moveVec = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+            velocity = new Vector3(moveVec.x, velocity.y, moveVec.y);
+            float normalizedDir = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
+            player.transform.rotation = Quaternion.Euler(0.0f, velocity.x + normalizedDir, 0.0f);
+            //Debug.Log("Jump");
+            //Debug.Log(velocity);
+        }
     }
 
     public override void MoveButton(InputAction.CallbackContext context)
     {
-        var moveVec = context.ReadValue<Vector2>();
-        velocity = new Vector3(moveVec.x, velocity.y, moveVec.y);
-        float normalizedDir = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
-        player.transform.rotation = Quaternion.Euler(0.0f, velocity.x + normalizedDir, 0.0f);
+        //var moveVec = context.ReadValue<Vector2>();
+        //velocity = new Vector3(moveVec.x, velocity.y, moveVec.y);
+        //float normalizedDir = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
+        //player.transform.rotation = Quaternion.Euler(0.0f, velocity.x + normalizedDir, 0.0f);
     }
 
     public override void JumpButton(InputAction.CallbackContext context)

@@ -25,8 +25,8 @@ public class PlayerIdleState : PlayerStateMachine
 
     public override void Think()
     {
-        if (isJump) { player.ChangeState(new PlayerJumpState(player, velocity)); }
-        if (toMove) { player.ChangeState(new PlayerMoveState(player)); }
+        if (Input.GetButton("Jump")) { player.ChangeState(new PlayerJumpState(player, velocity)); }
+        if (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f) { player.ChangeState(new PlayerMoveState(player)); }
     }
 
     public override void Move()
@@ -36,12 +36,12 @@ public class PlayerIdleState : PlayerStateMachine
 
     public override void MoveButton(InputAction.CallbackContext context)
     {
-        player.ChangeState(new PlayerMoveState(player));
+        //player.ChangeState(new PlayerMoveState(player));
     }
 
     public override void JumpButton(InputAction.CallbackContext context)
     {
-        if (context.started) { isJump = true; }
+        //if (context.started) { isJump = true; }
     }
 
     public override void HoldButton(InputAction.CallbackContext context)

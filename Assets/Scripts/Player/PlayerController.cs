@@ -24,11 +24,15 @@ public class PlayerController : MonoBehaviour, IPlayerInput
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(state);
         state.Think();
         state.Move();
         moveVec = state.GetMoveVec();
         moveVec = new Vector3(moveVec.x * speed, moveVec.y, moveVec.z * speed);
-        state.WorkGravity(gravity);
+        if (!controller.isGrounded)
+        {
+            state.WorkGravity(gravity);
+        }
         controller.Move(moveVec * Time.deltaTime);
     }
 
@@ -41,7 +45,7 @@ public class PlayerController : MonoBehaviour, IPlayerInput
 
     public void MoveButton(InputAction.CallbackContext context)
     {
-        //Debug.Log(++cnt);
+        Debug.Log(++cnt);
         var axis = context.ReadValue<Vector2>();
         //Debug.Log(state);
         state.MoveButton(context);
@@ -50,7 +54,7 @@ public class PlayerController : MonoBehaviour, IPlayerInput
     public void JumpButton(InputAction.CallbackContext context)
     {
         state.JumpButton(context);
-        Debug.Log(state);
+        //Debug.Log(state);
     }
 
     public void HoldButton(InputAction.CallbackContext context)
