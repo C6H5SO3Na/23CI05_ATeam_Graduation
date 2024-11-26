@@ -32,7 +32,7 @@ public class PlayerMoveState : PlayerStateMachine
         {
             var moveVec = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
             velocity = new Vector3(moveVec.x, velocity.y, moveVec.y);
-            Debug.Log(velocity);
+            //Debug.Log(velocity);
             float normalizedDir = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
             player.transform.rotation = Quaternion.Euler(0.0f, velocity.x + normalizedDir, 0.0f);
         }

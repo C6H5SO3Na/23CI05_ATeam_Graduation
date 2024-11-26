@@ -24,7 +24,7 @@ public class PlayerController : MonoBehaviour, IPlayerInput
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(state);
+        //Debug.Log(state);
         state.Think();
         state.Move();
         moveVec = state.GetMoveVec();
