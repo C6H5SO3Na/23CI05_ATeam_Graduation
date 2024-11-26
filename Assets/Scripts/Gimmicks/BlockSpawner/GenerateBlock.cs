@@ -26,7 +26,7 @@ public class GenerateBlock : MonoBehaviour, IStartedOperation
             if(generatedBlocks.Count < maxObjects)
             {
                 //生成位置を決める
-                Vector3 position = new Vector3(9, 1, 9);
+                Vector3 position = new Vector3(10, 1, 10);
 
                 //ブロックの生成
                 GameObject newBlock = Instantiate(generatingBlockPrefab, position, Quaternion.identity);
