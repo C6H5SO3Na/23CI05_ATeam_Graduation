@@ -7,7 +7,7 @@ public class StartOtherObjectProcess_StepOn : MonoBehaviour
     [SerializeField]
     private GameObject targetObject;    // 処理を行わせるオブジェクト
 
-    private bool isPressed = false;
+    private bool isPressed = false;     // 押されたかを記憶する
 
     private void OnTriggerStay(Collider other)
     {
@@ -23,7 +23,11 @@ public class StartOtherObjectProcess_StepOn : MonoBehaviour
                     if (objectHavingStartedOperation != null)
                     {
                         //実装している処理をさせる
-                        objectHavingStartedOperation.StartedOperation();
+                        if(objectHavingStartedOperation.StartedOperation())
+                        {
+                            //処理が行われたら、押されたことを記憶する
+                            isPressed = true;
+                        }
                     }
                     else
                     {
@@ -34,9 +38,6 @@ public class StartOtherObjectProcess_StepOn : MonoBehaviour
                 {
                     Debug.LogWarning("処理を行わせるオブジェクトが指定されていません");
                 }
-
-                //押されたことを記憶する
-                isPressed = true;
             }
         }
     }

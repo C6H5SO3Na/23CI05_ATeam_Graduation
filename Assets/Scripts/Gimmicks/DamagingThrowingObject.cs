@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ThrowingObject : MonoBehaviour
+public class DamagingThrowingObject : MonoBehaviour
 {
     //•Ï”
     private int attackPower;    // UŒ‚—Í
