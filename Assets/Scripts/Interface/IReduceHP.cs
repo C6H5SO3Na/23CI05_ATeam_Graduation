@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IDecreaseHP
+public interface IReduceHP
 {
     /// <summary>
     /// HP‚ªŒ¸‚éˆ—
     /// </summary>
-    void DecreaseHP(int damage);
+    void ReduceHP(int damage);
 }

@@ -20,10 +20,10 @@ public class DamagingThrowingObject : MonoBehaviour
         if(collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Enemy"))
         {
             //HPŒ¸­ˆ—‚ªÀ‘•‚³‚ê‚Ä‚¢‚é‚©Šm”F
-            IDecreaseHP decreaseHPObject = collision.gameObject.GetComponent<IDecreaseHP>();
+            IReduceHP decreaseHPObject = collision.gameObject.GetComponent<IReduceHP>();
             if(decreaseHPObject != null)
             {
-                decreaseHPObject.DecreaseHP(attackPower);
+                decreaseHPObject.ReduceHP(attackPower);
             }
             else
             {
