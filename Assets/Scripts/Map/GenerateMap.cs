@@ -14,7 +14,7 @@ public class GenerateMap : MonoBehaviour
     private const int layerHeight = 20 + 2;     // 層の縦幅(床にできる範囲 + 壁を作成する部分)
     private const int layerNumber = 6;          // 層の数
 
-    private int[,,] mapData_floor = {        // 床のマップデータ
+    private int[,,] mapData = {        // 床のマップデータ
         //第一層(床)
         {
             { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -179,7 +179,7 @@ public class GenerateMap : MonoBehaviour
         //値の初期値設定
         for(int i = 0; i < mapPrefab.Count; ++i)
         {
-            mapPrefabDictionary[i] = mapPrefab[i];
+            mapPrefabDictionary[i + 1] = mapPrefab[i];  // i + 1はマップデータの0を空白にするため
         }
 
         //マップの生成
@@ -198,13 +198,18 @@ public class GenerateMap : MonoBehaviour
                 for (int x = 0; x < layerWidth; ++x)
                 {
                     //マップデータが存在しないプレハブを指定していなかったら生成する
-                    if (mapPrefabDictionary.TryGetValue(mapData_floor[y, z, x], out GameObject prefab))
+                    if (mapPrefabDictionary.TryGetValue(mapData[y, z, x], out GameObject prefab))
                     {
                         //配置する位置を設定
                         Vector3 position = new Vector3(x, y, z);
 
                         //生成する
                         Instantiate(prefab, position, Quaternion.identity);
+                    }
+                    else if(mapData[y, z, x] == 0)
+                    {
+                        //mapDataが0の時、Debug.LogWarningを呼び出さないようにしている
+                        continue;
                     }
                     else
                     {
