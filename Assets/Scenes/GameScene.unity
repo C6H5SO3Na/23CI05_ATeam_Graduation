@@ -154,6 +154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mapPrefab:
   - {fileID: 9209725690948217932, guid: e871aad2b42c4a04c883a486b48fbf7a, type: 3}
+  - {fileID: 8410465286873189008, guid: 738c0ebd254e43e4cba3785cc1bce41b, type: 3}
+  - {fileID: 5887095000389839252, guid: ae9f100579897954cbdb98bfdfbad517, type: 3}
   - {fileID: 405261439610448840, guid: e267045e0aec5d14ea2d1517537bd6ae, type: 3}
   - {fileID: 7680406051955426657, guid: 4fa96e382df7841408fa0867e56f65e5, type: 3}
 --- !u!4 &243274140
