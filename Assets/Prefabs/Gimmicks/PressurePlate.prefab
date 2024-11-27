@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 2331901655052300670}
   - component: {fileID: 7934692659357464598}
   - component: {fileID: 7520654099676963188}
+  - component: {fileID: 2686554836960587671}
   - component: {fileID: 6777250401609787176}
   m_Layer: 0
   m_Name: PressurePlate
@@ -34,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &6987872107120158791
 MeshFilter:
@@ -128,6 +129,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.95, y: 0.1, z: 0.95}
   m_Center: {x: 0, y: 0.6, z: 0}
+--- !u!54 &2686554836960587671
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 405261439610448840}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 122
+  m_CollisionDetection: 0
 --- !u!114 &6777250401609787176
 MonoBehaviour:
   m_ObjectHideFlags: 0

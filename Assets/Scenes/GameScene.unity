@@ -155,6 +155,7 @@ MonoBehaviour:
   mapPrefab:
   - {fileID: 9209725690948217932, guid: e871aad2b42c4a04c883a486b48fbf7a, type: 3}
   - {fileID: 405261439610448840, guid: e267045e0aec5d14ea2d1517537bd6ae, type: 3}
+  - {fileID: 7680406051955426657, guid: 4fa96e382df7841408fa0867e56f65e5, type: 3}
 --- !u!4 &243274140
 Transform:
   m_ObjectHideFlags: 0
