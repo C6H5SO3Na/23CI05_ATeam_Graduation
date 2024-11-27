@@ -68,3 +68,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   generatingBlockPrefab: {fileID: 3977730845845240031, guid: 518e0627bad950b4daa5884131b065ac,
     type: 3}
+  maxObjects: 1

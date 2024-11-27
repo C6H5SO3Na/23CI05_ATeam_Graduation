@@ -7,11 +7,12 @@ public class GenerateBlock : MonoBehaviour, IStartedOperation
     [SerializeField]
     private GameObject generatingBlockPrefab;                           // 生成するブロック
     private List<GameObject> generatedBlocks = new List<GameObject>();  // 生成したブロックのリスト
-    private int maxObjects;                                             // 生成できるブロックの数
+    [SerializeField]
+    private int maxObjects;                                              // 生成できるブロックの数
 
     void Start()
     {
-        maxObjects = 1;
+        //maxObjects = 1;
     }
 
     //ブロックが無ければブロックを生成する
@@ -48,4 +49,9 @@ public class GenerateBlock : MonoBehaviour, IStartedOperation
 
         return false;
     }
+
+    //void Update()
+    //{
+    //    Debug.Log("maxObjects:" + maxObjects);
+    //}
 }
