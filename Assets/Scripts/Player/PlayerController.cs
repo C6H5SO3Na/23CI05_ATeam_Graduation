@@ -53,7 +53,8 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         state.Move();
 
         //é¿ç€Ç…ìÆÇ≠
-        moveVec = state.GetMoveVec() + new Vector3(moveVec.x * speed, moveVec.y, moveVec.z * speed);
+        moveVec = state.GetMoveVec();
+        moveVec += new Vector3(moveVec.x * speed, moveVec.y, moveVec.z * speed);
 
         //èdóÕÇì≠Ç©ÇπÇÈ
         if (!controller.isGrounded)
@@ -77,7 +78,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
                 }
             }
         }
-
+        Debug.Log(moveVec);
         controller.Move(moveVec * Time.deltaTime);
     }
 
