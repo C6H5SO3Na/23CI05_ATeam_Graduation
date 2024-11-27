@@ -7,5 +7,5 @@ public interface IStartedOperation
     /// <summary>
     /// ƒ{ƒ^ƒ““™‚Å‹N“®‚³‚ê‚é“®ì
     /// </summary>
-    void StartedOperation();
+    bool StartedOperation();
 }
