@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public abstract class PlayerStateMachine : IPlayerStateMachine, IPlayerInput
+public abstract class PlayerStateMachine : IPlayerStateMachine//, IPlayerInput
 {
     /// <summary>
     /// プレイヤー本体
@@ -14,9 +14,11 @@ public abstract class PlayerStateMachine : IPlayerStateMachine, IPlayerInput
     public abstract void Initialize();
     public abstract void Think();
     public abstract void Move();
+    /*α版では未使用(InputSystem)
     public abstract void MoveButton(InputAction.CallbackContext context);
     public abstract void JumpButton(InputAction.CallbackContext context);
     public abstract void HoldButton(InputAction.CallbackContext context);
+    */
     public Vector3 GetMoveVec() { return velocity; }
     public void WorkGravity(float g) { velocity.y -= g; }
 }
