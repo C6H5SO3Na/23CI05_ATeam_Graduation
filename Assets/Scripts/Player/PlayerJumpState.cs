@@ -2,49 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 /// <summary>
-/// プレイヤー停止状態
+/// プレイヤージャンプ状態
 /// </summary>
 public class PlayerJumpState : PlayerStateMachine
 {
 
     //コンストラクタ
-    public PlayerJumpState(in PlayerController player, Vector3 vec)
-    {
-        this.player = player;
-        velocity += new Vector3(vec.x, 11f, vec.z);
-    }
-
-    public override void Initialize()
+    public PlayerJumpState()
     {
 
     }
 
-    public override void Think()
+    public override void Initialize(PlayerController player)
     {
+        //ジャンプする
+        var jumpVec = new Vector3(player.GetMoveDirection().x, 11f, player.GetMoveDirection().z);
+        player.UpdateMoveDirection(jumpVec);
+    }
+
+    public override void Think(PlayerController player)
+    {
+        //地面に着地したら遷移
         if (player.GetComponent<CharacterController>().isGrounded)
         {
-            if (player.preState is PlayerMoveState || (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f))
-            {
-                player.ChangeState(new PlayerMoveState(player));
-            }
-            else if (player.preState is PlayerIdleState)
-            {
-                player.ChangeState(new PlayerIdleState(player));
-            }
+            player.ChangeState(player.PreState);
         }
     }
 
-    public override void Move()
+    public override void Move(PlayerController player)
     {
         //移動
-        if (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f)
+        if (player.IsInputStick())
         {
-            var moveVec = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-            velocity = new Vector3(moveVec.x, velocity.y, moveVec.y);
-            float normalizedDir = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
-            player.transform.rotation = Quaternion.Euler(0.0f, velocity.x + normalizedDir, 0.0f);
+            player.Walk();
         }
     }
 

@@ -4,37 +4,44 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-
+/// <summary>
+/// プレイヤー歩行状態
+/// </summary>
 public class PlayerMoveState : PlayerStateMachine
 {
     bool leaveMove = false;
-    bool isJump = false;
+    //bool isJump = false;//未使用
     //コンストラクタ
-    public PlayerMoveState(in PlayerController player)
-    {
-        this.player = player;
-    }
-
-    public override void Initialize()
+    public PlayerMoveState()
     {
 
     }
 
-    public override void Think()
+    public override void Initialize(PlayerController player)
     {
-        if (Input.GetButtonDown("Jump")) { player.ChangeState(new PlayerJumpState(player, velocity)); }
-        if (leaveMove) { player.ChangeState(new PlayerIdleState(player)); }
+
     }
 
-    public override void Move()
+    public override void Think(PlayerController player)
     {
-        if (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f)
+        //持っているときだとジャンプできない
+        if (Input.GetButtonDown("Jump") && !player.IsHolding)
         {
-            var moveVec = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-            velocity = new Vector3(moveVec.x, velocity.y, moveVec.y);
-            //Debug.Log(velocity);
-            float normalizedDir = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
-            player.transform.rotation = Quaternion.Euler(0.0f, velocity.x + normalizedDir, 0.0f);
+            player.ChangeState(new PlayerJumpState());
+        }
+
+        if (leaveMove)
+        {
+            player.ChangeState(new PlayerIdleState());
+        }
+    }
+
+    public override void Move(PlayerController player)
+    {
+        //入力後
+        if (player.IsInputStick())
+        {
+            player.Walk();
         }
         else
         {
