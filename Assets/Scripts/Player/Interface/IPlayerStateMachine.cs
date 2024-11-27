@@ -11,13 +11,13 @@ public interface IPlayerStateMachine
     /// <summary>
     /// èâä˙âª
     /// </summary>
-    void Initialize();
+    void Initialize(PlayerController player);
     /// <summary>
     /// évçl
     /// </summary>
-    void Think();
+    void Think(PlayerController player);
     /// <summary>
     /// çsìÆ
     /// </summary>
-    void Move();
+    void Move(PlayerController player);
 }
