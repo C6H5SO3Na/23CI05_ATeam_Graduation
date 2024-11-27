@@ -25,7 +25,7 @@ public class PlayerMoveState : PlayerStateMachine
     public override void Think(PlayerController player)
     {
         //‚Á‚Ä‚¢‚é‚Æ‚«‚¾‚ÆƒWƒƒƒ“ƒv‚Å‚«‚È‚¢
-        if (Input.GetButtonDown("Jump") && !player.IsHolding)
+        if (Input.GetButtonDown("Jump" + player.playerName) && !player.IsHolding)
         {
             player.ChangeState(new PlayerJumpState());
         }

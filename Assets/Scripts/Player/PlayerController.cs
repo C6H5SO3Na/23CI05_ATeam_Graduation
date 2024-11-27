@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
 
     [SerializeField] float gravity;//重力
     [SerializeField] float speed;//速度
+    [SerializeField] float maxSpeed;//速度
+    [SerializeField] int playerNum;//プレイヤー番号
 
     Vector3 moveDirection;//動く向き
 
@@ -30,29 +32,34 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         get { return isHolding; }
     }
 
+    public string playerName;
     const float debounceTime = 0.2f;//デバウンス時間
     float lastButtonPressTime = 0f;//前にボタンを押した時間
 
     //public static int buttonCnt = 0;//ボタンを押した回数(現在未使用)
 
-    //初期化
     void Start()
     {
+        Application.targetFrameRate = 60;
+        playerName = "_P" + playerNum.ToString();
         state = new PlayerIdleState();
         state.Initialize(this);
         controller = GetComponent<CharacterController>();
         isHolding = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        //Debug.Log(state);
+        Debug.Log(state);
         state.Think(this);
         state.Move(this);
 
         //実際に動く
         moveDirection = new Vector3(moveDirection.x * speed, moveDirection.y, moveDirection.z * speed);
+
+        //速度を抑制
+        moveDirection.x = Mathf.Clamp(moveDirection.x, -maxSpeed, maxSpeed);
+        moveDirection.z = Mathf.Clamp(moveDirection.z, -maxSpeed, maxSpeed);
 
         //重力を働かせる
         if (!controller.isGrounded)
@@ -61,10 +68,11 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         }
 
         //投げる
-        if (Input.GetButtonDown("Hold") && IsAbleThrow())
+        if (Input.GetButtonDown("Hold" + playerName) && IsAbleThrow())
         {
             Throw();
         }
+        Debug.Log(moveDirection);
         controller.Move(moveDirection * Time.deltaTime);
     }
 
@@ -101,7 +109,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     void OnTriggerStay(Collider other)
     {
         //ものを持つ
-        if (other.CompareTag("ThrowingObject") && Input.GetButtonDown("Hold"))
+        if (other.CompareTag("ThrowingObject") && Input.GetButtonDown("Hold" + playerName))
         {
             if (other.transform.parent == null && !isHolding)
             {
@@ -142,7 +150,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     /// <returns></returns>
     public Vector3 GetInputDirection()
     {
-        return new Vector3(Input.GetAxis("Horizontal"), 0f, Input.GetAxis("Vertical"));
+        return new Vector3(Input.GetAxis("Horizontal" + playerName), 0f, Input.GetAxis("Vertical" + playerName));
     }
 
     /// <summary>
@@ -156,6 +164,15 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         //回転
         float normalizedDir = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0.0f, moveDirection.x + normalizedDir, 0.0f);
+    }
+
+    /// <summary>
+    /// 減速
+    /// </summary>
+    public void Deceleration(float amount)
+    {
+        moveDirection.x *= amount;
+        moveDirection.z *= amount;
     }
 
     /// <summary>
@@ -199,7 +216,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     /// <returns>入力されていればtrue</returns>
     public bool IsInputStick()
     {
-        return Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f;
+        return Input.GetAxis("Horizontal" + playerName) != 0f || Input.GetAxis("Vertical" + playerName) != 0f;
     }
 
     bool IsAbleThrow()

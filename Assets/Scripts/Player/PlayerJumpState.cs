@@ -39,6 +39,10 @@ public class PlayerJumpState : PlayerStateMachine
         {
             player.Walk();
         }
+        else
+        {
+            player.Deceleration(0.9f);
+        }
     }
 
     /*ƒ¿”Å‚Å‚Í–¢Žg—p(InputSystem)
