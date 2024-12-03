@@ -106,11 +106,14 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     void OnTriggerStay(Collider other)
     {
         //‚à‚Ì‚ğ‚Â
-        if (other.CompareTag("ThrowingObject") && Input.GetButtonDown("Hold" + playerName))
+        if (other.CompareTag("ThrowingObject") || other.CompareTag("Player"))
         {
-            if (other.transform.parent == null && !isHolding)
+            if (Input.GetButtonDown("Hold" + playerName))
             {
-                Hold(other.gameObject);
+                if (other.transform.parent == null && !isHolding)
+                {
+                    Hold(other.gameObject);
+                }
             }
         }
     }
@@ -180,7 +183,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         Transform parentTransform = transform;
         foreach (Transform child in parentTransform)
         {
-            if (child.CompareTag("ThrowingObject"))
+            if (child.CompareTag("ThrowingObject") || child.CompareTag("Player"))
             {
                 //eqŠÖŒW‚ğ‰ğœ
                 child.gameObject.transform.SetParent(null);
