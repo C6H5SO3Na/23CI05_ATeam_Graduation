@@ -19,7 +19,6 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
 
     [SerializeField] float gravity;//重力
     [SerializeField] float speed;//速度
-    [SerializeField] float maxSpeed;//速度
     [SerializeField] int playerNum;//プレイヤー番号
 
     Vector3 moveDirection;//動く向き
@@ -49,7 +48,6 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
 
     void Update()
     {
-        Debug.Log(state);
         state.Think(this);
         state.Move(this);
 
@@ -57,8 +55,8 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         moveDirection = new Vector3(moveDirection.x * speed, moveDirection.y, moveDirection.z * speed);
 
         //速度を抑制
-        moveDirection.x = Mathf.Clamp(moveDirection.x, -maxSpeed, maxSpeed);
-        moveDirection.z = Mathf.Clamp(moveDirection.z, -maxSpeed, maxSpeed);
+        moveDirection.x = Mathf.Clamp(moveDirection.x, -speed, speed);
+        moveDirection.z = Mathf.Clamp(moveDirection.z, -speed, speed);
 
         //重力を働かせる
         if (!controller.isGrounded)
@@ -71,7 +69,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         {
             Throw();
         }
-        Debug.Log(moveDirection);
+        Debug.Log($"moveDirection:{moveDirection} state:{state}");
         controller.Move(moveDirection * Time.deltaTime);
     }
 
@@ -108,11 +106,14 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     void OnTriggerStay(Collider other)
     {
         //ものを持つ
-        if (other.CompareTag("ThrowingObject") && Input.GetButtonDown("Hold" + playerName))
+        if (other.CompareTag("ThrowingObject") || other.CompareTag("Player"))
         {
-            if (other.transform.parent == null && !isHolding)
+            if (Input.GetButtonDown("Hold" + playerName))
             {
-                Hold(other.gameObject);
+                if (other.transform.parent == null && !isHolding)
+                {
+                    Hold(other.gameObject);
+                }
             }
         }
     }
@@ -182,7 +183,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         Transform parentTransform = transform;
         foreach (Transform child in parentTransform)
         {
-            if (child.CompareTag("ThrowingObject"))
+            if (child.CompareTag("ThrowingObject") || child.CompareTag("Player"))
             {
                 //親子関係を解除
                 child.gameObject.transform.SetParent(null);
