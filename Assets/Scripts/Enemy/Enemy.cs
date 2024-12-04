@@ -40,4 +40,12 @@ public class Enemy : EnemyData
             stateMachine.currentState.ActProcess();
         }
     }
+
+    /// <summary>
+    /// この関数が宣言されているスクリプトがアタッチされるオブジェクトとは別のオブジェクトにあるコンポーネントの参照先の設定
+    /// </summary>
+    void SetDependent(IReceiveDeathInformation receiveInstance)
+    {
+        this.receiveInstance = receiveInstance;
+    }
 }
