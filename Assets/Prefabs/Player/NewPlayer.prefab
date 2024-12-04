@@ -104,7 +104,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravity: 0.75
   speed: 3
-  maxSpeed: 10
   playerNum: 1
   playerName: 
 --- !u!114 &8403772014955525539

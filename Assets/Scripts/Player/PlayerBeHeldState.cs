@@ -6,11 +6,11 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// プレイヤー停止状態
 /// </summary>
-public class PlayerIsHeldState : PlayerStateMachine
+public class PlayerBeHeldState : PlayerStateMachine
 {
 
     //コンストラクタ
-    public PlayerIsHeldState()
+    public PlayerBeHeldState()
     {
 
     }

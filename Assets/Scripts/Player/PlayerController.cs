@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         {
             Throw();
         }
-        Debug.Log($"moveDirection:{moveDirection} state:{state}");
+        //Debug.Log($"moveDirection:{moveDirection} state:{state}");
         controller.Move(moveDirection * Time.deltaTime);
     }
 
@@ -105,10 +105,14 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     */
     void OnTriggerStay(Collider other)
     {
-        //‚à‚Ì‚ðŽ‚Â
-        if (other.CompareTag("ThrowingObject") || other.CompareTag("Player"))
+        if (other.gameObject == this.gameObject)
         {
-            if (Input.GetButtonDown("Hold" + playerName))
+            return;
+        }
+        //‚à‚Ì‚ðŽ‚Â
+        if (Input.GetButtonDown("Hold" + playerName))
+        {
+            if (IsAbleHold(other))
             {
                 if (other.transform.parent == null && !isHolding)
                 {
@@ -183,7 +187,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         Transform parentTransform = transform;
         foreach (Transform child in parentTransform)
         {
-            if (child.CompareTag("ThrowingObject") || child.CompareTag("Player"))
+            if (IsAbleHold(child))
             {
                 //eŽqŠÖŒW‚ð‰ðœ
                 child.gameObject.transform.SetParent(null);
@@ -223,5 +227,10 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     {
         //Ž‚Á‚Ä‚¢‚é&Ž‚Á‚Ä‚©‚çˆê’èŽžŠÔ‚ªŒo‰ß‚µ‚½
         return isHolding && Time.time - lastButtonPressTime > debounceTime;
+    }
+
+    bool IsAbleHold(Component component)
+    {
+        return component.CompareTag("ThrowingObject") || component.CompareTag("Player");
     }
 }
