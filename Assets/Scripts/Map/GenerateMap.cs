@@ -10,6 +10,9 @@ public class GenerateMap : MonoBehaviour
 
     private Dictionary<int, GameObject> mapPrefabDictionary = new Dictionary<int, GameObject>();  // 値と床のプレハブの紐づけ(生成時の処理を分かりやすくするため)
 
+    public static PlayerController player1Instance; // プレイヤー1のインスタンス    
+    public static PlayerController player2Instance; // プレイヤー2のインスタンス
+
     private const int layerWidth = 20 + 2;      // 層の横幅(床にできる範囲 + 壁を作成する部分)
     private const int layerHeight = 20 + 2;     // 層の縦幅(床にできる範囲 + 壁を作成する部分)
     private const int layerNumber = 6;          // 層の数
@@ -198,7 +201,12 @@ public class GenerateMap : MonoBehaviour
                 for (int x = 0; x < layerWidth; ++x)
                 {
                     //マップデータが存在しないプレハブを指定していなかったら生成する
-                    if (mapPrefabDictionary.TryGetValue(mapData[y, z, x], out GameObject prefab))
+                    if (mapData[y, z, x] == 2)
+                    {
+                        //プレイヤー1を生成する
+                        
+                    }
+                    else if (mapPrefabDictionary.TryGetValue(mapData[y, z, x], out GameObject prefab))
                     {
                         //配置する位置を設定
                         Vector3 position = new Vector3(x, y, (layerHeight - 1) - z); // layerHeight - 1はmapDataの形通りにマップを作るために必要
