@@ -8,4 +8,9 @@ public class EnemyData : MonoBehaviour
     //•Ï”
     public int healthPoint = 2;    // ‘Ì—Í
     public int attackPower = 1;    // UŒ‚—Í
+
+    //s“®ŠÖŒW
+    public EnemyDied enemyDied = new EnemyDied();
+
+
 }
