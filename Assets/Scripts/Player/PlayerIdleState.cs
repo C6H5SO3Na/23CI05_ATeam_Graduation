@@ -37,7 +37,8 @@ public class PlayerIdleState : PlayerStateMachine
 
     public override void Move(PlayerController player)
     {
-        player.UpdateMoveDirection(Vector3.zero);
+        //èdóÕÇÕì≠Ç©ÇπÇÈ
+        player.UpdateMoveDirection(new Vector3(0f, player.GetMoveDirection().y, 0f));
     }
 
     /*Éøî≈Ç≈ÇÕñ¢égóp(InputSystem)
