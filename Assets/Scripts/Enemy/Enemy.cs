@@ -5,7 +5,8 @@ using UnityEngine;
 public class Enemy : EnemyData
 {
     //変数-------------------------------------------------------------------
-    public EnemyStateMachine stateMachine;   // ステートマシンを保持する
+    public EnemyStateMachine stateMachine { get; private set; } // ステートマシンのインスタンス
+    public IReceiveDeathInformation receiveInstance;            // 死亡した情報を受け取るオブジェクトのインスタンス(Inspecter)
 
     //public int moveCount = 0;
 

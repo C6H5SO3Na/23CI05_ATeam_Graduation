@@ -28,7 +28,17 @@ public class EnemyState_Die : IEnemyStateBase
     public void ActProcess()
     {
         //死亡(破棄)する
-        Object.Destroy(stateOwner.gameObject);
+        stateOwner.enemyDied.Died(stateOwner);
+
+        //死亡した情報を送る
+        if(stateOwner.receiveInstance != null)
+        {
+            stateOwner.receiveInstance.RecieveEnemyDeathInformation();
+        }
+        else
+        {
+            Debug.LogWarning("死亡情報を受け取るオブジェクトが設定されていない");
+        }
     }
 
     public void Exit()
