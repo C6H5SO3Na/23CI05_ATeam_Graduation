@@ -10,6 +10,12 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     CharacterController controller;
 
     PlayerStateMachine state;//状態
+    public PlayerStateMachine State//プロパティ
+    {
+        private set { state = value; }
+        get { return state; }
+    }
+
     PlayerStateMachine preState;//前の状態
     public PlayerStateMachine PreState//プロパティ
     {
@@ -64,13 +70,21 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
             WorkGravity(gravity);
         }
 
-        //投げる
+        //Debug.Log($"moveDirection:{moveDirection} state:{state}");
+
+        if (state is not PlayerBeHeldState)
+        {
+            controller.Move(moveDirection * Time.deltaTime);
+        }
+    }
+
+    void FixedUpdate()
+    {
+                //投げる
         if (Input.GetButtonDown("Hold" + playerName) && IsAbleThrow())
         {
             Throw();
         }
-        //Debug.Log($"moveDirection:{moveDirection} state:{state}");
-        controller.Move(moveDirection * Time.deltaTime);
     }
 
     /// <summary>
@@ -194,6 +208,11 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
 
                 //物理演算を復活させる
                 child.GetComponent<Rigidbody>().isKinematic = false;
+
+                if (child.GetComponent<CharacterController>() != null)
+                {
+                    child.GetComponent<CharacterController>().enabled = true;
+                }
                 var angle = new Vector3(transform.forward.x, 0f, transform.forward.z);
                 child.GetComponent<Rigidbody>().AddForce(angle * 100f);
                 isHolding = false;
@@ -206,7 +225,40 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     /// </summary>
     public void Hold(GameObject other)
     {
-        other.transform.rotation = this.transform.rotation;
+        switch (other.tag)
+        {
+            case "ThrowingObject":
+                HoldObject(other);
+                break;
+
+            case "Player":
+                HoldPlayer(other);
+                break;
+        }
+    }
+
+    /// <summary>
+    /// 持つ処理
+    /// </summary>
+    public void HoldPlayer(GameObject other)
+    {
+        other.GetComponent<PlayerController>().UpdateMoveDirection(Vector3.zero);
+
+        other.transform.localPosition = new Vector3(0f, 2f, 0f);
+        other.GetComponent<PlayerController>().ChangeState(new PlayerBeHeldState());
+        other.transform.rotation = Quaternion.identity;
+        other.transform.SetParent(this.transform, false);
+        other.GetComponent<CharacterController>().enabled = false;
+        isHolding = true;
+        lastButtonPressTime = Time.time;
+    }
+
+    /// <summary>
+    /// 持つ処理
+    /// </summary>
+    public void HoldObject(GameObject other)
+    {
+        other.transform.rotation = Quaternion.identity;
         other.transform.SetParent(this.transform, false);
         other.transform.localPosition = new Vector3(0f, 2f, 0f);
         other.GetComponent<Rigidbody>().isKinematic = true;
