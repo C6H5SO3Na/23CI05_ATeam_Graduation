@@ -37,7 +37,7 @@ public class EnemyState_Die : IEnemyStateBase
         }
         else
         {
-            Debug.LogWarning("死亡情報を受け取るオブジェクトが設定されていない");
+            Debug.LogWarning("死亡情報を受け取る関数が実装されていない");
         }
     }
 
