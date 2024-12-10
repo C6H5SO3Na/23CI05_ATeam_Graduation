@@ -9,7 +9,7 @@ public class EnemyData : MonoBehaviour
     public int healthPoint = 2;     // ‘Ì—Í
     public int attackPower = 1;     // UŒ‚—Í
 
-    //s“®ŠÖŒW
+    //s“®ŠÖŒW-----------------------------------------------------------------------
     public EnemyDied enemyDied;     // “G€–S‚Ìs“®
 
     private void Awake()

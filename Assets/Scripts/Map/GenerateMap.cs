@@ -10,8 +10,9 @@ public class GenerateMap : MonoBehaviour
 
     private Dictionary<int, GameObject> mapPrefabDictionary = new Dictionary<int, GameObject>();  // 値と床のプレハブの紐づけ(生成時の処理を分かりやすくするため)
 
-    public static PlayerController player1Instance; // プレイヤー1のインスタンス    
-    public static PlayerController player2Instance; // プレイヤー2のインスタンス
+    public GameObject player1Instance { get; private set; }   // プレイヤー1のインスタンス    
+    public GameObject player2Instance { get; private set; }   // プレイヤー2のインスタンス
+    public GameObject enemyInstance { get; private set; }     // 敵のインスタンス            
 
     private const int layerWidth = 20 + 2;      // 層の横幅(床にできる範囲 + 壁を作成する部分)
     private const int layerHeight = 20 + 2;     // 層の縦幅(床にできる範囲 + 壁を作成する部分)
@@ -201,18 +202,29 @@ public class GenerateMap : MonoBehaviour
                 for (int x = 0; x < layerWidth; ++x)
                 {
                     //マップデータが存在しないプレハブを指定していなかったら生成する
-                    if (mapData[y, z, x] == 2)
-                    {
-                        //プレイヤー1を生成する
-                        
-                    }
-                    else if (mapPrefabDictionary.TryGetValue(mapData[y, z, x], out GameObject prefab))
+                    if (mapPrefabDictionary.TryGetValue(mapData[y, z, x], out GameObject prefab))
                     {
                         //配置する位置を設定
                         Vector3 position = new Vector3(x, y, (layerHeight - 1) - z); // layerHeight - 1はmapDataの形通りにマップを作るために必要
 
-                        //生成する
-                        Instantiate(prefab, position, Quaternion.identity);
+                        switch(mapData[y, z, x])
+                        {
+                            case 2:     // プレイヤー1を生成する
+                                player1Instance = Instantiate(prefab, position, Quaternion.identity);
+                                break;
+
+                            case 3:     // プレイヤー2を生成する
+                                player2Instance = Instantiate(prefab, position, Quaternion.identity);
+                                break;
+
+                            case 4:     // 敵を生成する
+                                enemyInstance = Instantiate(prefab, position, Quaternion.identity);
+                                break;
+
+                            default:    // プレイヤー、敵以外のものを生成する
+                                Instantiate(prefab, position, Quaternion.identity);
+                                break;
+                        }
                     }
                     else if(mapData[y, z, x] == 0)
                     {
