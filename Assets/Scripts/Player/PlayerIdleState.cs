@@ -10,29 +10,35 @@ public class PlayerIdleState : PlayerStateMachine
 {
     //bool toMove = false;
     //bool isJump = false;
-    bool isHold = false;
+
     //コンストラクタ
-    public PlayerIdleState(in PlayerController player)
+    public PlayerIdleState()
     {
-        this.player = player;
         //toMove = false;
         //isJump = false;
     }
 
-    public override void Initialize()
+    public override void Initialize(PlayerController player)
     {
 
     }
 
-    public override void Think()
+    public override void Think(PlayerController player)
     {
-        if (Input.GetButtonDown("Jump")) { player.ChangeState(new PlayerJumpState(player, velocity)); }
-        if (Input.GetAxis("Horizontal") != 0f || Input.GetAxis("Vertical") != 0f) { player.ChangeState(new PlayerMoveState(player)); }
+        if (Input.GetButtonDown("Jump" + player.playerName) && !player.IsHolding)
+        {
+            player.ChangeState(new PlayerJumpState());
+        }
+        if (player.IsInputStick())
+        {
+            player.ChangeState(new PlayerMoveState());
+        }
     }
 
-    public override void Move()
+    public override void Move(PlayerController player)
     {
-        //Debug.Log("Stop");
+        //重力は働かせる
+        player.UpdateMoveDirection(new Vector3(0f, player.GetMoveDirection().y, 0f));
     }
 
     /*α版では未使用(InputSystem)
