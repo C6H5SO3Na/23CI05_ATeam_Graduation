@@ -42,6 +42,10 @@ public class Enemy : EnemyData
             //ó‘Ô–ˆ‚Ìs“®ˆ—
             stateMachine.currentState.ActProcess();
         }
+        else
+        {
+            Debug.LogWarning("ó‘Ô‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ");
+        }
     }
 
     /// <summary>

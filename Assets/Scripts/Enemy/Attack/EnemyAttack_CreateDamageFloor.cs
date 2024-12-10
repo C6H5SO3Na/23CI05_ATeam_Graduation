@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttack_ShockWave : MonoBehaviour, IAttack
+public class EnemyAttack_CreateDamageFloor : MonoBehaviour, IAttack
 {
     // Start is called before the first frame update
     void Start()
@@ -16,7 +16,6 @@ public class EnemyAttack_ShockWave : MonoBehaviour, IAttack
         
     }
 
-    //
     public bool Attack()
     {
         return false;

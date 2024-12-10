@@ -8,10 +8,12 @@ public class EnemyState_Attack : IEnemyStateBase
     public EnemyState_Attack(Enemy stateOwner)
     {
         this.stateOwner = stateOwner;
+        isChangingIdle = false;
     }
 
     //変数-------------------------------------------------------------------
-    Enemy stateOwner;    // この状態になるクラスを保持する
+    Enemy stateOwner;       // この状態になるクラスのインスタンス
+    bool  isChangingIdle;   // 待機状態に変更するか
 
     //関数-------------------------------------------------------------------
     public void Enter()
@@ -21,6 +23,11 @@ public class EnemyState_Attack : IEnemyStateBase
 
     public void StateTransition()
     {
+        //待機状態へ遷移
+        if(isChangingIdle)
+        {
+            stateOwner.stateMachine.ChangeState(new EnemyState_Idle(stateOwner));
+        }
 
         //死亡状態へ遷移
         if(stateOwner.healthPoint <= 0)
