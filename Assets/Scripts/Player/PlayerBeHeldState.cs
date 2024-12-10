@@ -22,11 +22,14 @@ public class PlayerBeHeldState : PlayerStateMachine
 
     public override void Think(PlayerController player)
     {
-        if (player.GetComponent<CharacterController>().isGrounded//Physics.Raycast(player.transform.position, Vector3.down, out RaycastHit _, 1f)
-            && !player.GetComponent<Rigidbody>().isKinematic)
+        if (player.GetComponent<CharacterController>().enabled)
         {
-            player.ChangeState(player.PreState);
-            player.GetComponent<Rigidbody>().isKinematic = true;
+            if (Physics.Raycast(player.transform.position, Vector3.down, out RaycastHit _, 0.1f)
+                && !player.GetComponent<Rigidbody>().isKinematic)
+            {
+                player.ChangeState(player.PreState);
+                player.GetComponent<Rigidbody>().isKinematic = true;
+            }
         }
     }
 

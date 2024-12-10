@@ -93,9 +93,11 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     /// <param name="state">•ÏXŒã‚Ìó‘Ô</param>
     public void ChangeState(PlayerStateMachine state)
     {
+        Vector3 savePosition = transform.position;
         preState = this.state;
         this.state = state;
         this.state.Initialize(this);
+        transform.position = savePosition;
     }
 
     /*ƒ¿”Å‚Å‚Í–¢g—p(InputSystem)
