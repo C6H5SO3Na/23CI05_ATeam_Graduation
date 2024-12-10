@@ -6,11 +6,11 @@ using UnityEngine.InputSystem;
 /// <summary>
 /// プレイヤー停止状態
 /// </summary>
-public class PlayerIsHeldState : PlayerStateMachine
+public class PlayerBeHeldState : PlayerStateMachine
 {
 
     //コンストラクタ
-    public PlayerIsHeldState()
+    public PlayerBeHeldState()
     {
 
     }
@@ -22,6 +22,12 @@ public class PlayerIsHeldState : PlayerStateMachine
 
     public override void Think(PlayerController player)
     {
+        if (player.GetComponent<CharacterController>().isGrounded//Physics.Raycast(player.transform.position, Vector3.down, out RaycastHit _, 1f)
+            && !player.GetComponent<Rigidbody>().isKinematic)
+        {
+            player.ChangeState(player.PreState);
+            player.GetComponent<Rigidbody>().isKinematic = true;
+        }
     }
 
     public override void Move(PlayerController player)
