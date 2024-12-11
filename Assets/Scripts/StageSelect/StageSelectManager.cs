@@ -18,7 +18,7 @@ public class StageSelectManager : MonoBehaviour
 
     enum Phase
     {
-        SelectStage, Entry, CanselEntry
+        SelectStage, PreEntry, Entry, CanselEntry
     }
     Phase phase;
 
@@ -41,13 +41,22 @@ public class StageSelectManager : MonoBehaviour
                 {
                     selectFrame.gameObject.SetActive(false);
                     ExpansionStageImage();
-                    phase = Phase.Entry;
+                    phase = Phase.PreEntry;
                 }
 
                 //枠を動かす
                 if (Mathf.Abs(Input.GetAxis("Horizontal_P1")) != 0f || Mathf.Abs(Input.GetAxis("Vertical_P1")) != 0f)
                 {
                     selectFrame.Move(Input.GetAxis("Horizontal_P1"), Input.GetAxis("Vertical_P1"));
+                }
+                break;
+
+
+            case Phase.PreEntry:
+                //イージングが終わるまで待機
+                if (!DOTween.IsTweening(targetImage.transform))
+                {
+                    phase = Phase.Entry;
                 }
                 break;
 
