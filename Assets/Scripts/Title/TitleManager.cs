@@ -14,12 +14,6 @@ public class TitleManager : MonoBehaviour
 
     void Update()
     {
-        //ゲーム終了(提出要件)
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            EndGame();
-        }
-
         //項目選択
         if (Mathf.Abs(Input.GetAxis("Vertical_P1")) > 0f && !DOTween.IsTweening(selectImage.transform))
         {
