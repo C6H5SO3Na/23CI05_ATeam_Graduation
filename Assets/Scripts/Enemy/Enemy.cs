@@ -5,20 +5,20 @@ using UnityEngine;
 public class Enemy : EnemyData
 {
     //変数-------------------------------------------------------------------
-    public EnemyStateMachine stateMachine { get; private set; }             // ステートマシンのインスタンス
-    public IReceiveDeathInformation receiveInstance { get; private set; }   // 死亡した情報を受け取る関数を持つクラスのインスタンス
-    public Transform player1Transform { get; private set; }                 // プレイヤー1のTransform情報
-    public Transform player2Transform { get; private set; }                 // プレイヤー2のTransform情報
+    public EnemyStateMachine stateMachine { get; private set; }                                     // ステートマシンのインスタンス
+    public AttackNoticeObjectGenerater attackNoticeObjectGeneraterInstance { get; private set; }    // 攻撃予告オブジェクト生成クラスのインスタンス
+    public Transform enemyTransform { get; private set; }                                           // 敵のTransform情報
 
-    //public int moveCount = 0;
+    public IReceiveDeathInformation receiveInstance { get; private set; }                           // 死亡した情報を受け取る関数を持つクラスのインスタンス
+    public Transform player1Transform { get; private set; }                                         // プレイヤー1のTransform情報
+    public Transform player2Transform { get; private set; }                                         // プレイヤー2のTransform情報
+
+    public float moveCount = 0.0f;
 
     //関数-------------------------------------------------------------------
     // Start is called before the first frame update
     void Start()
     {
-        //デバッグ用
-        //Application.targetFrameRate = 60;
-
         //ステートマシンの取得
         stateMachine = GetComponent<EnemyStateMachine>();
 
@@ -27,12 +27,18 @@ public class Enemy : EnemyData
         {
             stateMachine.ChangeState(new EnemyState_Idle(this));
         }
+
+        //攻撃予告オブジェクト生成クラス
+        attackNoticeObjectGeneraterInstance = GetComponent<AttackNoticeObjectGenerater>();
+
+        //敵のTransform情報取得
+        enemyTransform = GetComponent<Transform>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //moveCount++;
+        moveCount += Time.deltaTime;
 
         if (stateMachine.currentState != null)
         {

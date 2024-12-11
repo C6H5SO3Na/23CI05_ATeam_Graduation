@@ -21,6 +21,10 @@ public class EnemyState_Idle : IEnemyStateBase
 
     public void StateTransition() 
     {
+        if(stateOwner.moveCount >= 1)
+        {
+            stateOwner.stateMachine.ChangeState(new EnemyState_Attack(stateOwner, stateOwner.enemyAttacks["ShockWave"]));
+        }
 
         //€–Só‘Ô‚Ö‘JˆÚ
         if (stateOwner.healthPoint <= 0)
@@ -36,7 +40,7 @@ public class EnemyState_Idle : IEnemyStateBase
 
     public void Exit()
     {
-        //stateOwner.moveCount = 0;
+        stateOwner.moveCount = 0;
 
         Debug.Log("Idleó‘ÔI—¹I");
     }

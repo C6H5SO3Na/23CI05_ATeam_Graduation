@@ -2,22 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttack_ShowerBall : MonoBehaviour, IAttack
+public class EnemyAttack_ShowerBall : AttackBase
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     //çUåÇèàóù
-    public bool Attack()
+    public override bool Attack()
     {
         return false;
     }

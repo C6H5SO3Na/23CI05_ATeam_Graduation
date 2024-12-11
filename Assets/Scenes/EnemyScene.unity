@@ -135,7 +135,6 @@ GameObject:
   - component: {fileID: 758019267}
   - component: {fileID: 758019266}
   - component: {fileID: 758019265}
-  - component: {fileID: 758019269}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -230,18 +229,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &758019269
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 758019264}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e223922ed260484f9ddb835adc980a9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1529889507
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,6 +491,12 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3495071112124748620, guid: ae9f100579897954cbdb98bfdfbad517,
+        type: 3}
+      propertyPath: attackNoticePrefab
+      value: 
+      objectReference: {fileID: 4112731251123496414, guid: dcde161ebf407fc499979b1d5ea64651,
+        type: 3}
     - target: {fileID: 5212967851717175011, guid: ae9f100579897954cbdb98bfdfbad517,
         type: 3}
       propertyPath: m_RootOrder

@@ -2,21 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyAttack_CreateDamageFloor : MonoBehaviour, IAttack
+public class EnemyAttack_CreateDamageFloor : AttackBase
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public bool Attack()
+    //çUåÇèàóù
+    public override bool Attack()
     {
         return false;
     }
