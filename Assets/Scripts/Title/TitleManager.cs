@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TitleManager : MonoBehaviour
 {
@@ -13,32 +14,35 @@ public class TitleManager : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
-        {
-            EndGame();
-        }
-
+        //€–Ú‘I‘ð
         if (Mathf.Abs(Input.GetAxis("Vertical_P1")) > 0f && !DOTween.IsTweening(selectImage.transform))
         {
             selectImage.Move(Input.GetAxis("Vertical_P1"));
         }
 
+        //B‚ÅŒˆ’è
         if (Input.GetButtonDown("Submit"))
         {
             switch(selectImage.SelectNum)
             {
                 case SelectImageManager.Select.SinglePlay:
-
+                    GameManager.isMultiPlay = false;
+                    SceneManager.LoadScene("StageSelectScene");
                     break;
+
                 case SelectImageManager.Select.MultiPlay:
-
+                    GameManager.isMultiPlay = true;
+                    SceneManager.LoadScene("StageSelectScene");
                     break;
+
                 case SelectImageManager.Select.Option:
 
                     break;
+
                 case SelectImageManager.Select.Credit:
                     //ƒÀ”Å‚Å‚Í–¢ŽÀ‘•
                     break;
+
                 case SelectImageManager.Select.Exit:
                     EndGame();
                     break;
