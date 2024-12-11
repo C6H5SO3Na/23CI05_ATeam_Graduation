@@ -4,29 +4,26 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+
     public static int gameFPS { get; private set; }
+    public static bool isMultiPlay = false;
 
     // Start is called before the first frame update
     void Start()
     {
-        //’l‚Ì‰Šú‰»
+        //ï¿½lï¿½Ìï¿½ï¿½ï¿½ï¿½ï¿½
         gameFPS = 60;
 
-        //ƒQ[ƒ€ƒtƒŒ[ƒ€ƒŒ[ƒg‚ÌŒÅ’è
+        //ï¿½Qï¿½[ï¿½ï¿½ï¿½tï¿½ï¿½ï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½[ï¿½gï¿½ÌŒÅ’ï¿½
         Application.targetFrameRate = gameFPS;
+
+    
+    
     }
 
     // Update is called once per frame
     void Update()
     {
-        //EscƒL[‚ÅƒvƒƒOƒ‰ƒ€I—¹
-        if (Input.GetKey(KeyCode.Escape))
-        {
-#if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
-        }
+
     }
 }
