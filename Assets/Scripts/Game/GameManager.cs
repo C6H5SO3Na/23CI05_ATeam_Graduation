@@ -4,10 +4,16 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static int gameFPS { get; private set; }
+
     // Start is called before the first frame update
     void Start()
     {
-        Application.targetFrameRate = 60;
+        //値の初期化
+        gameFPS = 60;
+
+        //ゲームフレームレートの固定
+        Application.targetFrameRate = gameFPS;
     }
 
     // Update is called once per frame

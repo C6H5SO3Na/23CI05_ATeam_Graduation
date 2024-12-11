@@ -491,6 +491,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1432182925784249002, guid: ae9f100579897954cbdb98bfdfbad517,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3495071112124748620, guid: ae9f100579897954cbdb98bfdfbad517,
         type: 3}
       propertyPath: attackNoticePrefab
@@ -573,6 +578,7 @@ PrefabInstance:
       value: Enemy
       objectReference: {fileID: 0}
     m_RemovedComponents:
+    - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}
     - {fileID: 0}

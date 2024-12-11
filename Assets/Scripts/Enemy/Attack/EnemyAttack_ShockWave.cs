@@ -28,7 +28,7 @@ public class EnemyAttack_ShockWave : AttackBase
         }
 
         //攻撃予告を消し、ダメージ判定(3秒後に攻撃し、20f残る)
-        if (attackCount == 60 * 3)
+        if (attackCount == GameManager.gameFPS * 3)
         {
             //攻撃予告を消す
             attackNoticeObjectGeneraterInstance.DestroyAttackNoticeObject();
@@ -42,7 +42,7 @@ public class EnemyAttack_ShockWave : AttackBase
             }
         }
         //ダメージ判定を消す
-        if (attackCount == 60 * 3 + 20)
+        if (attackCount == GameManager.gameFPS * 3 + 20)
         {
             //ダメージ判定を消す
             if (box != null)
