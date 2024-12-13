@@ -44,7 +44,6 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
 
     void Start()
     {
-        Application.targetFrameRate = 60;
         playerName = "_P" + playerNum.ToString();
         state = new PlayerIdleState();
         state.Initialize(this);
@@ -58,29 +57,18 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         state.Move(this);
 
         //実際に動く
-        moveDirection = new Vector3(moveDirection.x * speed, moveDirection.y, moveDirection.z * speed);
-
-        //速度を抑制
-        moveDirection.x = Mathf.Clamp(moveDirection.x, -speed, speed);
-        moveDirection.z = Mathf.Clamp(moveDirection.z, -speed, speed);
-
+        //Debug.Log($"moveDirection:{moveDirection} state:{state}");
+        controller.Move(moveDirection * speed * Time.deltaTime);
         //重力を働かせる
-        if (!controller.isGrounded)
+        if (!controller.isGrounded || state is PlayerBeHeldState)
         {
             WorkGravity(gravity);
-        }
-
-        //Debug.Log($"moveDirection:{moveDirection} state:{state}");
-
-        if (state is not PlayerBeHeldState)
-        {
-            controller.Move(moveDirection * Time.deltaTime);
         }
     }
 
     void FixedUpdate()
     {
-                //投げる
+        //投げる
         if (Input.GetButtonDown("Hold" + playerName) && IsAbleThrow())
         {
             Throw();
@@ -93,9 +81,11 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     /// <param name="state">変更後の状態</param>
     public void ChangeState(PlayerStateMachine state)
     {
+        Vector3 savePosition = transform.position;
         preState = this.state;
         this.state = state;
         this.state.Initialize(this);
+        transform.position = savePosition;
     }
 
     /*α版では未使用(InputSystem)
@@ -206,15 +196,18 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
                 //親子関係を解除
                 child.gameObject.transform.SetParent(null);
 
+                var angle = new Vector3(transform.forward.x, 0f, transform.forward.z);
                 //物理演算を復活させる
-                child.GetComponent<Rigidbody>().isKinematic = false;
-
-                if (child.GetComponent<CharacterController>() != null)
+                if (child.GetComponent<Rigidbody>() != null)
+                {
+                    child.GetComponent<Rigidbody>().isKinematic = false;
+                    child.GetComponent<Rigidbody>().AddForce(angle * 100f);
+                }
+                else if (child.GetComponent<CharacterController>() != null)
                 {
                     child.GetComponent<CharacterController>().enabled = true;
+                    child.GetComponent<PlayerController>().UpdateMoveDirection(angle * 5f);
                 }
-                var angle = new Vector3(transform.forward.x, 0f, transform.forward.z);
-                child.GetComponent<Rigidbody>().AddForce(angle * 100f);
                 isHolding = false;
             }
         }
