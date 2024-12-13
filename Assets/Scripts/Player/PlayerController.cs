@@ -44,7 +44,6 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
 
     void Start()
     {
-        Application.targetFrameRate = 60;
         playerName = "_P" + playerNum.ToString();
         state = new PlayerIdleState();
         state.Initialize(this);
@@ -58,29 +57,18 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         state.Move(this);
 
         //é¿ç€Ç…ìÆÇ≠
-        moveDirection = new Vector3(moveDirection.x * speed, moveDirection.y, moveDirection.z * speed);
-
-        //ë¨ìxÇó}êß
-        moveDirection.x = Mathf.Clamp(moveDirection.x, -speed, speed);
-        moveDirection.z = Mathf.Clamp(moveDirection.z, -speed, speed);
-
+        //Debug.Log($"moveDirection:{moveDirection} state:{state}");
+        controller.Move(moveDirection * speed * Time.deltaTime);
         //èdóÕÇì≠Ç©ÇπÇÈ
-        if (!controller.isGrounded)
+        if (!controller.isGrounded || state is PlayerBeHeldState)
         {
             WorkGravity(gravity);
-        }
-
-        //Debug.Log($"moveDirection:{moveDirection} state:{state}");
-
-        if (state is not PlayerBeHeldState)
-        {
-            controller.Move(moveDirection * Time.deltaTime);
         }
     }
 
     void FixedUpdate()
     {
-                //ìäÇ∞ÇÈ
+        //ìäÇ∞ÇÈ
         if (Input.GetButtonDown("Hold" + playerName) && IsAbleThrow())
         {
             Throw();
@@ -208,15 +196,18 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
                 //êeéqä÷åWÇâèú
                 child.gameObject.transform.SetParent(null);
 
+                var angle = new Vector3(transform.forward.x, 0f, transform.forward.z);
                 //ï®óùââéZÇïúäàÇ≥ÇπÇÈ
-                child.GetComponent<Rigidbody>().isKinematic = false;
-
-                if (child.GetComponent<CharacterController>() != null)
+                if (child.GetComponent<Rigidbody>() != null)
+                {
+                    child.GetComponent<Rigidbody>().isKinematic = false;
+                    child.GetComponent<Rigidbody>().AddForce(angle * 100f);
+                }
+                else if (child.GetComponent<CharacterController>() != null)
                 {
                     child.GetComponent<CharacterController>().enabled = true;
+                    child.GetComponent<PlayerController>().UpdateMoveDirection(angle * 5f);
                 }
-                var angle = new Vector3(transform.forward.x, 0f, transform.forward.z);
-                child.GetComponent<Rigidbody>().AddForce(angle * 100f);
                 isHolding = false;
             }
         }

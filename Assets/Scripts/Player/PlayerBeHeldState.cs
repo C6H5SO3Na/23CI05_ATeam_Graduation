@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
 public class PlayerBeHeldState : PlayerStateMachine
 {
 
+    int cnt = 0;
     //コンストラクタ
     public PlayerBeHeldState()
     {
@@ -17,24 +18,24 @@ public class PlayerBeHeldState : PlayerStateMachine
 
     public override void Initialize(PlayerController player)
     {
-
+        cnt = 0;
     }
 
     public override void Think(PlayerController player)
     {
         if (player.GetComponent<CharacterController>().enabled)
         {
-            if (Physics.Raycast(player.transform.position, Vector3.down, out RaycastHit _, 0.1f)
-                && !player.GetComponent<Rigidbody>().isKinematic)
+            ++cnt;
+            if (player.GetComponent<CharacterController>().isGrounded && cnt > 5)
             {
                 player.ChangeState(player.PreState);
-                player.GetComponent<Rigidbody>().isKinematic = true;
             }
         }
     }
 
     public override void Move(PlayerController player)
     {
+
     }
 
     /*α版では未使用(InputSystem)
