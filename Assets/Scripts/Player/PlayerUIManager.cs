@@ -13,14 +13,15 @@ public class PlayerUIManager : MonoBehaviour
         text = transform.GetChild(1).GetComponent<TextMeshPro>();
         arrow = transform.GetChild(0).GetComponent<SpriteRenderer>();
         player = transform.parent.GetComponent<PlayerController>();
-        if (GameManager.isMultiPlay)
-        {
-            text.text = player.PlayerNum.ToString() + "P";
-        }
-        else if (player.PlayerNum == 2)
+        if (player.PlayerNum == 2)
         {
             gameObject.SetActive(false);
         }
+    }
+
+    void Update()
+    {
+        text.text = player.PlayerNum.ToString() + "P";
         ChangeColor(player.PlayerNum);
     }
 

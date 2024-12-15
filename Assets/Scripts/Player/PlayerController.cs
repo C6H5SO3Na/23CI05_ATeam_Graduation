@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class PlayerController : MonoBehaviour//, IPlayerInput
 {
     CharacterController controller;
+    PlayerUIManager ui;
 
     PlayerStateMachine state;//状態
     public PlayerStateMachine State//プロパティ
@@ -53,6 +54,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         state = new PlayerIdleState();
         state.Initialize(this);
         controller = GetComponent<CharacterController>();
+        ui = transform.GetChild(0).GetComponent<PlayerUIManager>();
         isHolding = false;
     }
 
@@ -68,6 +70,22 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         if (!controller.isGrounded || state is PlayerBeHeldState)
         {
             WorkGravity(gravity);
+        }
+
+        //プレイヤーチェンジ(シングルプレイのみ)
+        if(Input.GetButtonDown("Fire3") && !GameManager.isMultiPlay)
+        {
+            if(playerNum == 1)
+            {
+                playerNum = 2;
+                ui.gameObject.SetActive(false);
+            }
+            else
+            {
+                playerNum = 1;
+                ui.gameObject.SetActive(true);
+            }
+            playerName = "_P" + playerNum.ToString();
         }
     }
 
