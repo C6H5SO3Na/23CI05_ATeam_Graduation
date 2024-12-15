@@ -26,6 +26,11 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     [SerializeField] float gravity;//重力
     [SerializeField] float speed;//速度
     [SerializeField] int playerNum;//プレイヤー番号
+    public int PlayerNum//プロパティ
+    {
+        private set { playerNum = value; }
+        get { return playerNum; }
+    }
 
     Vector3 moveDirection;//動く向き
 
