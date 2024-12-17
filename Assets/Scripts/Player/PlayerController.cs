@@ -29,11 +29,23 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     [SerializeField] int playerNum;//プレイヤー番号
     public int PlayerNum//プロパティ
     {
-        private set { playerNum = value; }
+        set
+        {
+            if (value <= 2) { playerNum = value; }
+        }
         get { return playerNum; }
     }
 
     Vector3 moveDirection;//動く向き
+    int invincibleCnt = 0;
+
+    bool isInvincible;//無敵中か
+    public bool IsInvincible//プロパティ
+    {
+        private set { isInvincible = value; }
+        get { return isInvincible; }
+    }
+
 
     bool isHolding = false;//持っているかのフラグ
     public bool IsHolding//プロパティ
@@ -73,10 +85,22 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         {
             controller.Move(moveDirection * speed * Time.deltaTime);
         }
+
         //重力を働かせる
         if (!controller.isGrounded || state is PlayerBeHeldState)
         {
             WorkGravity(gravity);
+        }
+
+        //無敵時間
+        if (isInvincible)
+        {
+            --invincibleCnt;
+            Invincible();
+            if (invincibleCnt <= 0)
+            {
+                isInvincible = false;
+            }
         }
 
         //プレイヤーチェンジ(シングルプレイのみ)
@@ -92,7 +116,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
                 playerNum = 1;
                 ui.gameObject.SetActive(true);
             }
-            PlayerName = "_P" + playerNum.ToString();
+            playerName = "_P" + playerNum.ToString();
         }
     }
 
@@ -101,16 +125,16 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         if (IsAbleThrow())
         {
             //投げる
-            if (Input.GetButtonDown("Hold" + PlayerName))
+            if (Input.GetButtonDown("Hold" + playerName))
             {
                 Throw();
             }
-            else if (Input.GetButtonDown("Put" + PlayerName))
+            else if (Input.GetButtonDown("Put" + playerName))
             {
                 Put();
             }
         }
-        
+
     }
 
     /// <summary>
@@ -149,9 +173,10 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     //
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy") && !isInvincible)
         {
-
+            isInvincible = true;
+            invincibleCnt = 100;
         }
     }
 
@@ -162,7 +187,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
             return;
         }
         //ものを持つ
-        if (Input.GetButtonDown("Hold" + PlayerName))
+        if (Input.GetButtonDown("Hold" + playerName))
         {
             if (IsAbleHold(other))
             {
@@ -206,7 +231,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     /// <returns></returns>
     public Vector3 GetInputDirection()
     {
-        return new Vector3(Input.GetAxis("Horizontal" + PlayerName), 0f, Input.GetAxis("Vertical" + PlayerName));
+        return new Vector3(Input.GetAxis("Horizontal" + playerName), 0f, Input.GetAxis("Vertical" + playerName));
     }
 
     /// <summary>
@@ -343,7 +368,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     /// <returns>入力されていればtrue</returns>
     public bool IsInputStick()
     {
-        return Input.GetAxis("Horizontal" + PlayerName) != 0f || Input.GetAxis("Vertical" + PlayerName) != 0f;
+        return Input.GetAxis("Horizontal" + playerName) != 0f || Input.GetAxis("Vertical" + playerName) != 0f;
     }
 
     bool IsAbleThrow()
@@ -355,5 +380,24 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     bool IsAbleHold(Component component)
     {
         return component.CompareTag("ThrowingObject") || component.CompareTag("Player");
+    }
+
+    void Invincible()
+    {
+        Color newColor;
+        if (invincibleCnt % 10 / 2 == 0)
+        {
+            newColor = new Color(1f, 1f, 1f, 0f);
+        }
+        else
+        {
+            newColor = new Color(1f, 1f, 1f, 1f);
+        }
+
+        Renderer[] renderers = transform.GetChild(1).GetComponentsInChildren<Renderer>();
+        foreach (Renderer renderer in renderers)
+        {
+            renderer.material.color = newColor;
+        }
     }
 }
