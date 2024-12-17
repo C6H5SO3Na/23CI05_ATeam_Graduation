@@ -65,7 +65,10 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
 
         //実際に動く
         //Debug.Log($"moveDirection:{moveDirection} state:{state}");
-        controller.Move(moveDirection * speed * Time.deltaTime);
+        if (controller.enabled)
+        {
+            controller.Move(moveDirection * speed * Time.deltaTime);
+        }
         //重力を働かせる
         if (!controller.isGrounded || state is PlayerBeHeldState)
         {
@@ -73,9 +76,9 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         }
 
         //プレイヤーチェンジ(シングルプレイのみ)
-        if(Input.GetButtonDown("Fire3") && !GameManager.isMultiPlay)
+        if (Input.GetButtonDown("Fire3") && !GameManager.isMultiPlay)
         {
-            if(playerNum == 1)
+            if (playerNum == 1)
             {
                 playerNum = 2;
                 ui.gameObject.SetActive(false);
@@ -91,11 +94,19 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
 
     void FixedUpdate()
     {
-        //投げる
-        if (Input.GetButtonDown("Hold" + playerName) && IsAbleThrow())
+        if (IsAbleThrow())
         {
-            Throw();
+            //投げる
+            if (Input.GetButtonDown("Hold" + playerName))
+            {
+                Throw();
+            }
+            else if (Input.GetButtonDown("Put" + playerName))
+            {
+                Put();
+            }
         }
+        
     }
 
     /// <summary>
@@ -230,6 +241,36 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
                 {
                     child.GetComponent<CharacterController>().enabled = true;
                     child.GetComponent<PlayerController>().UpdateMoveDirection(angle * 5f);
+                }
+                isHolding = false;
+            }
+        }
+    }
+
+    /// <summary>
+    /// 置く処理
+    /// </summary>
+    public void Put()
+    {
+        Transform parentTransform = transform;
+        foreach (Transform child in parentTransform)
+        {
+            if (IsAbleHold(child))
+            {
+                //親子関係を解除
+                child.gameObject.transform.SetParent(null);
+
+                var angle = new Vector3(transform.forward.x, 0f, transform.forward.z);
+                //物理演算を復活させる
+                if (child.GetComponent<Rigidbody>() != null)
+                {
+                    child.GetComponent<Rigidbody>().isKinematic = false;
+                    child.transform.Translate(angle, Space.World);
+                }
+                else if (child.GetComponent<CharacterController>() != null)
+                {
+                    child.GetComponent<CharacterController>().enabled = true;
+                    child.transform.Translate(angle, Space.World);
                 }
                 isHolding = false;
             }
