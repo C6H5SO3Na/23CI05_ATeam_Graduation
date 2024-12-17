@@ -8,7 +8,7 @@ public abstract class PlayerStateMachine : IPlayerStateMachine//, IPlayerInput
     public abstract void Initialize(PlayerController player);
     public abstract void Think(PlayerController player);
     public abstract void Move(PlayerController player);
-    /*α版では未使用(InputSystem)
+    /*β版まで未使用(InputSystem)
     public abstract void MoveButton(InputAction.CallbackContext context);
     public abstract void JumpButton(InputAction.CallbackContext context);
     public abstract void HoldButton(InputAction.CallbackContext context);

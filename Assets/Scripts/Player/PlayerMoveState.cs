@@ -25,7 +25,7 @@ public class PlayerMoveState : PlayerStateMachine
     public override void Think(PlayerController player)
     {
         //持っているときだとジャンプできない
-        if (Input.GetButtonDown("Jump" + player.playerName) && !player.IsHolding)
+        if (Input.GetButtonDown("Jump" + player.PlayerName) && !player.IsHolding)
         {
             player.ChangeState(new PlayerJumpState());
         }
@@ -49,7 +49,7 @@ public class PlayerMoveState : PlayerStateMachine
         }
     }
 
-    /*α版では未使用(InputSystem)
+    /*β版まで未使用(InputSystem)
     public override void MoveButton(InputAction.CallbackContext context)
     {
         var moveVec = context.ReadValue<Vector2>().normalized;
