@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class StageClear : MonoBehaviour
 {
-    [SerializeField]
-    GameManager gameManager;    // ゲームマネージャーのインスタンス(Inspactorから取得)
+    GameManager gameManager;    // ゲームマネージャーのインスタンス(Set関数から取得)
     bool isOn_Player1;          // プレイヤー1が乗っているか
     bool isOn_Player2;          // プレイヤー2が乗っているか
 
@@ -29,11 +28,11 @@ public class StageClear : MonoBehaviour
                 if(player)
                 {
                     //ゴールに乗ったプレイヤーが1か2か判定する
-                    if (player.playerNum == 1)
+                    if (player.PlayerNum == 1)
                     {
                         isOn_Player1 = true;
                     }
-                    else if(player.playerNum == 2)
+                    else if(player.PlayerNum == 2)
                     {
                         isOn_Player2 = true;
                     }
@@ -43,18 +42,37 @@ public class StageClear : MonoBehaviour
                     }
                 }
 
-                //プレイヤー1、2が乗ったらクリアにする
+                //プレイヤー1、2が乗ったらステージをクリアする
                 if(isOn_Player1 && isOn_Player2)
                 {
-                    gameManager.ReceiveClearInformation();
+                    if (gameManager)
+                    {
+                        gameManager.ReceiveClearInformation();
+                    }                    
                 }
             }
             //シングルプレイの場合
             else
             {
-                //クリアにする
-                gameManager.ReceiveClearInformation();
+                //ステージをクリアする
+                if (gameManager)
+                {
+                    gameManager.ReceiveClearInformation();
+                }
+                else
+                {
+                    Debug.LogWarning("GameManagerクラスが設定されていません");
+                }
             }
         }
+    }
+
+    /// <summary>
+    /// 他オブジェクトのインスタンスを取得する
+    /// </summary>
+    /// <param name="gameManager"> GameManagerコンポーネント </param>
+    public void SetInstance(GameManager gameManager)
+    {
+        this.gameManager = gameManager;
     }
 }

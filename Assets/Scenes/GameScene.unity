@@ -160,6 +160,7 @@ MonoBehaviour:
   - {fileID: 5887095000389839252, guid: ae9f100579897954cbdb98bfdfbad517, type: 3}
   - {fileID: 405261439610448840, guid: e267045e0aec5d14ea2d1517537bd6ae, type: 3}
   - {fileID: 7680406051955426657, guid: 4fa96e382df7841408fa0867e56f65e5, type: 3}
+  - {fileID: 3377915656541588732, guid: 969562aca86beff4085c4a5999223248, type: 3}
 --- !u!4 &243274140
 Transform:
   m_ObjectHideFlags: 0
@@ -187,7 +188,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 263ed48ef08b82445961a5c3eed5a5d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  GameManagerInstance: {fileID: 827223766}
+  gameManagerInstance: {fileID: 827223766}
 --- !u!1001 &702139788
 PrefabInstance:
   m_ObjectHideFlags: 0
