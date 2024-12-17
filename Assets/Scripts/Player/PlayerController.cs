@@ -42,11 +42,15 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         get { return isHolding; }
     }
 
-    public string playerName;
+    string playerName;//InputManager用
+    public string PlayerName//プロパティ
+    {
+        private set { playerName = value; }
+        get { return playerName; }
+    }
+
     const float debounceTime = 0.2f;//デバウンス時間
     float lastButtonPressTime = 0f;//前にボタンを押した時間
-
-    //public static int buttonCnt = 0;//ボタンを押した回数(現在未使用)
 
     void Start()
     {
@@ -88,7 +92,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
                 playerNum = 1;
                 ui.gameObject.SetActive(true);
             }
-            playerName = "_P" + playerNum.ToString();
+            PlayerName = "_P" + playerNum.ToString();
         }
     }
 
@@ -97,11 +101,11 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         if (IsAbleThrow())
         {
             //投げる
-            if (Input.GetButtonDown("Hold" + playerName))
+            if (Input.GetButtonDown("Hold" + PlayerName))
             {
                 Throw();
             }
-            else if (Input.GetButtonDown("Put" + playerName))
+            else if (Input.GetButtonDown("Put" + PlayerName))
             {
                 Put();
             }
@@ -122,7 +126,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         transform.position = savePosition;
     }
 
-    /*α版では未使用(InputSystem)
+    /*β版まで未使用(InputSystem)
     public void MoveButton(InputAction.CallbackContext context)
     {
         Debug.Log(++buttonCnt);
@@ -141,6 +145,16 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     {
     }
     */
+
+    //
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.CompareTag("Enemy"))
+        {
+
+        }
+    }
+
     void OnTriggerStay(Collider other)
     {
         if (other.gameObject == this.gameObject)
@@ -148,7 +162,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
             return;
         }
         //ものを持つ
-        if (Input.GetButtonDown("Hold" + playerName))
+        if (Input.GetButtonDown("Hold" + PlayerName))
         {
             if (IsAbleHold(other))
             {
@@ -192,7 +206,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     /// <returns></returns>
     public Vector3 GetInputDirection()
     {
-        return new Vector3(Input.GetAxis("Horizontal" + playerName), 0f, Input.GetAxis("Vertical" + playerName));
+        return new Vector3(Input.GetAxis("Horizontal" + PlayerName), 0f, Input.GetAxis("Vertical" + PlayerName));
     }
 
     /// <summary>
@@ -329,7 +343,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     /// <returns>入力されていればtrue</returns>
     public bool IsInputStick()
     {
-        return Input.GetAxis("Horizontal" + playerName) != 0f || Input.GetAxis("Vertical" + playerName) != 0f;
+        return Input.GetAxis("Horizontal" + PlayerName) != 0f || Input.GetAxis("Vertical" + PlayerName) != 0f;
     }
 
     bool IsAbleThrow()

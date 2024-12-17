@@ -38,7 +38,7 @@ public class PlayerBeHeldState : PlayerStateMachine
 
     }
 
-    /*α版では未使用(InputSystem)
+    /*β版まで未使用(InputSystem)
     public override void MoveButton(InputAction.CallbackContext context)
     {
         player.ChangeState(new PlayerMoveState(player));

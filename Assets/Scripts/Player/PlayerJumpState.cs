@@ -45,7 +45,7 @@ public class PlayerJumpState : PlayerStateMachine
         }
     }
 
-    /*α版では未使用(InputSystem)
+    /*β版まで未使用(InputSystem)
     public override void MoveButton(InputAction.CallbackContext context)
     {
         var moveVec = context.ReadValue<Vector2>();
