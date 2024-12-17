@@ -13,6 +13,7 @@ public class GenerateMap : MonoBehaviour
     public GameObject player1Instance { get; private set; }   // プレイヤー1のインスタンス    
     public GameObject player2Instance { get; private set; }   // プレイヤー2のインスタンス
     public GameObject enemyInstance { get; private set; }     // 敵のインスタンス            
+    public GameObject goalInstance { get; private set; }      // ゴールのインスタンス
 
     private const int layerWidth = 20 + 2;      // 層の横幅(床にできる範囲 + 壁を作成する部分)
     private const int layerHeight = 20 + 2;     // 層の縦幅(床にできる範囲 + 壁を作成する部分)
@@ -24,7 +25,7 @@ public class GenerateMap : MonoBehaviour
             { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+            { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 7, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -50,7 +51,7 @@ public class GenerateMap : MonoBehaviour
             { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
             { 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
             { 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
-            { 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 4, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
+            { 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
             { 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
             { 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1},
             { 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
@@ -176,7 +177,6 @@ public class GenerateMap : MonoBehaviour
         },
     };
 
-    //メソッド
     // Start is called before the first frame update
     void Start()
     {
@@ -188,6 +188,14 @@ public class GenerateMap : MonoBehaviour
 
         //マップの生成
         Generate();
+
+        //インスタンスを渡すクラスを取得
+        PassInstance passInstance = GetComponent<PassInstance>();
+        if(passInstance)
+        {
+            //インスタンスを他クラスに渡す
+            passInstance.PassInstanceToOtherClass(player1Instance, player2Instance, enemyInstance, goalInstance);
+        }
     }
 
     /// <summary>
@@ -221,7 +229,11 @@ public class GenerateMap : MonoBehaviour
                                 enemyInstance = Instantiate(prefab, position, Quaternion.identity);
                                 break;
 
-                            default:    // プレイヤー、敵以外のものを生成する
+                            case 7:     // ゴールを生成する
+                                goalInstance = Instantiate(prefab, position, Quaternion.identity);
+                                break;
+
+                            default:    // プレイヤー、敵、ゴール以外のものを生成する
                                 Instantiate(prefab, position, Quaternion.identity);
                                 break;
                         }
