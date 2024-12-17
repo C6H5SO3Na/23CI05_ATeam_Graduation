@@ -218,11 +218,31 @@ public class GenerateMap : MonoBehaviour
                         switch(mapData[y, z, x])
                         {
                             case 2:     // プレイヤー1を生成する
-                                player1Instance = Instantiate(prefab, position, Quaternion.identity);
+                                if(player1Instance == null)
+                                {
+                                    player1Instance = Instantiate(prefab, position, Quaternion.identity);
+
+                                    //プレイヤー識別番号を1に設定する
+                                    player1Instance.GetComponent<PlayerController>().PlayerNum = 1;
+                                }
+                                else
+                                {
+                                    Debug.LogWarning("プレイヤー1はこれ以上生成できません");
+                                }
                                 break;
 
                             case 3:     // プレイヤー2を生成する
-                                player2Instance = Instantiate(prefab, position, Quaternion.identity);
+                                if(player2Instance == null)
+                                {
+                                    player2Instance = Instantiate(prefab, position, Quaternion.identity);
+
+                                    //プレイヤー識別番号を2に設定する
+                                    player1Instance.GetComponent<PlayerController>().PlayerNum = 2;
+                                }
+                                else
+                                {
+                                    Debug.LogWarning("プレイヤー2はこれ以上生成できません");
+                                }
                                 break;
 
                             case 4:     // 敵を生成する
