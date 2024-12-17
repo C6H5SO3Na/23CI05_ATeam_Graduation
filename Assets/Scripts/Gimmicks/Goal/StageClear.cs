@@ -59,10 +59,6 @@ public class StageClear : MonoBehaviour
                 {
                     gameManager.ReceiveClearInformation();
                 }
-                else
-                {
-                    Debug.LogWarning("GameManagerƒNƒ‰ƒX‚ªİ’è‚³‚ê‚Ä‚¢‚Ü‚¹‚ñ");
-                }
             }
         }
     }

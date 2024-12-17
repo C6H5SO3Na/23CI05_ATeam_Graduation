@@ -25,6 +25,6 @@ public class GameManager : MonoBehaviour
     public void ReceiveClearInformation()
     {
         isClear = true;
-        Debug.Log("ゲームクリア！");
+        //Debug.Log("ゲームクリア！");
     }
 }
