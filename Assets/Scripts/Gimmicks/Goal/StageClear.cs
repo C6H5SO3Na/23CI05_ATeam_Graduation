@@ -17,47 +17,81 @@ public class StageClear : MonoBehaviour
     //ゴールブロックの上に乗ったらクリアする
     void OnTriggerEnter(Collider other)
     {
-        //乗ったオブジェクトがプレイヤーか判定
-        if (other.gameObject.CompareTag("Player"))
+        //ボックスコライダーのみに反応する
+        if (other is BoxCollider)
         {
-            //マルチプレイの場合
-            if (GameManager.isMultiPlay)
+            //乗ったオブジェクトがプレイヤーか判定
+            if (other.gameObject.CompareTag("Player"))
             {
-                //プレイヤーのインスタンスを取得する
-                PlayerController　player = other.GetComponent<PlayerController>();
-                if(player)
+                //マルチプレイの場合
+                if (GameManager.isMultiPlay)
                 {
-                    //ゴールに乗ったプレイヤーが1か2か判定する
-                    if (player.PlayerNum == 1)
+                    //プレイヤーのインスタンスを取得する
+                    PlayerController player = other.GetComponent<PlayerController>();
+                    if (player)
                     {
-                        isOn_Player1 = true;
+                        //ゴールに乗ったプレイヤーが1か2か判定する
+                        if (player.PlayerNum == 1)
+                        {
+                            isOn_Player1 = true;
+                        }
+                        else if (player.PlayerNum == 2)
+                        {
+                            isOn_Player2 = true;
+                        }
+                        else
+                        {
+                            Debug.LogWarning("プレイヤー番号の設定を間違えています");
+                        }
                     }
-                    else if(player.PlayerNum == 2)
+
+                    //プレイヤー1、2が乗ったらステージをクリアする
+                    if (isOn_Player1 && isOn_Player2)
                     {
-                        isOn_Player2 = true;
-                    }
-                    else
-                    {
-                        Debug.LogWarning("プレイヤー番号の設定を間違えています");
+                        if (gameManager)
+                        {
+                            gameManager.ReceiveClearInformation();
+                        }
                     }
                 }
-
-                //プレイヤー1、2が乗ったらステージをクリアする
-                if(isOn_Player1 && isOn_Player2)
+                //シングルプレイの場合
+                else
                 {
+                    //ステージをクリアする
                     if (gameManager)
                     {
                         gameManager.ReceiveClearInformation();
-                    }                    
+                    }
                 }
             }
-            //シングルプレイの場合
-            else
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        //ボックスコライダーのみに反応する
+        if (other is BoxCollider)
+        {
+            //抜けたオブジェクトがプレイヤーか判定
+            if (other.gameObject.CompareTag("Player"))
             {
-                //ステージをクリアする
-                if (gameManager)
+                //マルチプレイの場合
+                if (GameManager.isMultiPlay)
                 {
-                    gameManager.ReceiveClearInformation();
+                    //プレイヤーのインスタンスを取得する
+                    PlayerController player = other.GetComponent<PlayerController>();
+                    if (player)
+                    {
+                        //ゴールから抜けたプレイヤーが1か2か判定する
+                        if (player.PlayerNum == 1)
+                        {
+                            isOn_Player1 = false;
+                        }
+                        else if (player.PlayerNum == 2)
+                        {
+                            isOn_Player2 = false;
+                        }
+                    }
                 }
             }
         }
