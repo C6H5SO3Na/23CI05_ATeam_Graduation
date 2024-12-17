@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
 {
     CharacterController controller;
     PlayerUIManager ui;
-
+    [SerializeField]GameManager gameManager;
     PlayerStateMachine state;//状態
     public PlayerStateMachine State//プロパティ
     {
@@ -70,8 +70,9 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         state = new PlayerIdleState();
         state.Initialize(this);
         controller = GetComponent<CharacterController>();
-        ui = transform.GetChild(0).GetComponent<PlayerUIManager>();
+        ui = transform.GetChild(1).GetComponent<PlayerUIManager>();
         isHolding = false;
+        gameManager.PlayersHP = 3;
     }
 
     void Update()
@@ -177,6 +178,11 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         {
             isInvincible = true;
             invincibleCnt = 100;
+            --gameManager.PlayersHP;
+            if(gameManager.PlayersHP <= 0)
+            {
+                gameManager.ReceiveGameOverInformation();
+            }
         }
     }
 
