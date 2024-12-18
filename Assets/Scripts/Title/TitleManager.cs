@@ -7,9 +7,13 @@ using UnityEngine.SceneManagement;
 public class TitleManager : MonoBehaviour
 {
     [SerializeField] SelectImageManager selectImage;
+    [SerializeField] AudioSource bgm;
+    [SerializeField] AudioSource se;
+    TitleSound sound;
     void Start()
     {
         Application.targetFrameRate = 60;//フレームレート固定
+        sound = GetComponent<TitleSound>();
     }
 
     void Update()
@@ -17,13 +21,15 @@ public class TitleManager : MonoBehaviour
         //項目選択
         if (Mathf.Abs(Input.GetAxis("Vertical_P1")) > 0f && !DOTween.IsTweening(selectImage.transform))
         {
+            se.PlayOneShot(sound.selectSE);
             selectImage.Move(Input.GetAxis("Vertical_P1"));
         }
 
         //Bで決定
         if (Input.GetButtonDown("Submit"))
         {
-            switch(selectImage.SelectNum)
+            se.PlayOneShot(sound.choiceSE);
+            switch (selectImage.SelectNum)
             {
                 case SelectImageManager.Select.SinglePlay:
                     GameManager.isMultiPlay = false;
