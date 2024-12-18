@@ -19,7 +19,7 @@ public class PlayerJumpState : PlayerStateMachine
     public override void Initialize(PlayerController player)
     {
         //ƒWƒƒƒ“ƒv‚·‚é
-        var jumpVec = new Vector3(player.GetInputDirection().x, 5f, player.GetInputDirection().z);
+        var jumpVec = new Vector3(player.GetInputDirection().x, 3f, player.GetInputDirection().z);
         player.UpdateMoveDirection(jumpVec);
     }
 
