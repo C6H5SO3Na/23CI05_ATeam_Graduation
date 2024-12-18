@@ -1,3 +1,4 @@
+using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -33,6 +34,11 @@ public class PlayerMoveState : PlayerStateMachine
         if (leaveMove)
         {
             player.ChangeState(new PlayerIdleState());
+        }
+        //クリアしたら、ステートチェンジ
+        if (player.gameManager.isClear)
+        {
+            player.ChangeState(new PlayerClearState());
         }
     }
 

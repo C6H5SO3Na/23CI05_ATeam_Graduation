@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
 {
     CharacterController controller;
     PlayerUIManager ui;
-    GameManager gameManager;
+    public GameManager gameManager;
     PlayerStateMachine state;//状態
     public PlayerStateMachine State//プロパティ
     {
@@ -316,7 +316,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
                 //親子関係を解除
                 child.gameObject.transform.SetParent(null);
 
-                var angle = new Vector3(transform.forward.x, 0f, transform.forward.z);
+                var angle = new Vector3(transform.forward.x, -1f, transform.forward.z);
                 //物理演算を復活させる
                 if (child.GetComponent<Rigidbody>() != null)
                 {

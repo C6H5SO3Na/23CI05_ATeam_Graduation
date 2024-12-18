@@ -33,6 +33,11 @@ public class PlayerIdleState : PlayerStateMachine
         {
             player.ChangeState(new PlayerMoveState());
         }
+        //クリアしたら、ステートチェンジ
+        if (player.gameManager.isClear)
+        {
+            player.ChangeState(new PlayerClearState());
+        }
     }
 
     public override void Move(PlayerController player)

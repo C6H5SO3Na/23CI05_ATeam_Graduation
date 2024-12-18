@@ -16,7 +16,7 @@ public class PlayerAnimation : MonoBehaviour
     void Update()
     {
         state = transform.parent.parent.GetComponent<PlayerController>().State;
-        if (state is PlayerIdleState)
+        if (state is PlayerIdleState || transform.parent.parent.GetComponent<PlayerController>().gameManager.isClear)
         {
             animator.SetBool("Walk", false);
             animator.SetBool("Jump", false);
