@@ -13,9 +13,9 @@ public class GenerateMap : MonoBehaviour
 
     //変数--------------------------------------------------------------------------
     [SerializeField]
-    private List<GameObject> mapPrefab;   // 床になるブロックのプレハブ
+    List<GameObject> mapPrefab;   // 床になるブロックのプレハブ
 
-    private Dictionary<int, GameObject> mapPrefabDictionary = new Dictionary<int, GameObject>();  // 値と床のプレハブの紐づけ(生成時の処理を分かりやすくするため)
+    Dictionary<int, GameObject> mapPrefabDictionary = new Dictionary<int, GameObject>();  // 値と床のプレハブの紐づけ(生成時の処理を分かりやすくするため)
 
     public GameObject player1Instance { get; private set; }             // プレイヤー1のインスタンス    
     public GameObject player2Instance { get; private set; }             // プレイヤー2のインスタンス
@@ -24,11 +24,11 @@ public class GenerateMap : MonoBehaviour
     public List<GameObject> startUpObjectInstances { get; private set; } // ギミックを起動させるオブジェクトのインスタンス
     public List<GameObject> startGimmickInstances { get; private set; } // 起動させるギミックのインスタンス
 
-    private const int layerWidth = 20 + 2;      // 層の横幅(床にできる範囲 + 壁を作成する部分)
-    private const int layerHeight = 20 + 2;     // 層の縦幅(床にできる範囲 + 壁を作成する部分)
-    private const int layerNumber = 6;          // 層の数
+    const int layerWidth = 20 + 2;      // 層の横幅(床にできる範囲 + 壁を作成する部分)
+    const int layerHeight = 20 + 2;     // 層の縦幅(床にできる範囲 + 壁を作成する部分)
+    const int layerNumber = 6;          // 層の数
 
-    private int[,,] mapData = {        // 床のマップデータ
+    int[,,] mapData = {        // 床のマップデータ
         //第一層(床)
         {
             { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -71,7 +71,7 @@ public class GenerateMap : MonoBehaviour
             { 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
             { 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1},
             { 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1},
-            { 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 5, 8, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1},
+            { 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 5, 9, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1},
             { 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
             { 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1},
             { 1, 1, 1, 1, 1, 1, 0, 0, 0, 2, 0, 3, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1},
