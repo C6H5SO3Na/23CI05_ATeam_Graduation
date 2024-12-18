@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
-    /// ゲームオーバーした情報を受け取る
+    /// ダメージ減少情報を受け取る
     /// </summary>
     public void ReceiveDamageInformation(int damageAmount = 1)
     {

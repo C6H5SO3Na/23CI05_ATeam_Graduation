@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour//, IPlayerInput
 {
@@ -100,6 +101,23 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
             Invincible();
             if (invincibleCnt <= 0)
             {
+                Renderer[] renderers = transform.GetChild(0).GetComponentsInChildren<MeshRenderer>();
+                foreach (Renderer renderer in renderers)
+                {
+                    renderer.material.SetFloat("_Surface", 0);
+                    renderer.material.renderQueue = (int)RenderQueue.Geometry;
+                    renderer.material.color = Color.white;
+                    // URPÇÃê›íËÇïœçX
+                    renderer.material.SetOverrideTag("RenderType", "Opaque");
+                    renderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+                    renderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+                    renderer.material.SetInt("_ZWrite", 1);
+                    renderer.material.DisableKeyword("_ALPHATEST_ON");
+                    renderer.material.DisableKeyword("_ALPHABLEND_ON");
+                    renderer.material.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+                    renderer.material.renderQueue = (int)RenderQueue.Geometry;
+
+                }
                 isInvincible = false;
             }
         }
@@ -171,10 +189,10 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     }
     */
 
-    //
+    //ìñÇΩÇËîªíË
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy") && !isInvincible)
+        if (other.gameObject.CompareTag("Enemy") && !isInvincible && gameManager.PlayersHP > 0)
         {
             isInvincible = true;
             invincibleCnt = 100;
@@ -184,10 +202,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
 
     void OnTriggerStay(Collider other)
     {
-        if (other.gameObject == this.gameObject)
-        {
-            return;
-        }
+        if (other.gameObject == this.gameObject) { return; }
         //Ç‡ÇÃÇéùÇ¬
         if (Input.GetButtonDown("Hold" + playerName))
         {
@@ -396,10 +411,23 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
             newColor = new Color(1f, 1f, 1f, 1f);
         }
 
-        Renderer[] renderers = transform.GetChild(1).GetComponentsInChildren<Renderer>();
+        Renderer[] renderers = transform.GetChild(0).GetComponentsInChildren<MeshRenderer>();
+
         foreach (Renderer renderer in renderers)
         {
+            renderer.material.SetFloat("_Surface", 1);
+            renderer.material.renderQueue = (int)RenderQueue.Transparent;
             renderer.material.color = newColor;
+
+            // URPÇÃê›íËÇïœçX
+            renderer.material.SetOverrideTag("RenderType", "Transparent");
+            renderer.material.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+            renderer.material.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+            renderer.material.SetInt("_ZWrite", 0);
+            renderer.material.EnableKeyword("_ALPHATEST_ON");
+            renderer.material.EnableKeyword("_ALPHABLEND_ON");
+            renderer.material.EnableKeyword("_ALPHAPREMULTIPLY_ON");
+            renderer.material.renderQueue = (int)RenderQueue.Transparent;
         }
     }
 
