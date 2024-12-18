@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
 {
     CharacterController controller;
     PlayerUIManager ui;
-    [SerializeField]GameManager gameManager;
+    GameManager gameManager;
     PlayerStateMachine state;//状態
     public PlayerStateMachine State//プロパティ
     {
@@ -178,11 +178,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         {
             isInvincible = true;
             invincibleCnt = 100;
-            --gameManager.PlayersHP;
-            if(gameManager.PlayersHP <= 0)
-            {
-                gameManager.ReceiveGameOverInformation();
-            }
+            gameManager.ReceiveDamageInformation();
         }
     }
 
@@ -405,5 +401,14 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         {
             renderer.material.color = newColor;
         }
+    }
+
+    /// <summary>
+    /// 他オブジェクトのインスタンスを取得する
+    /// </summary>
+    /// <param name="gameManager"> GameManagerコンポーネント </param>
+    public void SetInstance(GameManager gameManager)
+    {
+        this.gameManager = gameManager;
     }
 }

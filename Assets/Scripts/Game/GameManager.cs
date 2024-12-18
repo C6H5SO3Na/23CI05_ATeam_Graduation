@@ -1,3 +1,4 @@
+using DG.Tweening.Core.Easing;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,6 +14,8 @@ public class GameManager : MonoBehaviour
         get { return playersHP; }
     }
     public bool isGameOver { get; private set; }
+    [SerializeField] GameUIManager ui;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,5 +45,18 @@ public class GameManager : MonoBehaviour
     {
         isGameOver = true;
         Debug.Log("Game Over");
+    }
+
+    /// <summary>
+    /// ゲームオーバーした情報を受け取る
+    /// </summary>
+    public void ReceiveDamageInformation(int damageAmount = 1)
+    {
+        ui.DecreaseHP();
+        PlayersHP -= damageAmount;
+        if (PlayersHP <= 0)
+        {
+            ReceiveGameOverInformation();
+        }
     }
 }
