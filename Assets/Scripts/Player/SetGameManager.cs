@@ -5,8 +5,7 @@ using UnityEngine;
 public class SetGameManager : MonoBehaviour
 {
     [SerializeField] GameManager gameManager;
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         GetComponent<PlayerController>().SetInstance(gameManager);
     }
