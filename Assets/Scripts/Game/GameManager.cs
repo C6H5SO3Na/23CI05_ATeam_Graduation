@@ -34,7 +34,9 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ReceiveClearInformation()
     {
+        if (isClear) { return; }
         isClear = true;
+        ui.ShowClear();
         //Debug.Log("ゲームクリア！");
     }
 
@@ -43,6 +45,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ReceiveGameOverInformation()
     {
+        if (isGameOver) { return; }
         isGameOver = true;
         Debug.Log("Game Over");
     }
