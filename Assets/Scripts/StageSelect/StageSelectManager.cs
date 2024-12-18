@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -71,7 +72,9 @@ public class StageSelectManager : MonoBehaviour
                 //Œˆ’è
                 if (Input.GetButtonDown("Submit"))
                 {
-                    SceneManager.LoadScene("GameScene");
+                    string stageName = canvas.transform.GetChild(canvas.transform.childCount - 1).GetChild(0).GetComponent<TextMeshProUGUI>().text;
+                    //SceneManager.LoadScene("GameScene");
+                    Debug.Log(stageName);
                 }
                 break;
 
