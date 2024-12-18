@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PassInstance : MonoBehaviour
@@ -55,6 +56,29 @@ public class PassInstance : MonoBehaviour
 
             //GameManagerクラスを取得する
             player.SetInstance(gameManagerInstance.GetComponent<GameManager>());
+        }
+    }
+
+    /// <summary>
+    /// 起動されるギミックのインスタンスをギミックを起動させるオブジェクトに渡す
+    /// </summary>
+    /// <param name="startUpInstances"> ギミックを起動させるオブジェクトのインスタンス </param>
+    /// <param name="startGimmickInstances"> 起動させるギミックのインスタンス </param>
+    public void PassInstanceStartGimmick(List<GameObject> startUpInstances, List<GameObject> startGimmickInstances)
+    {
+        for(int i = 0; i < startUpInstances.Count; ++i)
+        {
+            //ギミックのインスタンスを受け取る処理があるか確認
+            ISetGimmickInstance instanceReceiveGimmick = startUpInstances[i].GetComponent<ISetGimmickInstance>();
+            if(instanceReceiveGimmick != null)
+            {
+                //起動されるギミックがあるか確認
+                if(i < startGimmickInstances.Count)
+                {
+                    //起動させるギミックを設定する
+                    instanceReceiveGimmick.SetGimmickInstance(startGimmickInstances[i]);
+                }
+            }
         }
     }
 }
