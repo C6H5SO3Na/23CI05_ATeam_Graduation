@@ -7,6 +7,7 @@ public class StartOtherObjectProcess_StepOn : MonoBehaviour, ISetGimmickInstance
     GameObject targetObject;    // 処理を行わせるオブジェクト
     bool isOnce = false;        // 一度だけしか押せないか(処理しないか)決める
     bool isPressed;             // 押されたかを記憶する
+    public string id;
 
     void Start()
     {
