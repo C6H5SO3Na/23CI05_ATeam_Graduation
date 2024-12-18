@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartOtherObjectProcess_StepOn : MonoBehaviour
+public class StartOtherObjectProcess_StepOn : MonoBehaviour, ISetGimmickInstance
 {
-    [SerializeField]
     GameObject targetObject;    // 処理を行わせるオブジェクト
-
     bool isOnce = false;        // 一度だけしか押せないか(処理しないか)決める
     bool isPressed;             // 押されたかを記憶する
 
@@ -90,5 +88,10 @@ public class StartOtherObjectProcess_StepOn : MonoBehaviour
     public void SetIsOnce(bool isOnceValue)
     {
         isOnce = isOnceValue;
+    }
+
+    public void SetGimmickInstance(GameObject targetObject)
+    {
+        this.targetObject = targetObject;
     }
 }
