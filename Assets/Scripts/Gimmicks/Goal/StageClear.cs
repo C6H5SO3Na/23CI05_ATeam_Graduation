@@ -21,7 +21,7 @@ public class StageClear : MonoBehaviour
         if (other is BoxCollider)
         {
             //乗ったオブジェクトがプレイヤーか判定
-            if (other.gameObject.CompareTag("Player"))
+            if (other.CompareTag("Player"))
             {
                 //マルチプレイの場合
                 if (GameManager.isMultiPlay)

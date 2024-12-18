@@ -16,7 +16,7 @@ public class GenerateBlock : MonoBehaviour, IStartedOperation
     }
 
     //ブロックが無ければブロックを生成する
-    public bool StartedOperation()
+    public void ProcessWhenPressed()
     {
         if (generatingBlockPrefab)
         {
@@ -34,8 +34,6 @@ public class GenerateBlock : MonoBehaviour, IStartedOperation
 
                 //生成したブロックをリストに登録
                 generatedBlocks.Add(newBlock);
-
-                return true;
             }
             else
             {
@@ -46,8 +44,11 @@ public class GenerateBlock : MonoBehaviour, IStartedOperation
         {
             Debug.LogWarning("生成するオブジェクトが設定されていない");
         }
+    }
 
-        return false;
+    public void ProcessWhenStopped()
+    {
+        //特に処理なし
     }
 
     //void Update()

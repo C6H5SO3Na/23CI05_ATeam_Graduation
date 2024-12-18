@@ -5,7 +5,12 @@ using UnityEngine;
 public interface IStartedOperation
 {
     /// <summary>
-    /// ボタン等で起動される動作
+    /// ボタン等を押したときに呼ばれる処理
     /// </summary>
-    bool StartedOperation();
+    void ProcessWhenPressed();
+
+    /// <summary>
+    /// ボタン等を押すのをやめたときに呼ばれる処理
+    /// </summary>
+    void ProcessWhenStopped();
 }
