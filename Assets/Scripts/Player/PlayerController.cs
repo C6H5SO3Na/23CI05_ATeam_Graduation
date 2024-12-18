@@ -399,6 +399,9 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         return component.CompareTag("ThrowingObject") || component.CompareTag("Player");
     }
 
+    /// <summary>
+    /// –³“GŠÔ‚Ìˆ—
+    /// </summary>
     void Invincible()
     {
         Color newColor;
