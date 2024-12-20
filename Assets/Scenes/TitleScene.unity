@@ -185,7 +185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectSE: {fileID: 8300000, guid: 5109d31028348a349b1a1736ff73159c, type: 3}
   choiceSE: {fileID: 8300000, guid: 1f111f1865c13834ab82c03aba6b884d, type: 3}
-  titleBGM: {fileID: 0}
+  titleBGM: {fileID: 8300000, guid: b2687ad2134ef1145ab70a425c4e3a69, type: 3}
 --- !u!1 &129872858
 GameObject:
   m_ObjectHideFlags: 0
