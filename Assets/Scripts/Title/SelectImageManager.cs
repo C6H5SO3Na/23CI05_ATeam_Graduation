@@ -26,10 +26,11 @@ public class SelectImageManager : MonoBehaviour
         SinglePlay = 0, MultiPlay, Option, Credit, Exit
     }
 
-    Select selectNum = 0;
+    Select selectNum;
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
+        selectNum = 0;
     }
 
     // Update is called once per frame

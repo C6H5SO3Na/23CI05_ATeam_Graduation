@@ -15,6 +15,7 @@ public class TitleManager : MonoBehaviour
         Application.targetFrameRate = 60;//フレームレート固定
         sound = GetComponent<TitleSound>();
         bgm.clip = sound.titleBGM;
+        se.clip = sound.titleBGM;
         bgm.Play();
     }
 
