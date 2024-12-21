@@ -13,15 +13,29 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField] float targetScale; // 目標スケール
     [SerializeField] float duration; // アニメーションの持続時間
 
+    AudioSource bgm;
+    AudioSource se;
+
+    StageSelectSound sound;
+
     Vector3 prePosition = Vector3.zero;
     int preSiblingIndex = 0;
     RectTransform targetImage;//イージングさせる画像
 
     enum Phase
     {
-        SelectStage, PreEntry, Entry, CanselEntry
+        SelectStage, PreEntry, Entry, CancelEntry
     }
     Phase phase;
+
+    void Start()
+    {
+        bgm = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
+        se = GameObject.FindGameObjectWithTag("SE").GetComponent<AudioSource>();
+        sound = GetComponent<StageSelectSound>();
+        bgm.clip = sound.BGM;
+        bgm.Play();
+    }
 
     void Update()
     {
@@ -34,6 +48,8 @@ public class StageSelectManager : MonoBehaviour
                 //タイトルへ戻る
                 if (Input.GetButtonDown("Jump_P1"))
                 {
+                    se.PlayOneShot(sound.cancelSE);
+                    bgm.Stop();
                     SceneManager.LoadScene("TitleScene");
                 }
 
@@ -43,12 +59,14 @@ public class StageSelectManager : MonoBehaviour
                     selectFrame.gameObject.SetActive(false);
                     ExpansionStageImage();
                     phase = Phase.PreEntry;
+                    se.PlayOneShot(sound.enlargeSE);
                 }
 
                 //枠を動かす
                 if (Mathf.Abs(Input.GetAxis("Horizontal_P1")) != 0f || Mathf.Abs(Input.GetAxis("Vertical_P1")) != 0f)
                 {
                     selectFrame.Move(Input.GetAxis("Horizontal_P1"), Input.GetAxis("Vertical_P1"));
+                    se.PlayOneShot(sound.selectSE);
                 }
                 break;
 
@@ -58,6 +76,7 @@ public class StageSelectManager : MonoBehaviour
                 if (!DOTween.IsTweening(targetImage.transform))
                 {
                     phase = Phase.Entry;
+                    se.PlayOneShot(sound.shrinkSE);
                 }
                 break;
 
@@ -66,7 +85,7 @@ public class StageSelectManager : MonoBehaviour
                 if (Input.GetButtonDown("Jump_P1"))
                 {
                     ReductionStageImage();
-                    phase = Phase.CanselEntry;
+                    phase = Phase.CancelEntry;
                 }
 
                 //決定
@@ -78,7 +97,7 @@ public class StageSelectManager : MonoBehaviour
                 }
                 break;
 
-            case Phase.CanselEntry:
+            case Phase.CancelEntry:
                 //イージングが終わるまで待機
                 if (!DOTween.IsTweening(targetImage.transform))
                 {

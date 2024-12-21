@@ -7,15 +7,18 @@ using UnityEngine.SceneManagement;
 public class TitleManager : MonoBehaviour
 {
     [SerializeField] SelectImageManager selectImage;
-    [SerializeField] AudioSource bgm;
-    [SerializeField] AudioSource se;
+    AudioSource bgm;
+    AudioSource se;
     TitleSound sound;
     void Start()
     {
         Application.targetFrameRate = 60;//フレームレート固定
         sound = GetComponent<TitleSound>();
+
+        bgm = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
+        se = GameObject.FindGameObjectWithTag("SE").GetComponent<AudioSource>();
+
         bgm.clip = sound.titleBGM;
-        se.clip = sound.titleBGM;
         bgm.Play();
     }
 
@@ -36,11 +39,13 @@ public class TitleManager : MonoBehaviour
             {
                 case SelectImageManager.Select.SinglePlay:
                     GameManager.isMultiPlay = false;
+                    bgm.Stop();
                     SceneManager.LoadScene("StageSelectScene");
                     break;
 
                 case SelectImageManager.Select.MultiPlay:
                     GameManager.isMultiPlay = true;
+                    bgm.Stop();
                     SceneManager.LoadScene("StageSelectScene");
                     break;
 
