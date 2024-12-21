@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Enemy
   - ThrowingObject
+  - BGM
+  - SE
   layers:
   - Default
   - TransparentFX

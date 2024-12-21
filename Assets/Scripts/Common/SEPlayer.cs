@@ -4,24 +4,32 @@ using UnityEngine;
 
 public class SEPlayer : MonoBehaviour
 {
-    public static bool isCreated = false;
+    static SEPlayer instance;
     public AudioSource player;
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-        //シングルトンパターン適用
-        if (isCreated)
+        if (instance == null)
         {
-            Destroy(gameObject);
-        }
-        else
-        {
-            isCreated = true;
+            instance = this;
+            DontDestroyOnLoad(gameObject);
         }
     }
 
-    void Play(AudioClip audioClip)
+    public static SEPlayer Instance
     {
-        
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<SEPlayer>();
+                if (instance == null)
+                {
+                    GameObject singletonObject = new GameObject();
+                    instance = singletonObject.AddComponent<SEPlayer>();
+                    singletonObject.name = typeof(SEPlayer).ToString() + " (Singleton)"; DontDestroyOnLoad(singletonObject);
+                }
+            }
+            return instance;
+        }
     }
 }

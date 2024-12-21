@@ -4,24 +4,36 @@ using UnityEngine;
 
 public class BGMPlayer : MonoBehaviour
 {
-    public static bool isCreated = false;
+    static BGMPlayer instance;
     public AudioSource player;
     void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-        //シングルトンパターン適用
-        if (isCreated)
+        if (instance == null)
         {
-            Destroy(gameObject);
+            instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
-            isCreated = true;
+            Destroy(gameObject);
         }
     }
 
-    void Play(AudioClip audioClip)
+    public static BGMPlayer Instance
     {
-        
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<BGMPlayer>();
+                if (instance == null)
+                {
+                    GameObject singletonObject = new GameObject();
+                    instance = singletonObject.AddComponent<BGMPlayer>();
+                    DontDestroyOnLoad(singletonObject);
+                }
+            }
+            return instance;
+        }
     }
 }
