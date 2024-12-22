@@ -76,8 +76,8 @@ public class LoadJsonFile_Map : MonoBehaviour
             List<int> dictionaryID = new List<int>();
             for (int i = 0; i < (int)jsonData["GimmickInfo"][0]["AssociateNum"]; ++i)
             {
-                dictionaryKey.Add((int)jsonData["GimmickInfo"][0]["DictionaryKey"][0]);
-                dictionaryID.Add((int)jsonData["GimmickInfo"][0]["DictionaryValue"][0]);
+                dictionaryKey.Add((int)jsonData["GimmickInfo"][0]["DictionaryKey"][i]);
+                dictionaryID.Add((int)jsonData["GimmickInfo"][0]["DictionaryValue"][i]);
             }
 
 

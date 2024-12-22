@@ -27,7 +27,7 @@ public class GenerateMap : MonoBehaviour
     public GameObject enemyInstance { get; private set; }               // 敵のインスタンス            
     public GameObject goalInstance { get; private set; }                // ゴールのインスタンス
     public List<GameObject> startUpObjectInstances { get; private set; } // ギミックを起動させるオブジェクトのインスタンス
-    public List<GameObject> startGimmickInstances { get; private set; } // 起動させるギミックのインスタンス
+    public List<GameObject> startGimmickInstances { get; private set; } // ギミックのインスタンス
 
     int layerWidth = 20 + 2;                    // 層の横幅(床にできる範囲 + 壁を作成する部分)
     int layerHeight = 20 + 2;                   // 層の縦幅(床にできる範囲 + 壁を作成する部分)
@@ -35,7 +35,7 @@ public class GenerateMap : MonoBehaviour
     List<List<List<int>>> mapData;              // 床のマップデータ
     List<int> gimmickID;                        // ギミックid
     List<int> bootObjectID;                     // ギミック起動オブジェクトid
-    Dictionary<int, int> gimmickAssociationID;  // ギミックを起動オブジェクトに紐付けるためのid
+    Dictionary<int, int> gimmickAssociationID;  // ギミックを起動オブジェクトに紐付けるためのid    
 
     string stageName = "1-1";
 
@@ -70,7 +70,7 @@ public class GenerateMap : MonoBehaviour
             passInstance.PassInstanceToOtherClass(player1Instance, player2Instance, enemyInstance, goalInstance);
 
             //ギミックのインスタンスをギミックを起動するクラスに渡す
-            passInstance.PassInstanceStartGimmick(startUpObjectInstances, startGimmickInstances);
+            passInstance.PassInstanceStartGimmick(startUpObjectInstances, startGimmickInstances, gimmickAssociationID);
         }
     }
 
@@ -79,7 +79,7 @@ public class GenerateMap : MonoBehaviour
     /// </summary>
     void Generate()
     {
-        for(int y = 0; y < layerNumber; ++y)
+        for (int y = 0; y < layerNumber; ++y)
         {
             for (int z = 0; z < layerHeight; ++z)
             {
@@ -137,11 +137,12 @@ public class GenerateMap : MonoBehaviour
                             default:    // プレイヤー、敵、ゴール、感圧板以外のものを生成する
                                 GameObject generateObject = Instantiate(prefab, position, Quaternion.identity);
 
-                                //生成したオブジェクトがギミックを起動させるオブジェクトだったらリストに格納する
+                                //生成したオブジェクトがギミックを起動させるオブジェクトだったら起動オブジェクトリストに格納する
                                 if (generateObject.GetComponent<ISetGimmickInstance>() != null)
                                 {
                                     startUpObjectInstances.Add(generateObject);
                                 }
+                                //生成したオブジェクトがギミックだったらギミックリストに格納する
                                 else if(generateObject.GetComponent<IStartedOperation>() != null)
                                 {
                                     startGimmickInstances.Add(generateObject);
@@ -160,6 +161,22 @@ public class GenerateMap : MonoBehaviour
                     }
                 }
             }
+        }
+
+        //生成したギミックのidを設定する
+        for (int i = 0; i < gimmickID.Count; ++i)
+        {
+            //インスタンス毎のid設定
+            startGimmickInstances[i].GetComponent<GimmickBase>().SetID(gimmickID[i]);
+            
+            
+        }
+
+        //ギミックを起動するオブジェクトにidを設定する
+        for (int i = 0; i < bootObjectID.Count; ++i)
+        {
+            //インスタンス毎のid設定
+            startUpObjectInstances[i].GetComponent<BootObjectBase>().SetID(bootObjectID[i]);
         }
     }
 
