@@ -189,21 +189,18 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     }
     */
 
-    //ìñÇΩÇËîªíË
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
+        //ìñÇΩÇËîªíË
         if (other.gameObject.CompareTag("Enemy") && !isInvincible && gameManager.PlayersHP > 0)
         {
             isInvincible = true;
             invincibleCnt = 100;
             gameManager.ReceiveDamageInformation();
         }
-    }
 
-    void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject == this.gameObject) { return; }
         //Ç‡ÇÃÇéùÇ¬
+        if (other.gameObject == this.gameObject) { return; }
         if (Input.GetButtonDown("Hold" + playerName))
         {
             if (IsAbleHold(other))

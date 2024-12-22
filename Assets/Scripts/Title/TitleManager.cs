@@ -10,6 +10,11 @@ public class TitleManager : MonoBehaviour
     AudioSource bgm;
     AudioSource se;
     TitleSound sound;
+    enum Select
+    {
+        SinglePlay = 0, MultiPlay, Option, Credit, Exit
+    }
+
     void Start()
     {
         Application.targetFrameRate = 60;//フレームレート固定
@@ -37,27 +42,27 @@ public class TitleManager : MonoBehaviour
             se.PlayOneShot(sound.choiceSE);
             switch (selectImage.SelectNum)
             {
-                case SelectImageManager.Select.SinglePlay:
+                case (int)Select.SinglePlay:
                     GameManager.isMultiPlay = false;
                     bgm.Stop();
                     SceneManager.LoadScene("StageSelectScene");
                     break;
 
-                case SelectImageManager.Select.MultiPlay:
+                case (int)Select.MultiPlay:
                     GameManager.isMultiPlay = true;
                     bgm.Stop();
                     SceneManager.LoadScene("StageSelectScene");
                     break;
 
-                case SelectImageManager.Select.Option:
+                case (int)Select.Option:
 
                     break;
 
-                case SelectImageManager.Select.Credit:
+                case (int)Select.Credit:
                     //β版では未実装
                     break;
 
-                case SelectImageManager.Select.Exit:
+                case (int)Select.Exit:
                     EndGame();
                     break;
             }

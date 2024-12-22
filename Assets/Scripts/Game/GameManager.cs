@@ -48,6 +48,7 @@ public class GameManager : MonoBehaviour
         if (isGameOver) { return; }
         isGameOver = true;
         Debug.Log("Game Over");
+        ui.GameOver();
     }
 
     /// <summary>
