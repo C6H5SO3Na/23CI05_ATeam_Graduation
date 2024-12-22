@@ -10,6 +10,8 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
 {
     CharacterController controller;
     PlayerUIManager ui;
+    public AudioSource sound;
+    public PlayerSE SE;
     public GameManager gameManager;
     PlayerStateMachine state;//状態
     public PlayerStateMachine State//プロパティ
@@ -72,6 +74,8 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         state.Initialize(this);
         controller = GetComponent<CharacterController>();
         ui = transform.GetChild(1).GetComponent<PlayerUIManager>();
+        sound = GetComponent<AudioSource>();
+        SE = GetComponent<PlayerSE>();
         isHolding = false;
         gameManager.PlayersHP = 3;
     }
@@ -189,21 +193,19 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     }
     */
 
-    //当たり判定
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
+        //当たり判定
         if (other.gameObject.CompareTag("Enemy") && !isInvincible && gameManager.PlayersHP > 0)
         {
+            sound.PlayOneShot(SE.damageSE);
             isInvincible = true;
             invincibleCnt = 100;
             gameManager.ReceiveDamageInformation();
         }
-    }
 
-    void OnTriggerStay(Collider other)
-    {
-        if (other.gameObject == this.gameObject) { return; }
         //ものを持つ
+        if (other.gameObject == this.gameObject) { return; }
         if (Input.GetButtonDown("Hold" + playerName))
         {
             if (IsAbleHold(other))
@@ -278,6 +280,7 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     /// </summary>
     public void Throw()
     {
+        sound.PlayOneShot(SE.throwSE);
         Transform parentTransform = transform;
         foreach (Transform child in parentTransform)
         {

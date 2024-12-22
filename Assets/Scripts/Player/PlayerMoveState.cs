@@ -35,10 +35,15 @@ public class PlayerMoveState : PlayerStateMachine
         {
             player.ChangeState(new PlayerIdleState());
         }
-        //クリアしたら、ステートチェンジ
+        //クリア
         if (player.gameManager.isClear)
         {
             player.ChangeState(new PlayerClearState());
+        }
+        //死亡
+        if (player.gameManager.isGameOver)
+        {
+            player.ChangeState(new PlayerDeadState());
         }
     }
 

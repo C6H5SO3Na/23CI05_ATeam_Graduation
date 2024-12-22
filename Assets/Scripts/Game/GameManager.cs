@@ -15,12 +15,20 @@ public class GameManager : MonoBehaviour
     }
     public bool isGameOver { get; private set; }
     [SerializeField] GameUIManager ui;
+    GameBGM sound;
+    AudioSource bgm;
+    AudioSource se;
 
     // Start is called before the first frame update
     void Start()
     {
         isClear = false;
         isGameOver = false;
+        bgm = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
+        se = GameObject.FindGameObjectWithTag("SE").GetComponent<AudioSource>();
+        sound = GetComponent<GameBGM>();
+        bgm.clip = sound.mainBGM;
+        bgm.Play();
     }
 
     // Update is called once per frame
@@ -36,6 +44,9 @@ public class GameManager : MonoBehaviour
     {
         if (isClear) { return; }
         isClear = true;
+
+        bgm.Stop();
+        bgm.PlayOneShot(sound.stageClearBGM);
         ui.ShowClear();
         //Debug.Log("ゲームクリア！");
     }
@@ -47,7 +58,11 @@ public class GameManager : MonoBehaviour
     {
         if (isGameOver) { return; }
         isGameOver = true;
-        Debug.Log("Game Over");
+
+        bgm.Stop();
+        bgm.PlayOneShot(sound.gameOverBGM);
+        ui.GameOver();
+        //Debug.Log("Game Over");
     }
 
     /// <summary>

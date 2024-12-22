@@ -6,9 +6,10 @@ using UnityEngine;
 public class SelectImageManager : MonoBehaviour
 {
     RectTransform rectTransform;
+    Vector2 prePosition;//初期位置
 
     //プロパティ
-    public Select SelectNum
+    public int SelectNum
     {
         private set
         {
@@ -21,16 +22,12 @@ public class SelectImageManager : MonoBehaviour
     }
     [SerializeField] int maxSelect;
 
-    public enum Select
-    {
-        SinglePlay = 0, MultiPlay, Option, Credit, Exit
-    }
-
-    Select selectNum;
+    int selectNum;
     void Start()
     {
         rectTransform = GetComponent<RectTransform>();
         selectNum = 0;
+        prePosition = rectTransform.localPosition;
     }
 
     // Update is called once per frame
@@ -48,7 +45,7 @@ public class SelectImageManager : MonoBehaviour
     public void Move(float sign)
     {
         selectNum -= (int)Mathf.Sign(sign);
-        selectNum = (Select)Wrap((int)selectNum, 0, maxSelect);
-        rectTransform.DOAnchorPosY((int)selectNum * -120f + 60f, 0.5f);//.SetEase(Ease.InOutSine);
+        selectNum = Wrap(selectNum, 0, maxSelect);
+        rectTransform.DOAnchorPosY(selectNum * -120f + prePosition.y, 0.5f);//.SetEase(Ease.InOutSine);
     }
 }
