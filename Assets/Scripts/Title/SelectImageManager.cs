@@ -6,6 +6,7 @@ using UnityEngine;
 public class SelectImageManager : MonoBehaviour
 {
     RectTransform rectTransform;
+    Vector2 prePosition;//初期位置
 
     //プロパティ
     public int SelectNum
@@ -26,6 +27,7 @@ public class SelectImageManager : MonoBehaviour
     {
         rectTransform = GetComponent<RectTransform>();
         selectNum = 0;
+        prePosition = rectTransform.localPosition;
     }
 
     // Update is called once per frame
@@ -44,6 +46,6 @@ public class SelectImageManager : MonoBehaviour
     {
         selectNum -= (int)Mathf.Sign(sign);
         selectNum = Wrap(selectNum, 0, maxSelect);
-        rectTransform.DOAnchorPosY(selectNum * -120f + 60f, 0.5f);//.SetEase(Ease.InOutSine);
+        rectTransform.DOAnchorPosY(selectNum * -120f + prePosition.y, 0.5f);//.SetEase(Ease.InOutSine);
     }
 }

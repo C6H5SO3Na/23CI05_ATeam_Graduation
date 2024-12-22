@@ -804,6 +804,8 @@ MonoBehaviour:
   heart: {fileID: 367303932302961452, guid: dc7939245d59a5942b77c0debe408e7e, type: 3}
   clearPrefab: {fileID: 274375868557608314, guid: e15a04e279ff68b4c9365b6f1f4ce686,
     type: 3}
+  gameOverUI: {fileID: 7796390757591306710, guid: e22fc1674ea69ca40b87094f34cb8e21,
+    type: 3}
 --- !u!1 &761157083 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3377915656541588732, guid: 969562aca86beff4085c4a5999223248,

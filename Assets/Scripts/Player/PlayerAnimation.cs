@@ -16,7 +16,7 @@ public class PlayerAnimation : MonoBehaviour
     void Update()
     {
         state = transform.parent.parent.GetComponent<PlayerController>().State;
-        if (state is PlayerIdleState || transform.parent.parent.GetComponent<PlayerController>().gameManager.isClear)
+        if (state is PlayerIdleState)
         {
             animator.SetBool("Walk", false);
             animator.SetBool("Jump", false);
@@ -30,6 +30,16 @@ public class PlayerAnimation : MonoBehaviour
         {
             animator.SetBool("Walk", false);
             animator.SetBool("Jump", true);
+        }
+        else if (state is PlayerClearState)
+        {
+            animator.SetBool("Walk", false);
+            animator.SetBool("Jump", false);
+        }
+        else if (state is PlayerDeadState)
+        {
+            animator.SetBool("Walk", false);
+            animator.SetBool("Jump", false);
         }
     }
 }
