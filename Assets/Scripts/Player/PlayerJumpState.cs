@@ -13,12 +13,13 @@ public class PlayerJumpState : PlayerStateMachine
     //コンストラクタ
     public PlayerJumpState()
     {
-
+        
     }
 
     public override void Initialize(PlayerController player)
     {
         //ジャンプする
+        player.sound.PlayOneShot(player.SE.jumpSE);
         var jumpVec = new Vector3(player.GetInputDirection().x, 3f, player.GetInputDirection().z);
         player.UpdateMoveDirection(jumpVec);
     }
