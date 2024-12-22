@@ -64,19 +64,22 @@ public class PassInstance : MonoBehaviour
     /// </summary>
     /// <param name="startUpInstances"> ギミックを起動させるオブジェクトのインスタンス </param>
     /// <param name="startGimmickInstances"> 起動させるギミックのインスタンス </param>
-    public void PassInstanceStartGimmick(List<GameObject> startUpInstances, List<GameObject> startGimmickInstances)
+    /// <param name="gimmickAssociationID"> 紐付け用id </param>
+    public void PassInstanceStartGimmick(List<GameObject> startUpInstances, List<GameObject> startGimmickInstances, Dictionary<int, int> gimmickAssociationID)
     {
         for(int i = 0; i < startUpInstances.Count; ++i)
         {
             //ギミックのインスタンスを受け取る処理があるか確認
             ISetGimmickInstance instanceReceiveGimmick = startUpInstances[i].GetComponent<ISetGimmickInstance>();
-            if(instanceReceiveGimmick != null)
+            if (instanceReceiveGimmick != null)
             {
-                //起動されるギミックがあるか確認
-                if(i < startGimmickInstances.Count)
+                for (int j = 0; j < startGimmickInstances.Count; ++j)
                 {
-                    //起動させるギミックを設定する
-                    instanceReceiveGimmick.SetGimmickInstance(startGimmickInstances[i]);
+                    if (gimmickAssociationID[startUpInstances[i].GetComponent<BootObjectBase>().id] == startGimmickInstances[j].GetComponent<GimmickBase>().id)
+                    {
+                        //起動させるギミックを設定する
+                        instanceReceiveGimmick.SetGimmickInstance(startGimmickInstances[j]);
+                    }
                 }
             }
         }

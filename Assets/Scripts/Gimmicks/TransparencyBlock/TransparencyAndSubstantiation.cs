@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.Rendering.DebugUI;
 
-public class TransparencyAndSubstantiation : MonoBehaviour, IStartedOperation
+public class TransparencyAndSubstantiation : GimmickBase, IStartedOperation
 {
     Material material;      // このスクリプトをアタッチしているオブジェクトのMaterialを保持する
     Collider thisCollider;  // このスクリプトをアタッチしているオブジェクトのColliderを保持する
@@ -11,7 +11,6 @@ public class TransparencyAndSubstantiation : MonoBehaviour, IStartedOperation
     [SerializeField]
     bool isTransparentize;  // 透明化するか
     float alpha;            // α値(0～1の範囲)
-    
 
     // Start is called before the first frame update
     void Start()
