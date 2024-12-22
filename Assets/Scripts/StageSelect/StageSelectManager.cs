@@ -92,7 +92,7 @@ public class StageSelectManager : MonoBehaviour
                 if (Input.GetButtonDown("Submit"))
                 {
                     string stageName = canvas.transform.GetChild(canvas.transform.childCount - 1).GetChild(0).GetComponent<TextMeshProUGUI>().text;
-                    //SceneManager.LoadScene("GameScene");
+                    SceneManager.LoadScene("GameScene");
                     Debug.Log(stageName);
                 }
                 break;
