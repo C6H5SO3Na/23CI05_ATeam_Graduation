@@ -18,6 +18,7 @@ public class PlayerDeadState : PlayerStateMachine
 
     public override void Initialize(PlayerController player)
     {
+        player.sound.PlayOneShot(player.SE.deadSE);
         player.UpdateMoveDirection(Vector3.zero);
     }
 
