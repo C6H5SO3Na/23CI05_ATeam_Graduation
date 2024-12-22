@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 243274140}
   - component: {fileID: 243274139}
   - component: {fileID: 243274141}
+  - component: {fileID: 243274142}
   m_Layer: 0
   m_Name: MapGenerator
   m_TagString: Untagged
@@ -191,6 +192,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManagerInstance: {fileID: 827223766}
+--- !u!114 &243274142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 243274138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f186639504e759545ab2a4ecf5ffdd36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &659136331
 GameObject:
   m_ObjectHideFlags: 0
@@ -559,6 +572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heart: {fileID: 367303932302961452, guid: dc7939245d59a5942b77c0debe408e7e, type: 3}
+  clearPrefab: {fileID: 0}
 --- !u!1 &1429258215
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,14 +658,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1429258215}
-  m_LocalRotation: {x: 0.60876137, y: 0, z: 0, w: 0.7933534}
-  m_LocalPosition: {x: 10, y: 18, z: 4.5}
+  m_LocalRotation: {x: 0.59130967, y: 0, z: 0, w: 0.8064446}
+  m_LocalPosition: {x: 10, y: 20, z: 4.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 75, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 72.5, y: 0, z: 0}
 --- !u!114 &1429258219
 MonoBehaviour:
   m_ObjectHideFlags: 0
