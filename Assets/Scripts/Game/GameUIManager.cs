@@ -6,7 +6,7 @@ public class GameUIManager : MonoBehaviour
 {
     [SerializeField] GameObject heart;//ライフ
     [SerializeField] GameObject clearPrefab;//クリア画面
-    [SerializeField] GameObject gameOverUI;
+    [SerializeField] GameObject gameOverPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +31,6 @@ public class GameUIManager : MonoBehaviour
 
     public void GameOver()
     {
-        Instantiate(gameOverUI, transform.parent);
+        Instantiate(gameOverPrefab, transform.parent);
     }
 }
