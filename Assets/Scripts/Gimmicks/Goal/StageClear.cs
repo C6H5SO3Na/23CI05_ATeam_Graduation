@@ -23,41 +23,28 @@ public class StageClear : MonoBehaviour
             //乗ったオブジェクトがプレイヤーか判定
             if (other.CompareTag("Player"))
             {
-                //マルチプレイの場合
-                if (GameManager.isMultiPlay)
+                //プレイヤーのインスタンスを取得する
+                PlayerController player = other.GetComponent<PlayerController>();
+                if (player)
                 {
-                    //プレイヤーのインスタンスを取得する
-                    PlayerController player = other.GetComponent<PlayerController>();
-                    if (player)
+                    //ゴールに乗ったプレイヤーが1か2か判定する
+                    if (player.PlayerNum == 1)
                     {
-                        //ゴールに乗ったプレイヤーが1か2か判定する
-                        if (player.PlayerNum == 1)
-                        {
-                            isOn_Player1 = true;
-                        }
-                        else if (player.PlayerNum == 2)
-                        {
-                            isOn_Player2 = true;
-                        }
-                        else
-                        {
-                            Debug.LogWarning("プレイヤー番号の設定を間違えています");
-                        }
+                        isOn_Player1 = true;
                     }
-
-                    //プレイヤー1、2が乗ったらステージをクリアする
-                    if (isOn_Player1 && isOn_Player2)
+                    else if (player.PlayerNum == 2)
                     {
-                        if (gameManager)
-                        {
-                            gameManager.ReceiveClearInformation();
-                        }
+                        isOn_Player2 = true;
+                    }
+                    else
+                    {
+                        Debug.LogWarning("プレイヤー番号の設定を間違えています");
                     }
                 }
-                //シングルプレイの場合
-                else
+
+                //プレイヤー1、2が乗ったらステージをクリアする
+                if (isOn_Player1 && isOn_Player2)
                 {
-                    //ステージをクリアする
                     if (gameManager)
                     {
                         gameManager.ReceiveClearInformation();
@@ -75,23 +62,20 @@ public class StageClear : MonoBehaviour
             //抜けたオブジェクトがプレイヤーか判定
             if (other.gameObject.CompareTag("Player"))
             {
-                //マルチプレイの場合
-                if (GameManager.isMultiPlay)
+                //プレイヤーのインスタンスを取得する
+                PlayerController player = other.GetComponent<PlayerController>();
+                if (player)
                 {
-                    //プレイヤーのインスタンスを取得する
-                    PlayerController player = other.GetComponent<PlayerController>();
-                    if (player)
+                    //ゴールから抜けたプレイヤーが1か2か判定する
+                    if (player.PlayerNum == 1)
                     {
-                        //ゴールから抜けたプレイヤーが1か2か判定する
-                        if (player.PlayerNum == 1)
-                        {
-                            isOn_Player1 = false;
-                        }
-                        else if (player.PlayerNum == 2)
-                        {
-                            isOn_Player2 = false;
-                        }
+                        isOn_Player1 = false;
                     }
+                    else if (player.PlayerNum == 2)
+                    {
+                        isOn_Player2 = false;
+                    }
+                    
                 }
             }
         }
