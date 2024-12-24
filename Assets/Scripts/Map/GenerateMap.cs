@@ -37,7 +37,8 @@ public class GenerateMap : MonoBehaviour
     List<int> bootObjectID;                     // ギミック起動オブジェクトid
     Dictionary<int, int> gimmickAssociationID;  // ギミックを起動オブジェクトに紐付けるためのid    
 
-    string stageName = "1-1";
+    string stageName = "1-1";   // ステージ名
+    public string StageName { private get { return stageName; } set { stageName = value; } }    // ステージ名のプロパティ
 
     //関数--------------------------------------------------------------------------
     // Start is called before the first frame update
@@ -50,7 +51,7 @@ public class GenerateMap : MonoBehaviour
             //ステージ名を取得する
 
             //jsonファイルを読み込んでデータを取得する
-            loadJsonFile.GetStageData(stageName, this);
+            loadJsonFile.GetStageData(StageName, this);
         }
 
         //値の初期値設定
@@ -99,7 +100,7 @@ public class GenerateMap : MonoBehaviour
                                     player1Instance = Instantiate(prefab, position, Quaternion.identity);
 
                                     //プレイヤー識別番号を1に設定する
-                                    player1Instance.GetComponent<PlayerController>().PlayerNum = 1;
+                                    player1Instance.GetComponent<PlayerController>().OriginalPlayerNum = 1;
                                 }
                                 else
                                 {
@@ -113,7 +114,7 @@ public class GenerateMap : MonoBehaviour
                                     player2Instance = Instantiate(prefab, position, Quaternion.identity);
 
                                     //プレイヤー識別番号を2に設定する
-                                    player1Instance.GetComponent<PlayerController>().PlayerNum = 2;
+                                    player2Instance.GetComponent<PlayerController>().OriginalPlayerNum = 2;
                                 }
                                 else
                                 {
@@ -126,7 +127,7 @@ public class GenerateMap : MonoBehaviour
                                 break;
 
                             case 5:     // 感圧板を生成する
-                                position = new Vector3(x, y - 0.5f, (layerHeight - 1) - z); // 0.5引くことで生成時に床の上に生成される
+                                position = new Vector3(x, y - 0.4f, (layerHeight - 1) - z); // 0.5引くことで生成時に床の上に生成される
                                 startUpObjectInstances.Add(Instantiate(prefab, position, Quaternion.identity));
                                 break;
 
