@@ -13,7 +13,7 @@ public class PlayerUIManager : MonoBehaviour
         text = transform.GetChild(1).GetComponent<TextMeshPro>();
         arrow = transform.GetChild(0).GetComponent<SpriteRenderer>();
         player = transform.parent.GetComponent<PlayerController>();
-        if (player.PlayerNum == 2)
+        if (player.NowPlayerNum == 2)
         {
             gameObject.SetActive(false);
         }
@@ -21,8 +21,8 @@ public class PlayerUIManager : MonoBehaviour
 
     void Update()
     {
-        text.text = player.PlayerNum.ToString() + "P";
-        ChangeColor(player.PlayerNum);
+        text.text = player.NowPlayerNum.ToString() + "P";
+        ChangeColor(player.NowPlayerNum);
     }
 
     void LateUpdate()

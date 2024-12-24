@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
-public class PlayerController : MonoBehaviour//, IPlayerInput
+public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
 {
     CharacterController controller;
     PlayerUIManager ui;
@@ -29,16 +29,24 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
 
     [SerializeField] float gravity;//重力
     [SerializeField] float speed;//速度
-    [SerializeField] int playerNum;//プレイヤー番号
-    public int PlayerNum//プロパティ
+    int originalPlayerNum;//プレイヤーの初期番号
+    public int OriginalPlayerNum//プロパティ
     {
         set
         {
-            if (value <= 2) { playerNum = value; }
+            if (value <= 2) { originalPlayerNum = value; }
         }
-        get { return playerNum; }
+        get { return originalPlayerNum; }
     }
-
+    int nowPlayerNum; //現在のプレイヤー番号
+    public int NowPlayerNum//プロパティ
+    {
+        set
+        {
+            if (value <= 2) { nowPlayerNum = value; }
+        }
+        get { return nowPlayerNum; }
+    }
     Vector3 moveDirection;//動く向き
     int invincibleCnt = 0;
 
@@ -67,9 +75,15 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     const float debounceTime = 0.2f;//デバウンス時間
     float lastButtonPressTime = 0f;//前にボタンを押した時間
 
+    void Awake()
+    {
+        nowPlayerNum = originalPlayerNum;
+    }
+
     void Start()
     {
-        playerName = "_P" + playerNum.ToString();
+        nowPlayerNum = originalPlayerNum;
+        playerName = "_P" + nowPlayerNum.ToString();
         state = new PlayerIdleState();
         state.Initialize(this);
         controller = GetComponent<CharacterController>();
@@ -129,17 +143,17 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
         //プレイヤーチェンジ(シングルプレイのみ)
         if (Input.GetButtonDown("Fire3") && !GameManager.isMultiPlay)
         {
-            if (playerNum == 1)
+            if (nowPlayerNum == 1)
             {
-                playerNum = 2;
+                nowPlayerNum = 2;
                 ui.gameObject.SetActive(false);
             }
             else
             {
-                playerNum = 1;
+                nowPlayerNum = 1;
                 ui.gameObject.SetActive(true);
             }
-            playerName = "_P" + playerNum.ToString();
+            playerName = "_P" + nowPlayerNum.ToString();
         }
     }
 
@@ -195,15 +209,6 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
 
     void OnTriggerStay(Collider other)
     {
-        //当たり判定
-        if (other.gameObject.CompareTag("Enemy") && !isInvincible && gameManager.PlayersHP > 0)
-        {
-            sound.PlayOneShot(SE.damageSE);
-            isInvincible = true;
-            invincibleCnt = 100;
-            gameManager.ReceiveDamageInformation();
-        }
-
         //ものを持つ
         if (other.gameObject == this.gameObject) { return; }
         if (Input.GetButtonDown("Hold" + playerName))
@@ -444,5 +449,18 @@ public class PlayerController : MonoBehaviour//, IPlayerInput
     public void SetInstance(GameManager gameManager)
     {
         this.gameManager = gameManager;
+    }
+
+    /// <summary>
+    /// 当たり判定
+    /// </summary>
+    /// <param name="damage">ダメージ量</param>
+    public void ReduceHP(int damage)
+    {
+        if (isInvincible || gameManager.PlayersHP <= 0) { return; }
+        sound.PlayOneShot(SE.damageSE);
+        isInvincible = true;
+        invincibleCnt = 100;
+        gameManager.ReceiveDamageInformation();
     }
 }
