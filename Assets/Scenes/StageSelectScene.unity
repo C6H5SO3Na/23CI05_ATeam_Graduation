@@ -846,7 +846,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "A:Entry B:ToTitle \u2191\u2193\u2190\u2192:Select"
+  m_text: "B:Entry A:ToTitle \u2191\u2193\u2190\u2192:Select"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1114,6 +1114,24 @@ MonoBehaviour:
     type: 3}
   x: 4
   y: 4
+  images:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  brankImage: {fileID: 21300000, guid: 00f3789ee9072294fa7e177e08d5c88f, type: 3}
 --- !u!1 &1998089380
 GameObject:
   m_ObjectHideFlags: 0
@@ -1204,4 +1222,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSelectX: 4
-  maxSelectY: 4
+  maxSelectY: 1
