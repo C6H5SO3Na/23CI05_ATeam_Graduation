@@ -37,7 +37,7 @@ public class GenerateMap : MonoBehaviour
     List<int> bootObjectID;                     // ギミック起動オブジェクトid
     Dictionary<int, int> gimmickAssociationID;  // ギミックを起動オブジェクトに紐付けるためのid    
 
-    string stageName = "1-1";   // ステージ名
+    string stageName = "0";   // ステージ名
     public string StageName { private get { return stageName; } set { stageName = value; } }    // ステージ名のプロパティ
 
     //関数--------------------------------------------------------------------------
@@ -204,6 +204,5 @@ public class GenerateMap : MonoBehaviour
         {
             this.gimmickAssociationID[gimmickAssociationKey[i]] = gimmickAssociationID[i];
         }
-        
     }
 }
