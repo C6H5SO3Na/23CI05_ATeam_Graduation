@@ -1114,6 +1114,24 @@ MonoBehaviour:
     type: 3}
   x: 4
   y: 4
+  images:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  brankImage: {fileID: 21300000, guid: 00f3789ee9072294fa7e177e08d5c88f, type: 3}
 --- !u!1 &1998089380
 GameObject:
   m_ObjectHideFlags: 0
@@ -1204,4 +1222,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxSelectX: 4
-  maxSelectY: 4
+  maxSelectY: 1
