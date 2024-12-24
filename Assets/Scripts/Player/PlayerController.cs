@@ -294,7 +294,7 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
                 //eqŠÖŒW‚ğ‰ğœ
                 child.gameObject.transform.SetParent(null);
 
-                var angle = new Vector3(transform.forward.x, 0f, transform.forward.z);
+                var angle = new Vector3(transform.forward.x, 0.5f, transform.forward.z);
                 //•¨—‰‰Z‚ğ•œŠˆ‚³‚¹‚é
                 if (child.GetComponent<Rigidbody>() != null)
                 {
@@ -304,7 +304,7 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
                 else if (child.GetComponent<CharacterController>() != null)
                 {
                     child.GetComponent<CharacterController>().enabled = true;
-                    child.GetComponent<PlayerController>().UpdateMoveDirection(angle * 5f);
+                    child.GetComponent<PlayerController>().UpdateMoveDirection(angle * 4f);
                 }
                 isHolding = false;
             }
