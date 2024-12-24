@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DealDamageObjectBase : MonoBehaviour
+public class DealDamageObjectBase : GimmickBase
 {
     //変数
     /// <summary>
@@ -24,5 +24,22 @@ public class DealDamageObjectBase : MonoBehaviour
             //実装しているダメージを受ける処理を行う
             objectTakeDamage.ReduceHP(dealingDamageQuantity);
         }
+    }
+
+    //setter関数
+    /// <summary>
+    /// 与えるダメージ量を決める
+    /// </summary>
+    /// <param name="setValue"> 与えるダメージ </param>
+    protected void SetDealingDamageQuantity(int setValue)
+    {
+        if (setValue <= 0)
+        {
+            dealingDamageQuantity = 1;
+            Debug.LogWarning("攻撃力は0以下にはならない");
+            return;
+        }
+
+        dealingDamageQuantity = setValue;
     }
 }
