@@ -28,11 +28,11 @@ public class StageClear : MonoBehaviour
                 if (player)
                 {
                     //ゴールに乗ったプレイヤーが1か2か判定する
-                    if (player.PlayerNum == 1)
+                    if (player.OriginalPlayerNum == 1)
                     {
                         isOn_Player1 = true;
                     }
-                    else if (player.PlayerNum == 2)
+                    else if (player.OriginalPlayerNum == 2)
                     {
                         isOn_Player2 = true;
                     }
@@ -67,11 +67,11 @@ public class StageClear : MonoBehaviour
                 if (player)
                 {
                     //ゴールから抜けたプレイヤーが1か2か判定する
-                    if (player.PlayerNum == 1)
+                    if (player.OriginalPlayerNum == 1)
                     {
                         isOn_Player1 = false;
                     }
-                    else if (player.PlayerNum == 2)
+                    else if (player.OriginalPlayerNum == 2)
                     {
                         isOn_Player2 = false;
                     }
