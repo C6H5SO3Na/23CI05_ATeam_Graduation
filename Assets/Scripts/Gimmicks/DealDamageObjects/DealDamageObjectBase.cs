@@ -14,11 +14,25 @@ public class DealDamageObjectBase : GimmickBase
     /// <summary>
     /// ダメージを与える処理
     /// </summary>
-    /// <param name="dealDamage"> 与えるダメージ </param>
+    /// <param name="collision"> ダメージを受けるオブジェクトが持つCollision </param>
     protected void DealDamage(Collision collision)
     {
         //ダメージを受けるオブジェクトがダメージを受ける処理を実装しているか確認する
         IReduceHP objectTakeDamage = collision.gameObject.GetComponent<IReduceHP>();
+        if (objectTakeDamage != null)
+        {
+            //実装しているダメージを受ける処理を行う
+            objectTakeDamage.ReduceHP(dealingDamageQuantity);
+        }
+    }
+    /// <summary>
+    /// ダメージを与える処理
+    /// </summary>
+    /// <param name="hit"> ダメージを受けるオブジェクトが持つCollider </param>
+    protected void DealDamage(Collider other)
+    {
+        //ダメージを受けるオブジェクトがダメージを受ける処理を実装しているか確認する
+        IReduceHP objectTakeDamage = other.GetComponent<IReduceHP>();
         if (objectTakeDamage != null)
         {
             //実装しているダメージを受ける処理を行う

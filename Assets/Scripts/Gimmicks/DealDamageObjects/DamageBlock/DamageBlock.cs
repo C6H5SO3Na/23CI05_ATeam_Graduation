@@ -5,12 +5,27 @@ using UnityEngine;
 public class DamageBlock : DealDamageObjectBase, IStartedOperation
 {
     //変数
-    bool isCauseDamage = true; // ダメージを与えるか
+    Material material;                  // このスクリプトをアタッチしているオブジェクトのMaterialを保持する
+    bool isCauseDamage = true;          // ダメージを与えるか
+    Color[] blockColor = new Color[]{   // ブロックの変わる色
+                                      new Color( 0.6f, 0f, 1f), // ダメージがある時の色
+                                      new Color( 1f, 1f, 1f)    // ダメージを受けない時の色
+                                    };
 
     //関数
     // Start is called before the first frame update
     void Start()
     {
+        //Rendererを取得
+        Renderer renderer = GetComponent<Renderer>();
+        
+        //Materialを取得
+        if (renderer)
+        {
+            material = renderer.material;
+        }
+
+        //与えるダメージの設定
         SetDealingDamageQuantity(1);
     }
 
@@ -30,12 +45,26 @@ public class DamageBlock : DealDamageObjectBase, IStartedOperation
 
     public void ProcessWhenPressed()
     {
+        //ダメージを受けないようにする
+        isCauseDamage = false;
 
+        //マテリアルの色変更
+        if(material)
+        {
+            material.color = blockColor[0];
+        }
     }
 
     public void ProcessWhenStopped()
     {
+        //ダメージを受けるようにする
+        isCauseDamage = true;
 
+        //マテリアルの色変更
+        if (material)
+        {
+            material.color = blockColor[1];
+        }
     }
 
     //setter関数
