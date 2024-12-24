@@ -99,7 +99,7 @@ public class GenerateMap : MonoBehaviour
                                     player1Instance = Instantiate(prefab, position, Quaternion.identity);
 
                                     //プレイヤー識別番号を1に設定する
-                                    player1Instance.GetComponent<PlayerController>().PlayerNum = 1;
+                                    player1Instance.GetComponent<PlayerController>().OriginalPlayerNum = 1;
                                 }
                                 else
                                 {
@@ -113,7 +113,7 @@ public class GenerateMap : MonoBehaviour
                                     player2Instance = Instantiate(prefab, position, Quaternion.identity);
 
                                     //プレイヤー識別番号を2に設定する
-                                    player1Instance.GetComponent<PlayerController>().PlayerNum = 2;
+                                    player2Instance.GetComponent<PlayerController>().OriginalPlayerNum = 2;
                                 }
                                 else
                                 {
