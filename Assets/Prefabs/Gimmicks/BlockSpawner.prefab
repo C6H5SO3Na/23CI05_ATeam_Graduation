@@ -66,6 +66,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9aac20e488b09974390d2cda3db4c6e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  generatingBlockPrefab: {fileID: 3977730845845240031, guid: 518e0627bad950b4daa5884131b065ac,
+  generatingBlockPrefab: {fileID: 7680406051955426657, guid: 4fa96e382df7841408fa0867e56f65e5,
     type: 3}
-  maxObjects: 1

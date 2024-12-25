@@ -1,18 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
-public class GenerateBlock : MonoBehaviour, IStartedOperation
+public class GenerateBlock : GimmickBase, IStartedOperation
 {
     [SerializeField]
     private GameObject generatingBlockPrefab;                           // 生成するブロック
     private List<GameObject> generatedBlocks = new List<GameObject>();  // 生成したブロックのリスト
-    [SerializeField]
-    private int maxObjects;                                              // 生成できるブロックの数
+    private int maxObjects;                                             // 生成できるブロックの数
 
     void Start()
     {
-        //maxObjects = 1;
+        maxObjects = 1;
     }
 
     //ブロックが無ければブロックを生成する
@@ -27,7 +27,7 @@ public class GenerateBlock : MonoBehaviour, IStartedOperation
             if(generatedBlocks.Count < maxObjects)
             {
                 //生成位置を決める
-                Vector3 position = new Vector3(10, 1, 10);
+                Vector3 position = transform.position;
 
                 //ブロックの生成
                 GameObject newBlock = Instantiate(generatingBlockPrefab, position, Quaternion.identity);
@@ -48,7 +48,7 @@ public class GenerateBlock : MonoBehaviour, IStartedOperation
 
     public void ProcessWhenStopped()
     {
-        //特に処理なし
+        //処理なし
     }
 
     //void Update()
