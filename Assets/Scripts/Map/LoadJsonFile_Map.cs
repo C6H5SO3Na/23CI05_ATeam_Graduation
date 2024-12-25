@@ -31,6 +31,21 @@ public class LoadJsonFile_Map : MonoBehaviour
             //json配列のデシリアライズ
             jsonData = JsonMapper.ToObject(jsonText);
         }
+        //ファイルが存在していなかったらステージ1-1を読み込む
+        else 
+        {
+            //ファイル名をStage0.jsonにする(Stage0は絶対に存在するステージ)
+            fileName = "Stage0.json";
+
+            //パスの設定
+            filePath = Path.Combine(Application.streamingAssetsPath, fileName);
+
+            //jsonファイル読み込み
+            string jsonText = File.ReadAllText(filePath);
+
+            //json配列のデシリアライズ
+            jsonData = JsonMapper.ToObject(jsonText);
+        }
     }
 
     /// <summary>

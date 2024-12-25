@@ -204,6 +204,5 @@ public class GenerateMap : MonoBehaviour
         {
             this.gimmickAssociationID[gimmickAssociationKey[i]] = gimmickAssociationID[i];
         }
-        
     }
 }
