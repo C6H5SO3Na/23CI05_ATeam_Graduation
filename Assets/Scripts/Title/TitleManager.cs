@@ -29,6 +29,8 @@ public class TitleManager : MonoBehaviour
 
     void Update()
     {
+        //イージング中は動作しない
+        if (DOTween.IsTweening(selectImage.transform)) { return; }
         //項目選択
         if (Mathf.Abs(Input.GetAxis("Vertical_P1")) > 0f && !DOTween.IsTweening(selectImage.transform))
         {
