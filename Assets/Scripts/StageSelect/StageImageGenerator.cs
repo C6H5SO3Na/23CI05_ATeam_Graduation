@@ -10,7 +10,7 @@ public class StageImageGenerator : MonoBehaviour
     [SerializeField] int x;
     [SerializeField] int y;
     [SerializeField] Sprite[] images;
-    [SerializeField] Sprite brankImage;
+
     //ステージ画像の生成
     void Start()
     {
