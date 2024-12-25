@@ -391,7 +391,7 @@ GameObject:
   - component: {fileID: 320250512}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -903,7 +903,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4676f55d11113574ea56ec8ae51db851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 320250510}
   heart: {fileID: 367303932302961452, guid: dc7939245d59a5942b77c0debe408e7e, type: 3}
   clearPrefab: {fileID: 274375868557608314, guid: e15a04e279ff68b4c9365b6f1f4ce686,
     type: 3}
