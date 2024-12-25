@@ -13,7 +13,8 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: ATeam_Graduation
+  productName: "2024\u5E74\u5EA6 \u5352\u696D\u5236\u4F5C \u30D6\u30ED\u30C3\u30AF\u30DE\u30F3\u3068\u306A\u305E\u306E\u7BB1\u5EAD
+    DoTwins"
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
