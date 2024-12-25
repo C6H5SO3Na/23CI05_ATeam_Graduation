@@ -18,41 +18,42 @@ public class GameOverManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //bgm = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
-        //se = GameObject.FindGameObjectWithTag("SE").GetComponent<AudioSource>();
-
-        //bgm.clip = sound.titleBGM;
-        //bgm.Play();
+        se = GameObject.FindGameObjectWithTag("SE").GetComponent<AudioSource>();
+        bgm = GameObject.FindGameObjectWithTag("SE").GetComponent<AudioSource>();
+        sound = GetComponent<GameOverSound>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //イージング中は動作しない
+        if (DOTween.IsTweening(selectImage.transform)) { return; }
         //項目選択
         if (Mathf.Abs(Input.GetAxis("Vertical_P1")) > 0f && !DOTween.IsTweening(selectImage.transform))
         {
-            //se.PlayOneShot(sound.selectSE);
+            se.PlayOneShot(sound.selectSE);
             selectImage.Move(Input.GetAxis("Vertical_P1"));
         }
 
         //Bで決定
         if (Input.GetButtonDown("Submit"))
         {
-            //se.PlayOneShot(sound.choiceSE);
+            se.PlayOneShot(sound.choiceSE);
             switch (selectImage.SelectNum)
             {
                 case (int)Select.Retry:
-                    //bgm.Stop();
+                    se.PlayOneShot(sound.selectSE);
+                    bgm.Stop();
                     SceneManager.LoadScene("GameScene");
                     break;
 
                 case (int)Select.ToSelect:
-                    //bgm.Stop();
+                    bgm.Stop();
                     SceneManager.LoadScene("StageSelectScene");
                     break;
 
                 case (int)Select.ToTitle:
-                    //bgm.Stop();
+                    bgm.Stop();
                     SceneManager.LoadScene("TitleScene");
                     break;
             }
