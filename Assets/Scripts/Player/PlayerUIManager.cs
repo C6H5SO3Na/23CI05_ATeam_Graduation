@@ -13,7 +13,7 @@ public class PlayerUIManager : MonoBehaviour
         text = transform.GetChild(1).GetComponent<TextMeshPro>();
         arrow = transform.GetChild(0).GetComponent<SpriteRenderer>();
         player = transform.parent.GetComponent<PlayerController>();
-        if (player.NowPlayerNum == 2)
+        if (!GameManager.isMultiPlay && player.OriginalPlayerNum == 2)
         {
             gameObject.SetActive(false);
         }
