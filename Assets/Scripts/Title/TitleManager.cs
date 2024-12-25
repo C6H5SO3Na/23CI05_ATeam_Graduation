@@ -18,6 +18,7 @@ public class TitleManager : MonoBehaviour
     void Start()
     {
         Application.targetFrameRate = 60;//フレームレート固定
+        Cursor.visible = false;         //カーソルを消す
         sound = GetComponent<TitleSound>();
 
         bgm = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
