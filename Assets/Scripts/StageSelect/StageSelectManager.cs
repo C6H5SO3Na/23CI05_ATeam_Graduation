@@ -76,7 +76,6 @@ public class StageSelectManager : MonoBehaviour
                 if (!DOTween.IsTweening(targetImage.transform))
                 {
                     phase = Phase.Entry;
-                    se.PlayOneShot(sound.shrinkSE);
                 }
                 break;
 
@@ -86,14 +85,15 @@ public class StageSelectManager : MonoBehaviour
                 {
                     ReductionStageImage();
                     phase = Phase.CancelEntry;
+                    se.PlayOneShot(sound.shrinkSE);
                 }
 
                 //Œˆ’è
                 if (Input.GetButtonDown("Submit"))
                 {
-                    string stageName = canvas.transform.GetChild(canvas.transform.childCount - 1).GetChild(0).GetComponent<TextMeshProUGUI>().text;
+                    AppManager.StageName = canvas.transform.GetChild(canvas.transform.childCount - 1).GetChild(0).GetComponent<TextMeshProUGUI>().text;
+                    se.PlayOneShot(sound.enlargeSE);
                     SceneManager.LoadScene("GameScene");
-                    Debug.Log(stageName);
                 }
                 break;
 

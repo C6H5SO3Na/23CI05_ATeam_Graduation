@@ -461,6 +461,6 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
         sound.PlayOneShot(SE.damageSE);
         isInvincible = true;
         invincibleCnt = 100;
-        gameManager.ReceiveDamageInformation();
+        gameManager.ReceiveDamageInformation(damage);
     }
 }
