@@ -31,6 +31,27 @@ public class LaserBlock : DealDamageObjectBase, IStartedOperation
         //レーザーの開始地点と方向を設定
         laserStartPoint = transform.position;
         laserDirection = transform.forward;
+
+        //Laserの描画
+        RaycastHit hit;
+        if (Physics.Raycast(laserStartPoint, laserDirection, out hit, maxDistance, collisionMask))
+        {
+            //何かに衝突した場合、衝突した場所までレーザーを描画する
+            if (lineRenderer)
+            {
+                lineRenderer.SetPosition(0, laserStartPoint);
+                lineRenderer.SetPosition(1, hit.point);
+            }
+        }
+        else
+        {
+            //衝突が無かったら最大距離までのレーザーを描画
+            if (lineRenderer)
+            {
+                lineRenderer.SetPosition(0, laserStartPoint);
+                lineRenderer.SetPosition(1, laserStartPoint + laserDirection * maxDistance);
+            }
+        }
     }
 
     // Update is called once per frame
@@ -51,11 +72,11 @@ public class LaserBlock : DealDamageObjectBase, IStartedOperation
         if(Physics.Raycast(laserStartPoint, laserDirection, out hit, maxDistance, collisionMask))
         {
             //何かに衝突した場合、衝突した場所までレーザーを描画する
-            if(lineRenderer)
-            {
-                lineRenderer.SetPosition(0, laserStartPoint);
-                lineRenderer.SetPosition(1, hit.point);
-            }
+            //if(lineRenderer)
+            //{
+            //    lineRenderer.SetPosition(0, laserStartPoint);
+            //    lineRenderer.SetPosition(1, hit.point);
+            //}
 
             //衝突したのがプレイヤーだったらダメージを与える
             if(hit.collider.CompareTag("Player"))
@@ -64,24 +85,36 @@ public class LaserBlock : DealDamageObjectBase, IStartedOperation
                 DealDamage(hit.collider);
             }
         }
-        else
-        {
-            //衝突が無かったら最大距離までのレーザーを描画
-            if(lineRenderer)
-            {
-                lineRenderer.SetPosition(0, laserStartPoint);
-                lineRenderer.SetPosition(1, laserStartPoint + laserDirection * maxDistance);
-            }
-        }
+        //else
+        //{
+        //    //衝突が無かったら最大距離までのレーザーを描画
+        //    if(lineRenderer)
+        //    {
+        //        lineRenderer.SetPosition(0, laserStartPoint);
+        //        lineRenderer.SetPosition(1, laserStartPoint + laserDirection * maxDistance);
+        //    }
+        //}
     }
 
     public void ProcessWhenPressed()
     {
+        //レーザーの発射をやめる
         shouldToPutLaser = false;
+
+        if(lineRenderer)
+        {
+            lineRenderer.enabled = false;
+        }
     }
 
     public void ProcessWhenStopped()
     {
+        //レーザーを発射する
         shouldToPutLaser = true;
+
+        if (lineRenderer)
+        {
+            lineRenderer.enabled = true;
+        }
     }
 }

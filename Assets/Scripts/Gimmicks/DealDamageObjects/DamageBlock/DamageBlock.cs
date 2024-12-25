@@ -51,7 +51,7 @@ public class DamageBlock : DealDamageObjectBase, IStartedOperation
         //マテリアルの色変更
         if(material)
         {
-            material.color = blockColor[0];
+            material.color = blockColor[1];
         }
     }
 
@@ -63,7 +63,7 @@ public class DamageBlock : DealDamageObjectBase, IStartedOperation
         //マテリアルの色変更
         if (material)
         {
-            material.color = blockColor[1];
+            material.color = blockColor[0];
         }
     }
 
