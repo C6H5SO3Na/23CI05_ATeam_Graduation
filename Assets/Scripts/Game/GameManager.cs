@@ -70,7 +70,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ReceiveDamageInformation(int damageAmount = 1)
     {
-        ui.DecreaseHP();
+        ui.DecreaseHP(damageAmount);
         PlayersHP -= damageAmount;
         if (PlayersHP <= 0)
         {
