@@ -1117,10 +1117,10 @@ MonoBehaviour:
   x: 4
   y: 4
   images:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: 8bfc886aa0719244e9a1b51b7cbb5a0b, type: 3}
+  - {fileID: 21300000, guid: 174968302966c054b896fd6511382407, type: 3}
+  - {fileID: 21300000, guid: a686361796addad4db032f685977e913, type: 3}
+  - {fileID: 21300000, guid: b6aacc90ecb6cdf42899349b3eb318f4, type: 3}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
