@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class GameUIManager : MonoBehaviour
 {
+    [SerializeField] GameManager gameManager;
     [SerializeField] GameObject heart;//ライフ
     [SerializeField] GameObject clearPrefab;//クリア画面
     [SerializeField] GameObject gameOverPrefab;
@@ -18,9 +19,18 @@ public class GameUIManager : MonoBehaviour
         }
     }
 
-    public void DecreaseHP()
+    public void DecreaseHP(int damageAmount)
     {
-        Destroy(transform.parent.GetChild(transform.parent.childCount - 1).gameObject);
+        int tmpLife = gameManager.PlayersHP;
+        List<GameObject> heartsToDestroy = new List<GameObject>();
+
+        for (int i = 0; i < damageAmount; ++i)
+        {
+            --tmpLife;
+            if(tmpLife < 0) { break; }
+            Destroy(transform.parent.GetChild(transform.parent.childCount - 1 - i).gameObject);
+        }
+
     }
 
     public void ShowClear()
