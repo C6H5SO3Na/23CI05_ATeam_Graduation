@@ -4,5 +4,6 @@ using UnityEngine;
 
 public class GameOverSound : MonoBehaviour
 {
-
+    public AudioClip selectSE;
+    public AudioClip choiceSE;
 }
