@@ -5,8 +5,8 @@ using UnityEngine;
 public class StageClear : MonoBehaviour
 {
     GameManager gameManager;    // ゲームマネージャーのインスタンス(Set関数から取得)
-    static bool isOn_Player1;          // プレイヤー1が乗っているか
-    static bool isOn_Player2;          // プレイヤー2が乗っているか
+    bool isOn_Player1;          // プレイヤー1が乗っているか
+    bool isOn_Player2;          // プレイヤー2が乗っているか
 
     void Start()
     {
@@ -15,7 +15,7 @@ public class StageClear : MonoBehaviour
     }
 
     //ゴールブロックの上に乗ったらクリアする
-    void OnTriggerStay(Collider other)
+    void OnTriggerEnter(Collider other)
     {
         //ボックスコライダーのみに反応する
         if (other is BoxCollider)
