@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class LaserBlock : DealDamageObjectBase, IStartedOperation
 {
     //変数
-    float maxDistance = 100f;                  // レーザーの最大距離
+    float maxDistance = 100f;                   // レーザーの最大距離
     [SerializeField] LayerMask collisionMask;   // 衝突するレイヤーマスク
     LineRenderer lineRenderer;                  // レーザーの見た目変更用
     bool shouldToPutLaser = true;               // レーザーを出すか
@@ -18,6 +18,12 @@ public class LaserBlock : DealDamageObjectBase, IStartedOperation
     {
         //LineRendererの取得
         lineRenderer = GetComponent<LineRenderer>();
+        //rayの見た目変更
+        if(lineRenderer)
+        {
+            lineRenderer.startWidth = 0.5f;
+            lineRenderer.endWidth = 0.5f;
+        }
 
         //与えるダメージ量の設定
         SetDealingDamageQuantity(3);
