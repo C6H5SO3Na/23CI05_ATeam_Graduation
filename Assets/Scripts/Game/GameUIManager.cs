@@ -22,7 +22,6 @@ public class GameUIManager : MonoBehaviour
     public void DecreaseHP(int damageAmount)
     {
         int tmpLife = gameManager.PlayersHP;
-        List<GameObject> heartsToDestroy = new List<GameObject>();
 
         for (int i = 0; i < damageAmount; ++i)
         {
