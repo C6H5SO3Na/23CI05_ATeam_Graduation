@@ -135,6 +135,18 @@ public class GenerateMap : MonoBehaviour
                                 goalInstance = Instantiate(prefab, position, Quaternion.identity);
                                 break;
 
+                            case 12:    // レーザーをy軸90度回転して生成
+                                startGimmickInstances.Add(Instantiate(prefab, position, Quaternion.Euler(0, 90, 0)));
+                                break;
+
+                            case 13:    // レーザーをy軸180度回転して生成
+                                startGimmickInstances.Add(Instantiate(prefab, position, Quaternion.Euler(0, 180, 0)));
+                                break;
+
+                            case 14:    // レーザーをy軸270度回転して生成
+                                startGimmickInstances.Add(Instantiate(prefab, position, Quaternion.Euler(0, 270, 0)));
+                                break;
+
                             default:    // プレイヤー、敵、ゴール、感圧板以外のものを生成する
                                 GameObject generateObject = Instantiate(prefab, position, Quaternion.identity);
 
