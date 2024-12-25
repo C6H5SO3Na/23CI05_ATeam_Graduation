@@ -8,6 +8,7 @@ TagManager:
   - ThrowingObject
   - BGM
   - SE
+  - GameManager
   layers:
   - Default
   - TransparentFX

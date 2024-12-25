@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class GameUIManager : MonoBehaviour
 {
-    [SerializeField] GameManager gameManager;
+    GameManager gameManager;
     [SerializeField] GameObject heart;//ライフ
     [SerializeField] GameObject clearPrefab;//クリア画面
     [SerializeField] GameObject gameOverPrefab;
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         for (int i = 0; i < 3; ++i)
         {
             //Canvas上に生成
