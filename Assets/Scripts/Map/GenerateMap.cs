@@ -37,8 +37,6 @@ public class GenerateMap : MonoBehaviour
     List<int> bootObjectID;                     // ギミック起動オブジェクトid
     Dictionary<int, int> gimmickAssociationID;  // ギミックを起動オブジェクトに紐付けるためのid    
 
-    string stageName = "1-1";   // ステージ名
-    public string StageName { private get { return stageName; } set { stageName = value; } }    // ステージ名のプロパティ
 
     //関数--------------------------------------------------------------------------
     // Start is called before the first frame update
@@ -51,7 +49,7 @@ public class GenerateMap : MonoBehaviour
             //ステージ名を取得する
 
             //jsonファイルを読み込んでデータを取得する
-            loadJsonFile.GetStageData(StageName, this);
+            loadJsonFile.GetStageData(AppManager.StageName, this);
         }
 
         //値の初期値設定
