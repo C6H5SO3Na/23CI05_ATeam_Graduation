@@ -847,7 +847,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "B:\u6C7A\u5B9A A:\u30BF\u30A4\u30C8\u30EB\u3078\u623B\u308B \u2191\u2193\u2190\u2192:\u9078\u629E"
+  m_text: "B:\u6C7A\u5B9A A:\u30BF\u30A4\u30C8\u30EB\u3078\u623B\u308B"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: d5eae2a013e15d04e8e2c65be4bf3998, type: 2}
   m_sharedMaterial: {fileID: 4775928976203127121, guid: d5eae2a013e15d04e8e2c65be4bf3998,
@@ -1035,6 +1035,7 @@ MonoBehaviour:
   canvas: {fileID: 487525024}
   targetScale: 4
   duration: 1
+  fade: {fileID: 4921652492412623905, guid: ae82267f5e6ce484f96f11c3b1f35c2f, type: 3}
 --- !u!4 &1831810684
 Transform:
   m_ObjectHideFlags: 0
@@ -1145,6 +1146,7 @@ GameObject:
   - component: {fileID: 1998089383}
   - component: {fileID: 1998089382}
   - component: {fileID: 1998089384}
+  - component: {fileID: 1998089385}
   m_Layer: 5
   m_Name: SelectFrame
   m_TagString: Untagged
@@ -1224,3 +1226,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSelectX: 4
   maxSelectY: 1
+--- !u!114 &1998089385
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1998089380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d35c1a9a29614074fac13f49279877f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blinkSpeed: 1
+  maxA: 0.5

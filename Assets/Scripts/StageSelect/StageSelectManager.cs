@@ -22,9 +22,14 @@ public class StageSelectManager : MonoBehaviour
     int preSiblingIndex = 0;
     RectTransform targetImage;//イージングさせる画像
 
+    [SerializeField] GameObject fade;
+    Fade fadeInstance;
+    string nextSceneName;
+    float tookTime = 0f;
+
     enum Phase
     {
-        SelectStage, PreEntry, Entry, CancelEntry
+        FadeIn, SelectStage, PreEntry, Entry, CancelEntry, Cancel, StageChoice, FadeOut
     }
     Phase phase;
 
@@ -35,6 +40,9 @@ public class StageSelectManager : MonoBehaviour
         sound = GetComponent<StageSelectSound>();
         bgm.clip = sound.BGM;
         bgm.Play();
+
+        fadeInstance = Instantiate(fade, transform.parent).GetComponent<Fade>();
+        fadeInstance.StartFadeIn(1f);
     }
 
     void Update()
@@ -44,13 +52,19 @@ public class StageSelectManager : MonoBehaviour
 
         switch (phase)
         {
+            case Phase.FadeIn:
+                if (!fadeInstance.DoFade())
+                {
+                    phase = Phase.SelectStage;
+                }
+                break;
+
             case Phase.SelectStage:
                 //タイトルへ戻る
                 if (Input.GetButtonDown("Jump_P1"))
                 {
                     se.PlayOneShot(sound.cancelSE);
-                    bgm.Stop();
-                    SceneManager.LoadScene("TitleScene");
+                    phase = Phase.Cancel;
                 }
 
                 //選択
@@ -93,7 +107,7 @@ public class StageSelectManager : MonoBehaviour
                 {
                     AppManager.StageName = canvas.transform.GetChild(canvas.transform.childCount - 1).GetChild(0).GetComponent<TextMeshProUGUI>().text;
                     se.PlayOneShot(sound.enlargeSE);
-                    SceneManager.LoadScene("GameScene");
+                    phase = Phase.StageChoice;
                 }
                 break;
 
@@ -104,6 +118,36 @@ public class StageSelectManager : MonoBehaviour
                     selectFrame.gameObject.SetActive(true);
                     phase = Phase.SelectStage;
                     targetImage.SetSiblingIndex(preSiblingIndex);
+                }
+                break;
+
+            case Phase.Cancel:
+                tookTime += Time.deltaTime;
+                if (tookTime >= 1f)
+                {
+                    fadeInstance = Instantiate(fade, transform.parent).GetComponent<Fade>();
+                    fadeInstance.StartFadeOut(1f);
+                    nextSceneName = "TitleScene";
+                    phase = Phase.FadeOut;
+                }
+                break;
+
+            case Phase.StageChoice:
+                tookTime += Time.deltaTime;
+                if (tookTime >= 1f)
+                {
+                    fadeInstance = Instantiate(fade, transform.parent).GetComponent<Fade>();
+                    fadeInstance.StartFadeOut(1f);
+                    nextSceneName = "GameScene";
+                    phase = Phase.FadeOut;
+                }
+                break;
+
+            case Phase.FadeOut:
+                if (!fadeInstance.DoFade())
+                {
+                    bgm.Stop();
+                    SceneManager.LoadScene(nextSceneName);
                 }
                 break;
         }

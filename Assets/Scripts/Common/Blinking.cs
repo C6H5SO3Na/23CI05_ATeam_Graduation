@@ -15,6 +15,7 @@ public class Blinking : MonoBehaviour
         get { return sign; }
     }
     public float blinkSpeed;
+    [SerializeField] float maxA;
     void Start()
     {
         image = GetComponent<Image>();
@@ -24,11 +25,11 @@ public class Blinking : MonoBehaviour
     void Update()
     {
         tmpColor = image.color;
-        if (!IsWithinRangeExclusive(tmpColor.a, 0f, 1f))
+        if (!IsWithinRangeExclusive(tmpColor.a, 0f, maxA))
         {
             ChangeSign();
         }
-        tmpColor.a += blinkSpeed * Time.deltaTime * Sign;
+        tmpColor.a += blinkSpeed * maxA * Time.deltaTime * Sign;
         image.color = tmpColor;
     }
 
