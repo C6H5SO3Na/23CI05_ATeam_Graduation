@@ -14,7 +14,7 @@ public class Blinking : MonoBehaviour
         set { sign = Mathf.Clamp(value, -1, 1); }
         get { return sign; }
     }
-    [SerializeField] float blinkSpeed;
+    public float blinkSpeed;
     void Start()
     {
         image = GetComponent<Image>();
