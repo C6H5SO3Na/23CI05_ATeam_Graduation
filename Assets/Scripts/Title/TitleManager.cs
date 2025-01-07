@@ -32,6 +32,7 @@ public class TitleManager : MonoBehaviour
         Cursor.visible = false;         //カーソルを消す
         sound = GetComponent<TitleSound>();
 
+        //サウンドプレイヤー
         bgm = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
         se = GameObject.FindGameObjectWithTag("SE").GetComponent<AudioSource>();
 
@@ -39,6 +40,7 @@ public class TitleManager : MonoBehaviour
         bgm.clip = sound.titleBGM;
         bgm.Play();
 
+        //フェードイン
         fadeInstance = Instantiate(fade, canvas.transform).GetComponent<Fade>();
         fadeInstance.StartFadeIn(1f);
         phase = Phase.FadeIn;
@@ -62,8 +64,9 @@ public class TitleManager : MonoBehaviour
 
             case Phase.PreFadeOut:
                 tookTime += Time.deltaTime;
-                if(tookTime >= 1f)
+                if (tookTime >= 1f)
                 {
+                    //フェードアウト
                     fadeInstance = Instantiate(fade, canvas.transform).GetComponent<Fade>();
                     fadeInstance.StartFadeOut(1f);
                     phase = Phase.FadeOut;
@@ -74,13 +77,15 @@ public class TitleManager : MonoBehaviour
 
                 if (!fadeInstance.DoFade())
                 {
-                    EndGame();
+                    AfterFadeOut();
                 }
                 break;
-
         }
     }
 
+    /// <summary>
+    /// 選択しているときの処理
+    /// </summary>
     void Selecting()
     {
         //イージング中は動作しない
@@ -100,6 +105,26 @@ public class TitleManager : MonoBehaviour
     }
 
     /// <summary>
+    /// フェードアウト後の処理
+    /// </summary>
+    void AfterFadeOut()
+    {
+        switch (selectImage.SelectNum)
+        {
+            //シーン遷移は共通
+            case (int)Select.SinglePlay:
+            case (int)Select.MultiPlay:
+                bgm.Stop();
+                SceneManager.LoadScene("StageSelectScene");
+                break;
+
+            case (int)Select.Exit:
+                EndGame();
+                break;
+        }
+    }
+
+    /// <summary>
     /// 決定したときの処理
     /// </summary>
     void Choice()
@@ -108,17 +133,15 @@ public class TitleManager : MonoBehaviour
         switch (selectImage.SelectNum)
         {
             case (int)Select.SinglePlay:
-                selectImage.ChangeBlinkSpeed(5f);
                 GameManager.isMultiPlay = false;
-                bgm.Stop();
-                SceneManager.LoadScene("StageSelectScene");
+                selectImage.ChangeBlinkSpeed(5f);
+                phase = Phase.PreFadeOut;
                 break;
 
             case (int)Select.MultiPlay:
+                GameManager.isMultiPlay = false;
                 selectImage.ChangeBlinkSpeed(5f);
-                GameManager.isMultiPlay = true;
-                bgm.Stop();
-                SceneManager.LoadScene("StageSelectScene");
+                phase = Phase.PreFadeOut;
                 break;
 
             case (int)Select.Option:

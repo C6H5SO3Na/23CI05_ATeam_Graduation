@@ -54,7 +54,7 @@ public class Fade : MonoBehaviour
     void FadeIn(float second)
     {
         fadeColor.a -= Time.deltaTime / time;
-        if (fadeColor.a < 0f)
+        if (fadeColor.a < -1f)
         {
             mode = FadeMode.Neutral;
             Destroy(gameObject);
@@ -70,7 +70,6 @@ public class Fade : MonoBehaviour
         if (fadeColor.a > 1f)
         {
             mode = FadeMode.Neutral;
-            Destroy(gameObject);
         }
     }
 
