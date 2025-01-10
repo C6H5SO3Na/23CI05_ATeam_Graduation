@@ -9,6 +9,7 @@ using UnityEngine.Rendering;
 public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
 {
     CharacterController controller;
+    [SerializeField] GameObject uiInstance;
     PlayerUIManager ui;
     public AudioSource sound;
     public PlayerSE SE;
@@ -87,7 +88,7 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
         state = new PlayerIdleState();
         state.Initialize(this);
         controller = GetComponent<CharacterController>();
-        ui = transform.GetChild(1).GetComponent<PlayerUIManager>();
+        ui = uiInstance.GetComponent<PlayerUIManager>();
         sound = GetComponent<AudioSource>();
         SE = GetComponent<PlayerSE>();
         isHolding = false;

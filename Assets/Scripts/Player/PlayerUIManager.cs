@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerUIManager : MonoBehaviour
 {
-    TextMeshPro text;
-    SpriteRenderer arrow;
+    TextMeshProUGUI text;
+    Image arrow;
+    [SerializeField] GameObject playerInstance;
     PlayerController player;
     void Start()
     {
-        text = transform.GetChild(1).GetComponent<TextMeshPro>();
-        arrow = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        player = transform.parent.GetComponent<PlayerController>();
+        text = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        arrow = transform.GetChild(0).GetComponent<Image>();
+        player = playerInstance.GetComponent<PlayerController>();
         if (!GameManager.isMultiPlay && player.OriginalPlayerNum == 2)
         {
             gameObject.SetActive(false);
