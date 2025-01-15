@@ -77,12 +77,16 @@ public class LaserBlock : DealDamageObjectBase, IStartedOperation
 
     public void ProcessWhenPressed()
     {
-        //レーザーの発射をやめる
-        shouldToPutLaser = false;
-
-        if(lineRenderer)
+        //一度処理したら感圧板等を押し続けている場合は押すのをやめるまで処理しない
+        if (HasRunningOnce())
         {
-            lineRenderer.enabled = false;
+            //レーザーの発射をやめる
+            shouldToPutLaser = false;
+
+            if (lineRenderer)
+            {
+                lineRenderer.enabled = false;
+            }
         }
     }
 
@@ -95,5 +99,8 @@ public class LaserBlock : DealDamageObjectBase, IStartedOperation
         {
             lineRenderer.enabled = true;
         }
+
+        //また感圧板などを押したらギミックを起動できるようにする
+        MakeToLaunchable();
     }
 }

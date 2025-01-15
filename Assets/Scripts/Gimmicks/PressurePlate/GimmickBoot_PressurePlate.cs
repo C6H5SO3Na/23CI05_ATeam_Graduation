@@ -2,13 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StartOtherObjectProcess_StepOn : BootObjectBase, ISetGimmickInstance
+public class GimmickBoot_PressurePlate : BootObjectBase, ISetGimmickInstance
 {
     //変数
     List<GameObject> targetObjects = new List<GameObject>(); // 処理を行わせるオブジェクト
     bool isOnce = false;            // 一度だけしか押せないか(処理しないか)決める
     bool isPressed;                 // 押されたかを記憶する
-    
 
     void Start()
     {
@@ -17,7 +16,7 @@ public class StartOtherObjectProcess_StepOn : BootObjectBase, ISetGimmickInstanc
     }
 
     //感圧板を押したとき
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
         if(!isPressed)
         {

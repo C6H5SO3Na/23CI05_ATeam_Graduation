@@ -38,16 +38,20 @@ public class TransparencyAndSubstantiation : GimmickBase, IStartedOperation
     //透明化、または実体化する
     public void ProcessWhenPressed()
     {
-        //透明化しているとき
-        if(isTransparentize)
+        //一度処理したら感圧板等を押し続けている場合は押すのをやめるまで処理しない
+        if (HasRunningOnce())
         {
-            Substantiation();
-        }
-        //透明化していないとき
-        else
-        {
-            //透明化する
-            Transparency();
+            //透明化しているとき
+            if (isTransparentize)
+            {
+                Substantiation();
+            }
+            //透明化していないとき
+            else
+            {
+                //透明化する
+                Transparency();
+            }
         }
     }
 
@@ -65,6 +69,9 @@ public class TransparencyAndSubstantiation : GimmickBase, IStartedOperation
             //透明化する
             Transparency();
         }
+
+        //また感圧板などを押したらギミックを起動できるようにする
+        MakeToLaunchable();
     }
 
     /// <summary>

@@ -18,37 +18,42 @@ public class GenerateBlock : GimmickBase, IStartedOperation
     //ブロックが無ければブロックを生成する
     public void ProcessWhenPressed()
     {
-        if (generatingBlockPrefab)
+        //一度処理したら感圧板等を押し続けている場合は押すのをやめるまで処理しない
+        if (HasRunningOnce())
         {
-            //生成したブロックが消滅していたらリストから削除しておく
-            generatedBlocks.RemoveAll(block => block == null);
-
-            //ブロックが生成されていなかったら生成する
-            if(generatedBlocks.Count < maxObjects)
+            if (generatingBlockPrefab)
             {
-                //生成位置を決める
-                Vector3 position = transform.position;
+                //生成したブロックが消滅していたらリストから削除しておく
+                generatedBlocks.RemoveAll(block => block == null);
 
-                //ブロックの生成
-                GameObject newBlock = Instantiate(generatingBlockPrefab, position, Quaternion.identity);
+                //ブロックが生成されていなかったら生成する
+                if (generatedBlocks.Count < maxObjects)
+                {
+                    //生成位置を決める
+                    Vector3 position = transform.position;
 
-                //生成したブロックをリストに登録
-                generatedBlocks.Add(newBlock);
+                    //ブロックの生成
+                    GameObject newBlock = Instantiate(generatingBlockPrefab, position, Quaternion.identity);
+
+                    //生成したブロックをリストに登録
+                    generatedBlocks.Add(newBlock);
+                }
+                else
+                {
+                    Debug.LogWarning("既に生成されている");
+                }
             }
             else
             {
-                Debug.LogWarning("既に生成されている");
+                Debug.LogWarning("生成するオブジェクトが設定されていない");
             }
-        }
-        else
-        {
-            Debug.LogWarning("生成するオブジェクトが設定されていない");
         }
     }
 
     public void ProcessWhenStopped()
     {
-        //処理なし
+        //また感圧板などを押したらギミックを起動できるようにする
+        MakeToLaunchable();
     }
 
     //void Update()
