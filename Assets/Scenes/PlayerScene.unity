@@ -391,7 +391,7 @@ GameObject:
   - component: {fileID: 320250512}
   m_Layer: 0
   m_Name: GameManager
-  m_TagString: Untagged
+  m_TagString: GameManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -618,6 +618,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &473794851 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 8004108837657137484, guid: db2026b7713fcf64fbeb8f6a9be7fcf9,
+    type: 3}
+  m_PrefabInstance: {fileID: 1820742716}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &488278367
 GameObject:
   m_ObjectHideFlags: 0
@@ -903,7 +909,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4676f55d11113574ea56ec8ae51db851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 320250510}
   heart: {fileID: 367303932302961452, guid: dc7939245d59a5942b77c0debe408e7e, type: 3}
   clearPrefab: {fileID: 274375868557608314, guid: e15a04e279ff68b4c9365b6f1f4ce686,
     type: 3}
@@ -1015,7 +1020,7 @@ GameObject:
   - component: {fileID: 1193755797}
   m_Layer: 5
   m_Name: Canvas
-  m_TagString: Untagged
+  m_TagString: Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1052,7 +1057,7 @@ MonoBehaviour:
   m_UiScaleMode: 0
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 1920, y: 1080}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -1252,8 +1257,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5916322736771213020, guid: db6de929772293b4c893ac8645fbf565,
         type: 3}
+      propertyPath: sound
+      value: 
+      objectReference: {fileID: 473794851}
+    - target: {fileID: 5916322736771213020, guid: db6de929772293b4c893ac8645fbf565,
+        type: 3}
       propertyPath: playerNum
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916322736771213020, guid: db6de929772293b4c893ac8645fbf565,
+        type: 3}
+      propertyPath: uiInstance
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8055073570081280744, guid: db6de929772293b4c893ac8645fbf565,
         type: 3}
@@ -1337,10 +1352,6 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 537995117}
-    - targetCorrespondingSourceObject: {fileID: 524383967068803708, guid: db6de929772293b4c893ac8645fbf565,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: db6de929772293b4c893ac8645fbf565, type: 3}
 --- !u!1 &1523440808
 GameObject:
@@ -2041,6 +2052,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5916322736771213020, guid: db6de929772293b4c893ac8645fbf565,
         type: 3}
+      propertyPath: sound
+      value: 
+      objectReference: {fileID: 473794851}
+    - target: {fileID: 5916322736771213020, guid: db6de929772293b4c893ac8645fbf565,
+        type: 3}
+      propertyPath: uiInstance
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5916322736771213020, guid: db6de929772293b4c893ac8645fbf565,
+        type: 3}
       propertyPath: gameManager
       value: 
       objectReference: {fileID: 320250510}
@@ -2116,8 +2137,4 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 1908193308}
-    - targetCorrespondingSourceObject: {fileID: 524383967068803708, guid: db6de929772293b4c893ac8645fbf565,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: db6de929772293b4c893ac8645fbf565, type: 3}

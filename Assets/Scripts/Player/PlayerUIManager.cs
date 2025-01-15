@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerUIManager : MonoBehaviour
 {
-    TextMeshPro text;
-    SpriteRenderer arrow;
+    TextMeshProUGUI text;
+    Image arrow;
     PlayerController player;
     void Start()
     {
-        text = transform.GetChild(1).GetComponent<TextMeshPro>();
-        arrow = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        player = transform.parent.GetComponent<PlayerController>();
+        text = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        arrow = transform.GetChild(0).GetComponent<Image>();
+
         if (!GameManager.isMultiPlay && player.OriginalPlayerNum == 2)
         {
             gameObject.SetActive(false);
@@ -47,5 +48,23 @@ public class PlayerUIManager : MonoBehaviour
         }
         text.color = color;
         arrow.color = color;
+    }
+
+    /// <summary>
+    /// プレイヤーのインスタンスを設定
+    /// </summary>
+    /// <param name="player">プレイヤー</param>
+    public void SetInstance(PlayerController player)
+    {
+        this.player = player;
+    }
+
+    /// <summary>
+    /// プレイヤーを取得
+    /// </summary>
+    /// <param name="player">プレイヤー</param>
+    public PlayerController GetInstance()
+    {
+        return player;
     }
 }

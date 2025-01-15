@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
 {
     CharacterController controller;
     PlayerUIManager ui;
+
     public AudioSource sound;
     public PlayerSE SE;
     public GameManager gameManager;
@@ -84,12 +85,15 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
     {
         nowPlayerNum = originalPlayerNum;
         playerName = "_P" + nowPlayerNum.ToString();
-        state = new PlayerIdleState();
+
+        state = new PlayerIdleState();//初期ステート
         state.Initialize(this);
+
         controller = GetComponent<CharacterController>();
-        ui = transform.GetChild(1).GetComponent<PlayerUIManager>();
+
         sound = GetComponent<AudioSource>();
         SE = GetComponent<PlayerSE>();
+
         isHolding = false;
         gameManager.PlayersHP = 3;
     }
@@ -462,5 +466,13 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
         isInvincible = true;
         invincibleCnt = 100;
         gameManager.ReceiveDamageInformation(damage);
+    }
+    /// <summary>
+    /// UIをセット
+    /// </summary>
+    /// <param name="ui">UI</param>
+    public void SetUI(PlayerUIManager ui)
+    {
+        this.ui = ui;
     }
 }
