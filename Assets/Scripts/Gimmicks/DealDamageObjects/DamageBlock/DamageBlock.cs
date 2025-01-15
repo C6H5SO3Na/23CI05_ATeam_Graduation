@@ -45,13 +45,17 @@ public class DamageBlock : DealDamageObjectBase, IStartedOperation
 
     public void ProcessWhenPressed()
     {
-        //ダメージを受けないようにする
-        isCauseDamage = false;
-
-        //マテリアルの色変更
-        if(material)
+        //一度処理したら感圧板等を押し続けている場合は押すのをやめるまで処理しない
+        if (HasRunningOnce())
         {
-            material.color = blockColor[1];
+            //ダメージを受けないようにする
+            isCauseDamage = false;
+
+            //マテリアルの色変更
+            if (material)
+            {
+                material.color = blockColor[1];
+            }
         }
     }
 
@@ -65,6 +69,9 @@ public class DamageBlock : DealDamageObjectBase, IStartedOperation
         {
             material.color = blockColor[0];
         }
+
+        //また感圧板などを押したらギミックを起動できるようにする
+        MakeToLaunchable();
     }
 
     //setter関数
