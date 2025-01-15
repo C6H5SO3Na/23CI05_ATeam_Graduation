@@ -19,7 +19,7 @@ public class GameOverManager : MonoBehaviour
     void Start()
     {
         se = GameObject.FindGameObjectWithTag("SE").GetComponent<AudioSource>();
-        bgm = GameObject.FindGameObjectWithTag("SE").GetComponent<AudioSource>();
+        bgm = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
         sound = GetComponent<GameOverSound>();
     }
 

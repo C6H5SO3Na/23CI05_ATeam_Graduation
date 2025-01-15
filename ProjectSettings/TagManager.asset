@@ -9,6 +9,7 @@ TagManager:
   - BGM
   - SE
   - GameManager
+  - Canvas
   layers:
   - Default
   - TransparentFX

@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 7033101295518535003}
   - component: {fileID: 3078531811504873736}
   - component: {fileID: 1843414787523204460}
+  - component: {fileID: 379730701574383544}
   m_Layer: 3
   m_Name: NewPlayer
   m_TagString: Player
@@ -103,6 +104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 503b8c55344896b4f9c8d07b95ec9f96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  uiInstance: {fileID: 0}
   sound: {fileID: 0}
   SE: {fileID: 0}
   gameManager: {fileID: 0}
@@ -374,6 +376,20 @@ MonoBehaviour:
   throwSE: {fileID: 8300000, guid: 28e4b120aea77114bb43c5d05a10983f, type: 3}
   damageSE: {fileID: 8300000, guid: 1b660da3454939c43b49047347cbdcd8, type: 3}
   deadSE: {fileID: 8300000, guid: 9497635c364da834f88b243d7a503746, type: 3}
+--- !u!114 &379730701574383544
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8410465286873189008}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e857522c715d2e499b56bd85bcc8108, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerUI: {fileID: 3721067667071403448, guid: 60eaa87afb57d0f43a136bd06497c918,
+    type: 3}
 --- !u!1001 &6643157591283065564
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -8,13 +8,12 @@ public class PlayerUIManager : MonoBehaviour
 {
     TextMeshProUGUI text;
     Image arrow;
-    [SerializeField] GameObject playerInstance;
     PlayerController player;
     void Start()
     {
         text = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
         arrow = transform.GetChild(0).GetComponent<Image>();
-        player = playerInstance.GetComponent<PlayerController>();
+
         if (!GameManager.isMultiPlay && player.OriginalPlayerNum == 2)
         {
             gameObject.SetActive(false);
@@ -49,5 +48,23 @@ public class PlayerUIManager : MonoBehaviour
         }
         text.color = color;
         arrow.color = color;
+    }
+
+    /// <summary>
+    /// プレイヤーのインスタンスを設定
+    /// </summary>
+    /// <param name="player">プレイヤー</param>
+    public void SetInstance(PlayerController player)
+    {
+        this.player = player;
+    }
+
+    /// <summary>
+    /// プレイヤーを取得
+    /// </summary>
+    /// <param name="player">プレイヤー</param>
+    public PlayerController GetInstance()
+    {
+        return player;
     }
 }
