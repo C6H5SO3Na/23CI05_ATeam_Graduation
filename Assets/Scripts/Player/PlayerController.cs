@@ -100,6 +100,7 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
 
     void Update()
     {
+        if (Pause.IsPause) { return; }//É|Å[ÉYíÜÇÕí‚é~
         state.Think(this);
         state.Move(this);
 
