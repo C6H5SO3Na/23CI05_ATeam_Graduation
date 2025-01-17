@@ -100,7 +100,7 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
 
     void Update()
     {
-        if (Pause.IsPause) { return; }//ポーズ中は停止
+        if (PauseScreenManager.IsPause) { return; }//ポーズ中は停止
         state.Think(this);
         state.Move(this);
 
