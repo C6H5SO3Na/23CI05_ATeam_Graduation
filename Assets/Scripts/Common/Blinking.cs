@@ -25,11 +25,12 @@ public class Blinking : MonoBehaviour
     void Update()
     {
         tmpColor = image.color;
+        tmpColor.a = Mathf.Clamp(tmpColor.a, -0.01f, 1.01f);
         if (!IsWithinRangeExclusive(tmpColor.a, 0f, maxA))
         {
             ChangeSign();
         }
-        tmpColor.a += blinkSpeed * maxA * Time.deltaTime * Sign;
+        tmpColor.a += blinkSpeed * maxA * Time.unscaledDeltaTime * Sign;
         image.color = tmpColor;
     }
 

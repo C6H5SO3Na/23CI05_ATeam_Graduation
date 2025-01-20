@@ -40,10 +40,10 @@ public class Fade : MonoBehaviour
                 //空実装
                 break;
             case FadeMode.FadeIn:
-                FadeIn(time);
+                FadeIn();
                 break;
             case FadeMode.FadeOut:
-                FadeOut(time);
+                FadeOut();
                 break;
         }
         fade.color = fadeColor;
@@ -51,9 +51,9 @@ public class Fade : MonoBehaviour
     /// <summary>
     /// フェードインの処理
     /// </summary>
-    void FadeIn(float second)
+    void FadeIn()
     {
-        fadeColor.a -= Time.deltaTime / time;
+        fadeColor.a -= Time.unscaledDeltaTime / time;
         if (fadeColor.a < -1f)
         {
             mode = FadeMode.Neutral;
@@ -64,9 +64,9 @@ public class Fade : MonoBehaviour
     /// <summary>
     /// フェードアウトの処理
     /// </summary>
-    void FadeOut(float second)
+    void FadeOut()
     {
-        fadeColor.a += Time.deltaTime / time;
+        fadeColor.a += Time.unscaledDeltaTime / time;
         if (fadeColor.a > 1f)
         {
             mode = FadeMode.Neutral;

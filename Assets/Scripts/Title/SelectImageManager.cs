@@ -40,7 +40,7 @@ public class SelectImageManager : MonoBehaviour
     {
         selectNum -= (int)Mathf.Sign(sign);
         selectNum = Wrap(selectNum, 0, maxSelect);
-        rectTransform.DOAnchorPosY(selectNum * -120f + prePosition.y, 0.5f);//.SetEase(Ease.InOutSine);
+        rectTransform.DOAnchorPosY(selectNum * -120f + prePosition.y, 0.5f).SetUpdate(true);
     }
 
     public void ChangeBlinkSpeed(float speed)
