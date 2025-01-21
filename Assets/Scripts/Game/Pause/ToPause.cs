@@ -5,7 +5,12 @@ using UnityEngine;
 public class ToPause : MonoBehaviour
 {
     [SerializeField] GameObject pauseScreen;
-    [SerializeField] Canvas canvas;
+    Canvas canvas;
+
+    void Start()
+    {
+        canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>();
+    }
     void Update()
     {
         if (PauseScreenManager.IsPause) { return; }
