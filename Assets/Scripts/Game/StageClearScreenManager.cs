@@ -32,7 +32,7 @@ public class StageClearScreenManager : MonoBehaviour
         bgm = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
         se = GameObject.FindGameObjectWithTag("SE").GetComponent<AudioSource>();
 
-        textBlinking = transform.GetChild(1).GetComponent<Blinking>();
+        textBlinking = transform.parent.GetChild(2).GetComponent<Blinking>();
     }
     void Update()
     {
