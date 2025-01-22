@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
     public AudioSource sound;
     public PlayerSE SE;
     public GameManager gameManager;
+    PlayerAnimation playerAnimation;
     PlayerStateMachine state;//状態
     public PlayerStateMachine State//プロパティ
     {
@@ -96,6 +97,8 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
 
         isHolding = false;
         gameManager.PlayersHP = 3;
+
+        playerAnimation = transform.GetChild(0).GetChild(0).GetComponent<PlayerAnimation>();
     }
 
     void Update()
@@ -189,6 +192,7 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
         preState = this.state;
         this.state = state;
         this.state.Initialize(this);
+        playerAnimation.ChangeAnimation(state);
         transform.position = savePosition;
     }
 
@@ -457,7 +461,7 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
     }
 
     /// <summary>
-    /// 当たり判定
+    /// ダメージを受ける
     /// </summary>
     /// <param name="damage">ダメージ量</param>
     public void ReduceHP(int damage)
@@ -476,4 +480,5 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
     {
         this.ui = ui;
     }
+
 }

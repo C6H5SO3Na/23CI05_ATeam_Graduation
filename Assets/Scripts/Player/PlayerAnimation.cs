@@ -5,15 +5,17 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour
 {
     Animator animator;
-    PlayerStateMachine state;
-    // Start is called before the first frame update
+
     void Start()
     {
         animator = GetComponent<Animator>();
     }
 
-    // Update is called once per frame
-    void Update()
+    /// <summary>
+    /// アニメーションを変える
+    /// </summary>
+    /// <param name="state">現在の状態</param>
+    public void ChangeAnimation(PlayerStateMachine state)
     {
         state = transform.parent.parent.GetComponent<PlayerController>().State;
         if (state is PlayerIdleState)
@@ -40,6 +42,7 @@ public class PlayerAnimation : MonoBehaviour
         {
             animator.SetBool("Walk", false);
             animator.SetBool("Jump", false);
+            animator.SetTrigger("Dead");
         }
     }
 }
