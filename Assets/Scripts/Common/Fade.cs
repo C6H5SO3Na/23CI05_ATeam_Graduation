@@ -53,8 +53,10 @@ public class Fade : MonoBehaviour
     /// </summary>
     void FadeIn()
     {
-        fadeColor.a -= Time.unscaledDeltaTime / time;
-        if (fadeColor.a < -1f)
+        float deltaTime = Time.unscaledDeltaTime;
+        if (deltaTime >= 0.5f) { return; }//フレームレートが低すぎる
+        fadeColor.a -= deltaTime / time;
+        if (fadeColor.a < -0f)
         {
             mode = FadeMode.Neutral;
             Destroy(gameObject);
@@ -66,7 +68,9 @@ public class Fade : MonoBehaviour
     /// </summary>
     void FadeOut()
     {
-        fadeColor.a += Time.unscaledDeltaTime / time;
+        float deltaTime = Time.unscaledDeltaTime;
+        if (deltaTime >= 0.5f) { return; }//フレームレートが低すぎる
+        fadeColor.a += deltaTime / time;
         if (fadeColor.a > 1f)
         {
             mode = FadeMode.Neutral;
