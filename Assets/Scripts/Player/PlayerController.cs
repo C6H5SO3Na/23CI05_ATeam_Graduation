@@ -196,25 +196,6 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
         transform.position = savePosition;
     }
 
-    /*É¿î≈Ç‹Ç≈ñ¢égóp(InputSystem)
-    public void MoveButton(InputAction.CallbackContext context)
-    {
-        Debug.Log(++buttonCnt);
-        var axis = context.ReadValue<Vector2>();
-        //Debug.Log(state);
-        state.MoveButton(context);
-    }
-
-    public void JumpButton(InputAction.CallbackContext context)
-    {
-        state.JumpButton(context);
-        //Debug.Log(state);
-    }
-
-    public void HoldButton(InputAction.CallbackContext context)
-    {
-    }
-    */
 
     void OnTriggerStay(Collider other)
     {
@@ -295,6 +276,7 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
     public void Throw()
     {
         sound.PlayOneShot(SE.throwSE);
+        ChangeState(new PlayerThrowState());
         Transform parentTransform = transform;
         foreach (Transform child in parentTransform)
         {

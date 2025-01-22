@@ -17,7 +17,6 @@ public class PlayerAnimation : MonoBehaviour
     /// <param name="state">åªç›ÇÃèÛë‘</param>
     public void ChangeAnimation(PlayerStateMachine state)
     {
-        state = transform.parent.parent.GetComponent<PlayerController>().State;
         if (state is PlayerIdleState)
         {
             animator.SetBool("Walk", false);
@@ -43,6 +42,10 @@ public class PlayerAnimation : MonoBehaviour
             animator.SetBool("Walk", false);
             animator.SetBool("Jump", false);
             animator.SetTrigger("Dead");
+        }
+        else if (state is PlayerThrowState)
+        {
+            animator.SetTrigger("Throw");
         }
     }
 }
