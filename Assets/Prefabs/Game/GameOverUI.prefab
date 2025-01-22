@@ -318,6 +318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   selectImage: {fileID: 7324421624154559589}
+  fade: {fileID: 4921652492412623905, guid: ae82267f5e6ce484f96f11c3b1f35c2f, type: 3}
 --- !u!114 &29493514143905708
 MonoBehaviour:
   m_ObjectHideFlags: 0

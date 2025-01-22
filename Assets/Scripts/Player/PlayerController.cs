@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
     public AudioSource sound;
     public PlayerSE SE;
     public GameManager gameManager;
+    PlayerAnimation playerAnimation;
     PlayerStateMachine state;//状態
     public PlayerStateMachine State//プロパティ
     {
@@ -96,6 +97,8 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
 
         isHolding = false;
         gameManager.PlayersHP = 3;
+
+        playerAnimation = transform.GetChild(0).GetChild(0).GetComponent<PlayerAnimation>();
     }
 
     void Update()
@@ -189,28 +192,10 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
         preState = this.state;
         this.state = state;
         this.state.Initialize(this);
+        playerAnimation.ChangeAnimation(state);
         transform.position = savePosition;
     }
 
-    /*β版まで未使用(InputSystem)
-    public void MoveButton(InputAction.CallbackContext context)
-    {
-        Debug.Log(++buttonCnt);
-        var axis = context.ReadValue<Vector2>();
-        //Debug.Log(state);
-        state.MoveButton(context);
-    }
-
-    public void JumpButton(InputAction.CallbackContext context)
-    {
-        state.JumpButton(context);
-        //Debug.Log(state);
-    }
-
-    public void HoldButton(InputAction.CallbackContext context)
-    {
-    }
-    */
 
     void OnTriggerStay(Collider other)
     {
@@ -291,6 +276,7 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
     public void Throw()
     {
         sound.PlayOneShot(SE.throwSE);
+        ChangeState(new PlayerThrowState());
         Transform parentTransform = transform;
         foreach (Transform child in parentTransform)
         {
@@ -457,7 +443,7 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
     }
 
     /// <summary>
-    /// 当たり判定
+    /// ダメージを受ける
     /// </summary>
     /// <param name="damage">ダメージ量</param>
     public void ReduceHP(int damage)
@@ -476,4 +462,5 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
     {
         this.ui = ui;
     }
+
 }

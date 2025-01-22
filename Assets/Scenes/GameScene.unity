@@ -486,7 +486,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pauseScreen: {fileID: 6350569512814578303, guid: fa899ac1d22733b4db13f658e6c18796,
     type: 3}
-  canvas: {fileID: 1949641259}
 --- !u!1 &1249084103
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,6 +540,7 @@ MonoBehaviour:
     type: 3}
   gameOverPrefab: {fileID: 7796390757591306710, guid: e22fc1674ea69ca40b87094f34cb8e21,
     type: 3}
+  fade: {fileID: 4921652492412623905, guid: ae82267f5e6ce484f96f11c3b1f35c2f, type: 3}
 --- !u!1 &1429258215
 GameObject:
   m_ObjectHideFlags: 0

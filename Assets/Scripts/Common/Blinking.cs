@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -7,6 +8,7 @@ using UnityEngine.UI;
 public class Blinking : MonoBehaviour
 {
     Image image;
+    TextMeshProUGUI text;
     Color tmpColor;
     int sign;
     int Sign //ïÑçÜ
@@ -18,20 +20,33 @@ public class Blinking : MonoBehaviour
     [SerializeField] float maxA;
     void Start()
     {
-        image = GetComponent<Image>();
+        //ImageÇ≈Ç»Ç©Ç¡ÇΩÇÁTMPro
+        if (!TryGetComponent(out image))
+        {
+            text = GetComponent<TextMeshProUGUI>();
+        }
+
         Sign = -1;
     }
 
     void Update()
     {
-        tmpColor = image.color;
+        tmpColor = TryGetComponent(out image) ? tmpColor = image.color : tmpColor = text.color;
+
         tmpColor.a = Mathf.Clamp(tmpColor.a, -0.01f, 1.01f);
         if (!IsWithinRangeExclusive(tmpColor.a, 0f, maxA))
         {
             ChangeSign();
         }
         tmpColor.a += blinkSpeed * maxA * Time.unscaledDeltaTime * Sign;
-        image.color = tmpColor;
+        if(image != null)
+        {
+            image.color = tmpColor;
+        }
+        else
+        {
+            text.color = tmpColor;
+        }
     }
 
     void ChangeSign()

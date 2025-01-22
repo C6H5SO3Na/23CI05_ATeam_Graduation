@@ -8,13 +8,45 @@ public class GimmickBoot_PressurePlate : BootObjectBase, ISetGimmickInstance
     List<GameObject> targetObjects = new List<GameObject>(); // 処理を行わせるオブジェクト
     bool isOnce = false;            // 一度だけしか押せないか(処理しないか)決める
     bool isPressed;                 // 押されたかを記憶する
+    AudioSource audioSource;        // AudioSource
 
     void Start()
     {
         //値の初期化
         isPressed = false;
+        audioSource = GetComponent<AudioSource>();
     }
-
+    //感圧板を押した瞬間
+    void OnTriggerEnter(Collider other)
+    {
+        if (!isPressed)
+        {
+            //ボックスコライダーのみに反応する
+            if (other is BoxCollider)
+            {
+                //プレイヤーか投擲物に反応する
+                if (other.CompareTag("Player") || other.CompareTag("ThrowingObject"))
+                {
+                    foreach (GameObject targetObject in targetObjects)
+                    {
+                        if (targetObject)
+                        {
+                            //targetObjectが起動される動作を実装しているか確認する
+                            IStartedOperation objectHavingStartedOperation = targetObject.GetComponent<IStartedOperation>();
+                            if (objectHavingStartedOperation != null)
+                            {
+                                audioSource.Play();//効果音を出す
+                            }
+                            else
+                            {
+                                Debug.LogWarning($"{targetObject.name}は起動される処理が実装されていません");
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
     //感圧板を押したとき
     void OnTriggerStay(Collider other)
     {
