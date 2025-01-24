@@ -103,10 +103,10 @@ public class LoadJsonFile_Map : MonoBehaviour
             }
 
             //y軸回転情報の格納
-            List<float> rotationValue_y = new List<float>();
+            List<int> rotationValue_y = new List<int>();
             for(int i = 0; i < (int)jsonData["MapDataInfo"][0]["DirectionNum"]; ++i)
             {
-                rotationValue_y.Add((float)jsonData["MapDataInfo"][0]["Direction"][i]);
+                rotationValue_y.Add((int)jsonData["MapDataInfo"][0]["Direction"][i]);
             }
 
             //ステージを作るのに必要な情報を設定する
