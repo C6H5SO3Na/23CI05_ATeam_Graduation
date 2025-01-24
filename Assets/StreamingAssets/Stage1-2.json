@@ -618,7 +618,7 @@
 						1,
 						0,
 						0,
-						15,
+						12,
 						0,
 						0,
 						0,
@@ -3297,13 +3297,17 @@
 				1,
 				1
 			],
+			"GimmickIDNum": 105,
 			"BootObjectID": [
 				1,
 				2,
 				3
 			],
-			"GimmickIDNum": 105,
-			"BootObjectIDNum": 3
+			"BootObjectIDNum": 3,
+			"Direction": [
+				0
+			],
+			"DirectionNum": 1
 		}
 	],
 	"GimmickInfo": [

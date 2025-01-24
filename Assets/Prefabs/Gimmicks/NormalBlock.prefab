@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2968142282134080023}
   - component: {fileID: 2318851718393910130}
   m_Layer: 3
-  m_Name: UnbreakableBlock
+  m_Name: NormalBlock
   m_TagString: ThrowingObject
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -92,7 +92,7 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7680406051955426657}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: fe8cd1d6723a8a54d970a34b8cc0d241, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

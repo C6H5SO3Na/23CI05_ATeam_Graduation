@@ -3231,13 +3231,15 @@
 				2,
 				2
 			],
+			"GimmickIDNum": 39,
 			"BootObjectID": [
 				3,
 				2,
 				1
 			],
-			"GimmickIDNum": 39,
-			"BootObjectIDNum": 3
+			"BootObjectIDNum": 3,
+			"Direction": [],
+			"DirectionNum": 0
 		}
 	],
 	"GimmickInfo": [

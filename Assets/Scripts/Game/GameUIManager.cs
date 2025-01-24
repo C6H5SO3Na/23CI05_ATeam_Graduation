@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.ProBuilder;
 
 public class GameUIManager : MonoBehaviour
 {
@@ -8,6 +9,8 @@ public class GameUIManager : MonoBehaviour
     [SerializeField] GameObject heart;//ライフ
     [SerializeField] GameObject clearPrefab;//クリア画面
     [SerializeField] GameObject gameOverPrefab;
+    [SerializeField] GameObject fade;
+    Fade fadeInstance;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +21,8 @@ public class GameUIManager : MonoBehaviour
             GameObject life = Instantiate(heart, transform.parent);
             life.transform.localPosition = new Vector3(-900 + i * 100, 480);
         }
+        fadeInstance = Instantiate(fade, transform.parent).GetComponent<Fade>();
+        fadeInstance.StartFadeIn(1f);
     }
 
     public void DecreaseHP(int damageAmount)

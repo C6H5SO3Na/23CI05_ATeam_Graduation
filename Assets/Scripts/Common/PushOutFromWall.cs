@@ -1,22 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
-public class PressButton : MonoBehaviour
+public class PushOutFromWall : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Hold_P1"))
-        {
-            SceneManager.LoadScene("StageSelectScene");
-        }
+        
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        //•Ç‚É–„‚Ü‚Á‚Ä‚¢‚½‚ç•Ç‚ÌŠO‚É‰Ÿ‚µo‚³‚ê‚é
+
     }
 }

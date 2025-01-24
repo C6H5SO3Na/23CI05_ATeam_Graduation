@@ -3191,9 +3191,11 @@
 				]
 			],
 			"GimmickID": [],
-			"BootObjectID": [],
 			"GimmickIDNum": 0,
-			"BootObjectIDNum": 0
+			"BootObjectID": [],
+			"BootObjectIDNum": 0,
+			"Direction": [],
+			"DirectionNum": 0
 		}
 	],
 	"GimmickInfo": [
