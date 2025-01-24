@@ -14,6 +14,7 @@ public class GenerateMap : MonoBehaviour
         gimmickID = new List<int>();
         bootObjectID = new List<int>();
         gimmickAssociationID = new Dictionary<int, int>();
+        rotationValue_y = new List<float>();
     }
 
     //変数--------------------------------------------------------------------------
@@ -36,7 +37,7 @@ public class GenerateMap : MonoBehaviour
     List<int> gimmickID;                        // ギミックid
     List<int> bootObjectID;                     // ギミック起動オブジェクトid
     Dictionary<int, int> gimmickAssociationID;  // ギミックを起動オブジェクトに紐付けるためのid    
-
+    List<float> rotationValue_y;
 
     //関数--------------------------------------------------------------------------
     // Start is called before the first frame update
@@ -88,7 +89,8 @@ public class GenerateMap : MonoBehaviour
                     if (mapPrefabDictionary.TryGetValue(mapData[y][z][x], out GameObject prefab))
                     {
                         //配置する位置を設定
-                        Vector3 position = new Vector3(x, y, (layerHeight - 1) - z); // layerHeight - 1はmapDataの形通りにマップを作るために必要
+                        Vector3 position = new Vector3(x, y, (layerHeight - 1) - z);    // layerHeight - 1はmapDataの形通りにマップを作るために必要
+                        int rotationValue_yIndex = 0;                                   // y軸回転の値を格納した配列にの要素にアクセスするための値
 
                         switch (mapData[y][z][x])
                         {
@@ -133,16 +135,9 @@ public class GenerateMap : MonoBehaviour
                                 goalInstance = Instantiate(prefab, position, Quaternion.identity);
                                 break;
 
-                            case 12:    // レーザーをy軸90度回転して生成
-                                startGimmickInstances.Add(Instantiate(prefab, position, Quaternion.Euler(0, 90, 0)));
-                                break;
-
-                            case 13:    // レーザーをy軸180度回転して生成
-                                startGimmickInstances.Add(Instantiate(prefab, position, Quaternion.Euler(0, 180, 0)));
-                                break;
-
-                            case 14:    // レーザーをy軸270度回転して生成
-                                startGimmickInstances.Add(Instantiate(prefab, position, Quaternion.Euler(0, 270, 0)));
+                            case 11:    // レーザーをy軸90度回転して生成
+                                startGimmickInstances.Add(Instantiate(prefab, position, Quaternion.Euler(0, rotationValue_y[rotationValue_yIndex], 0)));
+                                rotationValue_yIndex++;
                                 break;
 
                             default:    // プレイヤー、敵、ゴール、感圧板以外のものを生成する
@@ -201,8 +196,9 @@ public class GenerateMap : MonoBehaviour
     /// <param name="gimmickID"> ギミック識別用id </param>
     /// <param name="bootObjectID"> ギミック起動オブジェクト識別用id </param>
     /// <param name="gimmickAssociationKey"> ギミックを起動オブジェクトに紐づけるためのkey </param>
-    /// <param name="gimmickAssociationValue"> ギミックを起動オブジェクトに紐づけるためのid </param>
-    public void SetStageData(int layerWidth, int layerHeight, int layerNumber, List<List<List<int>>> mapData, List<int> gimmickID, List<int> bootObjectID, List<int> gimmickAssociationKey, List<int> gimmickAssociationID)
+    /// <param name="gimmickAssociationID"> ギミックを起動オブジェクトに紐づけるためのid </param>
+    /// <param name="rotationValue_y"> ギミックのy軸回転の値 </param>
+    public void SetStageData(int layerWidth, int layerHeight, int layerNumber, List<List<List<int>>> mapData, List<int> gimmickID, List<int> bootObjectID, List<int> gimmickAssociationKey, List<int> gimmickAssociationID, List<float> rotationValue_y)
     {
         this.layerWidth = layerWidth;
         this.layerHeight = layerHeight;
@@ -214,5 +210,6 @@ public class GenerateMap : MonoBehaviour
         {
             this.gimmickAssociationID[gimmickAssociationKey[i]] = gimmickAssociationID[i];
         }
+        this.rotationValue_y = rotationValue_y;
     }
 }

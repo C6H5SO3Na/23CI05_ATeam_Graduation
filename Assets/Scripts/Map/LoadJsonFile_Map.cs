@@ -61,6 +61,7 @@ public class LoadJsonFile_Map : MonoBehaviour
         if(jsonData != null)
         {
             //jsonデータを既存の型、コレクションに変更
+            //マップ情報格納
             int layerWidth = (int)jsonData["LayerInfo"][0]["LayerWidth"];
             int layerHeight = (int)jsonData["LayerInfo"][0]["LayerHeight"];
             int layerNumber = (int)jsonData["LayerInfo"][0]["LayerNumber"];
@@ -77,16 +78,22 @@ public class LoadJsonFile_Map : MonoBehaviour
                     }
                 }
             }
+
+            //ギミックのID格納
             List<int> gimmickID = new List<int>();
             for(int i = 0; i < (int)jsonData["MapDataInfo"][0]["GimmickIDNum"]; ++i)
             {
                 gimmickID.Add((int)jsonData["MapDataInfo"][0]["GimmickID"][i]);
             }
+
+            //起動オブジェクトのID格納
             List<int> bootObjectID = new List<int>();
             for(int i = 0; i < (int)jsonData["MapDataInfo"][0]["BootObjectIDNum"]; ++i)
             {
                 bootObjectID.Add((int)jsonData["MapDataInfo"][0]["BootObjectID"][i]);
             }
+
+            //ギミックと起動オブジェクトを紐づける情報を格納
             List<int> dictionaryKey = new List<int>();
             List<int> dictionaryID = new List<int>();
             for (int i = 0; i < (int)jsonData["GimmickInfo"][0]["AssociateNum"]; ++i)
@@ -95,9 +102,11 @@ public class LoadJsonFile_Map : MonoBehaviour
                 dictionaryID.Add((int)jsonData["GimmickInfo"][0]["DictionaryValue"][i]);
             }
 
+            //y軸回転情報の格納
+            List<float> rotationValue_y = new List<float>();
 
             //ステージを作るのに必要な情報を設定する
-            classGetData.SetStageData(layerWidth, layerHeight, layerNumber, mapData, gimmickID, bootObjectID, dictionaryKey, dictionaryID);
+            classGetData.SetStageData(layerWidth, layerHeight, layerNumber, mapData, gimmickID, bootObjectID, dictionaryKey, dictionaryID, rotationValue_y);
         }
     }
 }
