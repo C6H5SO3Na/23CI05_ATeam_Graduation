@@ -79,6 +79,10 @@ public class GenerateMap : MonoBehaviour
     /// </summary>
     void Generate()
     {
+        //マップ情報を持った配列の要素にアクセスするための変数宣言
+        int rotationValue_yIndex = 0;   // y軸回転の値を格納した配列にの要素にアクセスするための値
+
+        //マップ生成
         for (int y = 0; y < layerNumber; ++y)
         {
             for (int z = 0; z < layerHeight; ++z)
@@ -90,7 +94,6 @@ public class GenerateMap : MonoBehaviour
                     {
                         //配置する位置を設定
                         Vector3 position = new Vector3(x, y, (layerHeight - 1) - z);    // layerHeight - 1はmapDataの形通りにマップを作るために必要
-                        int rotationValue_yIndex = 0;                                   // y軸回転の値を格納した配列にの要素にアクセスするための値
 
                         switch (mapData[y][z][x])
                         {
