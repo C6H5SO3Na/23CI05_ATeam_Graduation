@@ -945,7 +945,7 @@ MonoBehaviour:
     type: 3}
   gameOverPrefab: {fileID: 7796390757591306710, guid: e22fc1674ea69ca40b87094f34cb8e21,
     type: 3}
-  fade: {fileID: 0}
+  fade: {fileID: 4921652492412623905, guid: ae82267f5e6ce484f96f11c3b1f35c2f, type: 3}
 --- !u!1 &1351277290
 GameObject:
   m_ObjectHideFlags: 0
