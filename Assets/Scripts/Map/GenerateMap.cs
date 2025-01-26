@@ -17,6 +17,7 @@ public class GenerateMap : MonoBehaviour
         bootObjectID = new List<int>();
         gimmickAssociationID = new Dictionary<int, int>();
         rotationValue_y = new List<int>();
+        gimmickPowerIndexs = new List<int>();
     }
 
     //-------------------------------------------------------------------------------
@@ -38,10 +39,11 @@ public class GenerateMap : MonoBehaviour
     int layerHeight = 20 + 2;                   // 層の縦幅(床にできる範囲 + 壁を作成する部分)
     int layerNumber = 6;                        // 層の数
     List<List<List<int>>> mapData;              // 床のマップデータ
-    List<int> gimmickID;                        // ギミックid
-    List<int> bootObjectID;                     // ギミック起動オブジェクトid
-    Dictionary<int, int> gimmickAssociationID;  // ギミックを起動オブジェクトに紐付けるためのid    
-    List<int> rotationValue_y;
+    List<int> gimmickID;                        // ギミックidを格納する
+    List<int> bootObjectID;                     // ギミック起動オブジェクトidを格納する
+    Dictionary<int, int> gimmickAssociationID;  // ギミックを起動オブジェクトに紐付けるためのidを格納する    
+    List<int> rotationValue_y;                  // ギミックのy軸回転の値を格納する
+    List<int> gimmickPowerIndexs;               // ギミックの強さを決める引数を格納する
 
     //-------------------------------------------------------------------------------
     // 関数
@@ -207,7 +209,8 @@ public class GenerateMap : MonoBehaviour
     /// <param name="gimmickAssociationKey"> ギミックを起動オブジェクトに紐づけるためのkey </param>
     /// <param name="gimmickAssociationID"> ギミックを起動オブジェクトに紐づけるためのid </param>
     /// <param name="rotationValue_y"> ギミックのy軸回転の値 </param>
-    public void SetStageData(int layerWidth, int layerHeight, int layerNumber, List<List<List<int>>> mapData, List<int> gimmickID, List<int> bootObjectID, List<int> gimmickAssociationKey, List<int> gimmickAssociationID, List<int> rotationValue_y)
+    /// <param name="gimmickPowerIndexs"> ギミックの強さを決める値 </param>
+    public void SetStageData(int layerWidth, int layerHeight, int layerNumber, List<List<List<int>>> mapData, List<int> gimmickID, List<int> bootObjectID, List<int> gimmickAssociationKey, List<int> gimmickAssociationID, List<int> rotationValue_y, List<int> gimmickPowerIndexs)
     {
         this.layerWidth = layerWidth;
         this.layerHeight = layerHeight;
@@ -220,5 +223,6 @@ public class GenerateMap : MonoBehaviour
             this.gimmickAssociationID[gimmickAssociationKey[i]] = gimmickAssociationID[i];
         }
         this.rotationValue_y = rotationValue_y;
+        this.gimmickPowerIndexs = gimmickPowerIndexs;
     }
 }
