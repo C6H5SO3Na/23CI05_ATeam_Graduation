@@ -1402,6 +1402,7 @@ GameObject:
   - component: {fileID: 1406285013}
   - component: {fileID: 1406285012}
   - component: {fileID: 1406285016}
+  - component: {fileID: 1406285017}
   m_Layer: 0
   m_Name: Ventilator
   m_TagString: Untagged
@@ -1505,6 +1506,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca246fbe8c2537a4187a172411c07092, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1406285017
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1406285011}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9beb6b171752b86468fdb3429370bdee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &1526708370
