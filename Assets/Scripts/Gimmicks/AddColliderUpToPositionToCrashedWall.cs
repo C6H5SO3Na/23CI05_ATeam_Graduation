@@ -16,6 +16,16 @@ public class AddColliderUpToPositionToCrashedWall : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //BoxColliderをアタッチする
+        boxCollider = gameObject.AddComponent<BoxCollider>();
+
+        //アタッチしたコライダーをTriggerにする
+        boxCollider.isTrigger = true;
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
         //Rayの当たった位置までの長さのBoxColliderを生成する
         AddBoxCollider();
     }
@@ -41,31 +51,13 @@ public class AddColliderUpToPositionToCrashedWall : MonoBehaviour
         {
             distanceToCollisionPoint = maxDistance;
         }
-
-        //BoxColliderをアタッチする
-        boxCollider = gameObject.AddComponent<BoxCollider>();
         
+        //アタッチされているコライダーの設定をする
         if(boxCollider)
         {
-            //コライダーをTriggerにする
-            boxCollider.isTrigger = true;
-
             //アタッチしたコライダーのサイズを変更する
             boxCollider.size = new Vector3(1, 1, distanceToCollisionPoint);
             boxCollider.center = new Vector3(0, 0, distanceToCollisionPoint / 2);
-
-            //このスクリプトをアタッチしたオブジェクトのz軸方向が正面になる場合
-            //if (transform.rotation.eulerAngles.y == 0 || transform.rotation.eulerAngles.y == 180)
-            //{
-            //    boxCollider.size = new Vector3(1, 1, distanceToCollisionPoint);
-            //    boxCollider.center = new Vector3(0, 0, distanceToCollisionPoint / 2);
-            //}
-            ////このスクリプトをアタッチしたオブジェクトのx軸方向が正面になる場合
-            //else if (transform.rotation.eulerAngles.y == 90 || transform.rotation.eulerAngles.y == 270)
-            //{
-            //    boxCollider.size = new Vector3(distanceToCollisionPoint, 1, 1);
-            //    boxCollider.center = new Vector3(distanceToCollisionPoint / 2, 0, 0);
-            //}
         }
     }
 }
