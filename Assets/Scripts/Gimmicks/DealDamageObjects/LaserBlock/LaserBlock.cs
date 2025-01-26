@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 public class LaserBlock : DealDamageObjectBase, IStartedOperation
 {
     //変数
-    float maxDistance = 100f;                   // レーザーの最大距離
+    float maxDistance = 30f;                    // レーザーの最大距離
     [SerializeField] LayerMask collisionMask;   // 衝突するレイヤーマスク
     LineRenderer lineRenderer;                  // レーザーの見た目変更用
     bool shouldToPutLaser = true;               // レーザーを出すか
