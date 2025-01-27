@@ -55,12 +55,12 @@ public class AddColliderUpToPositionToCrashedWall : MonoBehaviour
         //アタッチされているコライダーの設定をする
         if(boxCollider)
         {
-            //Rayが衝突したオブジェクトがBoxCollider(Trigger)に触れるようにする
-            float boxColliderSize_Z = distanceToCollisionPoint + 0.1f;
+            //Rayに衝突したオブジェクトをBoxCollider(Trigger)に触れるようにする
+            float boxColliderSize_Z = distanceToCollisionPoint + 0.5f;
 
             //アタッチしたコライダーのサイズを変更する
-            boxCollider.size = new Vector3(1, 1, distanceToCollisionPoint);
-            boxCollider.center = new Vector3(0, 0, distanceToCollisionPoint / 2);
+            boxCollider.size = new Vector3(1, 1, boxColliderSize_Z);
+            boxCollider.center = new Vector3(0, 0, boxColliderSize_Z / 2);
         }
     }
 }
