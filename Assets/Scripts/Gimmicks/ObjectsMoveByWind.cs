@@ -5,7 +5,12 @@ using UnityEngine;
 public class ObjectsMoveByWind : MonoBehaviour
 {
     Rigidbody rb;                // このスクリプトをアタッチしているオブジェクトのRigidbody
-    public Vector3 windForce;    // 受けている風の強さ
+    private Vector3 windForce = Vector3.zero;   // 受けている風の強さ
+    public Vector3 WindForce
+    {
+        set { windForce = value; }
+        get { return windForce; }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -19,7 +24,7 @@ public class ObjectsMoveByWind : MonoBehaviour
         if(rb)
         {
             //風に当たっていたら動く
-            rb.AddForce(windForce);
+            rb.MovePosition(rb.position + WindForce * Time.fixedDeltaTime);
         }
     }
 }
