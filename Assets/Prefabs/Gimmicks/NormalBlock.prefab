@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 1452857745522488184}
   - component: {fileID: 2968142282134080023}
   - component: {fileID: 2318851718393910130}
+  - component: {fileID: 69375677789737836}
   m_Layer: 3
   m_Name: NormalBlock
   m_TagString: ThrowingObject
@@ -133,3 +134,16 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &69375677789737836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7680406051955426657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 79bdd3694ea37354d9a6f56dea0f5556, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  windForce: {x: -1, y: 0, z: 0}
