@@ -3195,7 +3195,9 @@
 			"BootObjectID": [],
 			"BootObjectIDNum": 0,
 			"Direction": [],
-			"DirectionNum": 0
+			"DirectionNum": 0,
+			"Power": [],
+			"PowerNum": 0
 		}
 	],
 	"GimmickInfo": [

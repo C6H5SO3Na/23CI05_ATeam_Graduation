@@ -109,8 +109,14 @@ public class LoadJsonFile_Map : MonoBehaviour
                 rotationValue_y.Add((int)jsonData["MapDataInfo"][0]["Direction"][i]);
             }
 
+            List<int> gimmickPowerIndexs = new List<int>();
+            for(int i = 0; i < (int)jsonData["MapDataInfo"][0]["PowerNum"]; ++i)
+            {
+                gimmickPowerIndexs.Add((int)jsonData["MapDataInfo"][0]["Power"][i]);
+            }
+
             //ステージを作るのに必要な情報を設定する
-            classGetData.SetStageData(layerWidth, layerHeight, layerNumber, mapData, gimmickID, bootObjectID, dictionaryKey, dictionaryID, rotationValue_y);
+            classGetData.SetStageData(layerWidth, layerHeight, layerNumber, mapData, gimmickID, bootObjectID, dictionaryKey, dictionaryID, rotationValue_y, gimmickPowerIndexs);
         }
     }
 }
