@@ -50,20 +50,4 @@ public class PlayerIdleState : PlayerStateMachine
         //èdóÕÇÕì≠Ç©ÇπÇÈ
         player.UpdateMoveDirection(new Vector3(0f, player.GetMoveDirection().y, 0f));
     }
-
-    /*É¿î≈Ç‹Ç≈ñ¢égóp(InputSystem)
-    public override void MoveButton(InputAction.CallbackContext context)
-    {
-        player.ChangeState(new PlayerMoveState(player));
-    }
-
-    public override void JumpButton(InputAction.CallbackContext context)
-    {
-        if (context.started) { isJump = true; }
-    }
-
-    public override void HoldButton(InputAction.CallbackContext context)
-    {
-    }
-    */
 }
