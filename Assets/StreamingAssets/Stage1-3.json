@@ -3229,7 +3229,9 @@
 				270,
 				0
 			],
-			"DirectionNum": 2
+			"DirectionNum": 2,
+			"Power": [],
+			"PowerNum": 0
 		}
 	],
 	"GimmickInfo": [
