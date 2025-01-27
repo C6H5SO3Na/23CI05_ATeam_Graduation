@@ -37,20 +37,4 @@ public class PlayerBeHeldState : PlayerStateMachine
     {
 
     }
-
-    /*É¿î≈Ç‹Ç≈ñ¢égóp(InputSystem)
-    public override void MoveButton(InputAction.CallbackContext context)
-    {
-        player.ChangeState(new PlayerMoveState(player));
-    }
-
-    public override void JumpButton(InputAction.CallbackContext context)
-    {
-        if (context.started) { isJump = true; }
-    }
-
-    public override void HoldButton(InputAction.CallbackContext context)
-    {
-    }
-    */
 }
