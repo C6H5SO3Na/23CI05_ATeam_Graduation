@@ -51,7 +51,6 @@ public class StageClear : MonoBehaviour
                 {
                     if (gameManager)
                     {
-                        particle.Play();
                         gameManager.ReceiveClearInformation();
                     }
                 }
