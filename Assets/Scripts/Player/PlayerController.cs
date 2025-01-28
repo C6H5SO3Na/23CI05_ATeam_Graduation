@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
-public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
+public class PlayerController : MonoBehaviour, IReduceHP
 {
     CharacterController controller;
     PlayerUIManager ui;
@@ -50,6 +50,12 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
         get { return nowPlayerNum; }
     }
     Vector3 moveDirection;//動く向き
+    Vector3 windMoveDirection;//風の動き
+    public Vector3 WindMoveDirection
+    {
+        set { windMoveDirection = value;}
+        get { return windMoveDirection; }
+    }
     int invincibleCnt = 0;
 
     bool isInvincible;//無敵中か
@@ -76,6 +82,14 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
 
     const float debounceTime = 0.2f;//デバウンス時間
     float lastButtonPressTime = 0f;//前にボタンを押した時間
+
+    //ジャンプの高さ
+    [SerializeField] float jumpPower;
+    public float JumpPower
+    {
+        set { jumpPower = value; }
+        get { return jumpPower; }
+    }
 
     void Awake()
     {
@@ -111,7 +125,7 @@ public class PlayerController : MonoBehaviour, IReduceHP//, IPlayerInput
         //Debug.Log($"moveDirection:{moveDirection} state:{state}");
         if (controller.enabled)
         {
-            controller.Move(moveDirection * speed * Time.deltaTime);
+            controller.Move(speed * Time.deltaTime * (moveDirection + WindMoveDirection));
         }
 
         //重力を働かせる

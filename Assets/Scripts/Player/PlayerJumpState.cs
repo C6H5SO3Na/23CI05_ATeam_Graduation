@@ -55,22 +55,4 @@ public class PlayerJumpState : PlayerStateMachine
             player.Deceleration(0.9f);
         }
     }
-
-    /*É¿î≈Ç‹Ç≈ñ¢égóp(InputSystem)
-    public override void MoveButton(InputAction.CallbackContext context)
-    {
-        var moveVec = context.ReadValue<Vector2>();
-        velocity = new Vector3(moveVec.x, velocity.y, moveVec.y);
-        float normalizedDir = Mathf.Atan2(velocity.x, velocity.z) * Mathf.Rad2Deg;
-        player.transform.rotation = Quaternion.Euler(0.0f, velocity.x + normalizedDir, 0.0f);
-    }
-
-    public override void JumpButton(InputAction.CallbackContext context)
-    {
-    }
-
-    public override void HoldButton(InputAction.CallbackContext context)
-    {
-    }
-    */
 }
