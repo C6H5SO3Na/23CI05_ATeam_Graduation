@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class BlowsWind : GimmickBase, IStartedOperation
 {
+    //-------------------------------------------------------------------------------
+    // 変数
+    //-------------------------------------------------------------------------------
     float[] windPowers = {0.1f, 0.5f, 1f};  // オブジェクトを動かす風の力 左から弱、中、強の三種類
     int     windPowersIndex = 0;            // windPowersの要素アクセス用
     bool    shouldProcessGimmick = true;    // 風を吹かせるか
@@ -37,8 +40,15 @@ public class BlowsWind : GimmickBase, IStartedOperation
                     //風の吹く向きと強さを計算する
                     Vector3 windForce = directionBlowsWind * windPowers[windPowersIndex];
 
-                    //風でオブジェクトが動くようにする
-                    objectMoveByWind.WindForce = windForce;
+                    //他の風と同時に当たっている場合、風の数値が強い方を優先する
+                    if (objectMoveByWind.ReceivingWindPower < windPowers[windPowersIndex])
+                    {
+                        //受けている風の力の値を渡す
+                        objectMoveByWind.ReceivingWindPower = windPowers[windPowersIndex];
+
+                        //風でオブジェクトが動くようにする
+                        objectMoveByWind.WindForce = windForce;
+                    }                    
                 }
             }
             
@@ -59,7 +69,10 @@ public class BlowsWind : GimmickBase, IStartedOperation
             ObjectsMoveByWind objectMoveByWind = other.GetComponent<ObjectsMoveByWind>();
             if (objectMoveByWind)
             {
-                //風でオブジェクトが動くようにする
+                //受けている風の力の値をなくす
+                objectMoveByWind.ReceivingWindPower = 0f;
+
+                //風でオブジェクトが動かないようにする
                 objectMoveByWind.WindForce = Vector3.zero;
             }
         }

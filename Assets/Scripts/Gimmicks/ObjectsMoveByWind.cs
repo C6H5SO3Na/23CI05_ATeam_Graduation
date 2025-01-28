@@ -4,7 +4,16 @@ using UnityEngine;
 
 public class ObjectsMoveByWind : MonoBehaviour
 {
-    Rigidbody rb;                // このスクリプトをアタッチしているオブジェクトのRigidbody
+    //-------------------------------------------------------------------------------
+    // 変数
+    //-------------------------------------------------------------------------------
+    Rigidbody rb;                               // このスクリプトをアタッチしているオブジェクトのRigidbody
+    private float receivingWindPower = 0f;      // 受けている風の力
+    public float ReceivingWindPower
+    {
+        set { receivingWindPower = value; }
+        get { return receivingWindPower; }
+    }
     private Vector3 windForce = Vector3.zero;   // 受けている風の強さ
     public Vector3 WindForce
     {
