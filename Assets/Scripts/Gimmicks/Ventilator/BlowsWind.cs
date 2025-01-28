@@ -8,7 +8,7 @@ public class BlowsWind : GimmickBase, IStartedOperation
     // 変数
     //-------------------------------------------------------------------------------
     float[] windPowers = {0.1f, 0.5f, 1f};  // オブジェクトを動かす風の力 左から弱、中、強の三種類
-    int     windPowersIndex = 0;            // windPowersの要素アクセス用
+    int     windPowersIndex = 1;            // windPowersの要素アクセス用
     bool    shouldProcessGimmick = true;    // 風を吹かせるか
     Vector3 directionBlowsWind;             // 風が吹く方向
 
@@ -27,8 +27,20 @@ public class BlowsWind : GimmickBase, IStartedOperation
             //風に当たっているのがプレイヤーの場合
             if(other.CompareTag("Player"))
             {
-                //他の風と同時に当たっている場合、風の数値が強い方を優先する
+                PlayerController player = other.GetComponent<PlayerController>();
+                if(player)
+                {
+                    //他の風と同時に当たっている場合、風の数値が強い方を優先する
 
+                    //風の吹く向きと強さを計算する
+                    Vector3 windForce = directionBlowsWind * windPowers[windPowersIndex] * 1.5f;    // 1.5fはプレイヤーに風が当たるときの風の強さの補正値
+
+                    //風の力の値を風で動くオブジェクトに渡す
+
+
+                    //風でオブジェクトが動くようにする
+                    player.WindMoveDirection = windForce;
+                }
             }
             //プレイヤー以外が風に当たっている場合
             else
@@ -37,13 +49,13 @@ public class BlowsWind : GimmickBase, IStartedOperation
                 ObjectsMoveByWind objectMoveByWind = other.GetComponent<ObjectsMoveByWind>();
                 if(objectMoveByWind)
                 {
-                    //風の吹く向きと強さを計算する
-                    Vector3 windForce = directionBlowsWind * windPowers[windPowersIndex];
-
                     //他の風と同時に当たっている場合、風の数値が強い方を優先する
                     if (objectMoveByWind.ReceivingWindPower < windPowers[windPowersIndex])
                     {
-                        //受けている風の力の値を渡す
+                        //風の吹く向きと強さを計算する
+                        Vector3 windForce = directionBlowsWind * windPowers[windPowersIndex];
+
+                        //風の力の値を風で動くオブジェクトに渡す
                         objectMoveByWind.ReceivingWindPower = windPowers[windPowersIndex];
 
                         //風でオブジェクトが動くようにする
@@ -60,7 +72,14 @@ public class BlowsWind : GimmickBase, IStartedOperation
         //風に当たっていたのがプレイヤーの場合
         if (other.CompareTag("Player"))
         {
-            //風でプレイヤーが動かないようにする
+            PlayerController player = other.GetComponent<PlayerController>();
+            if(player)
+            {
+                //受けている風の力の値をなくす
+
+                //風でプレイヤーが動かないようにする
+                player.WindMoveDirection = Vector3.zero;
+            }
         }
         //プレイヤー以外が風に当たっていた場合
         else

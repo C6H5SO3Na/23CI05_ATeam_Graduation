@@ -8,7 +8,8 @@ public class AddColliderUpToPositionToCrashedWall : MonoBehaviour
     //-------------------------------------------------------------------------------
     // 変数
     //-------------------------------------------------------------------------------
-    BoxCollider boxCollider;    // アタッチするBoxCollider
+    BoxCollider boxCollider;              // アタッチするBoxCollider
+    float       correctionValue = 0.5f;   // このブロックをアタッチするオブジェクトの大きさの半分の値(Rayをオブジェクトの前から飛ばすため)
 
     //-------------------------------------------------------------------------------
     // 関数
@@ -36,16 +37,16 @@ public class AddColliderUpToPositionToCrashedWall : MonoBehaviour
     void AddBoxCollider()
     {
         //変数宣言
-        Transform startPoint = transform;                           // Rayの発射地点
-        Ray ray = new Ray(startPoint.position, startPoint.forward); // 飛ばすRay
-        float maxDistance = 30f;                                    // Rayの長さ
-        float distanceToCollisionPoint = 0f;                        // 衝突点までの距離 
+        Vector3 startPoint = transform.position + transform.forward * correctionValue; // Rayの発射地点
+        Ray ray = new Ray(startPoint, transform.forward);                   // 飛ばすRay
+        float maxDistance = 30f;                                            // Rayの長さ
+        float distanceToCollisionPoint = 0f;                                // 衝突点までの距離 
 
         //Rayを飛ばす
         if (Physics.Raycast(ray, out RaycastHit hit, maxDistance))
         {
             //衝突点までの距離を計算し取得する
-            distanceToCollisionPoint = Vector3.Distance(startPoint.position, hit.point);
+            distanceToCollisionPoint = Vector3.Distance(startPoint, hit.point);
         }
         else 
         {
@@ -56,7 +57,7 @@ public class AddColliderUpToPositionToCrashedWall : MonoBehaviour
         if(boxCollider)
         {
             //Rayに衝突したオブジェクトをBoxCollider(Trigger)に触れるようにする
-            float boxColliderSize_Z = distanceToCollisionPoint + 0.5f;
+            float boxColliderSize_Z = distanceToCollisionPoint + correctionValue;
 
             //アタッチしたコライダーのサイズを変更する
             boxCollider.size = new Vector3(1, 1, boxColliderSize_Z);
