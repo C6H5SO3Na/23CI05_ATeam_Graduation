@@ -2,8 +2,6 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
 public class PlayerController : MonoBehaviour, IReduceHP
@@ -91,13 +89,27 @@ public class PlayerController : MonoBehaviour, IReduceHP
         get { return jumpPower; }
     }
 
-    //ó‚¯‚½•—‚Ì‹­‚³
-    float recievedWindPower;
-    public float RecievedWindPower
+    //•—‚Ì‹­‚³
+    public struct WindPower
     {
-        set { recievedWindPower = value; }
-        get { return recievedWindPower; }
+        //ó‚¯‚½•—‚Ì‹­‚³
+        float received;
+        public float Received
+        {
+            set { received = value; }
+            get { return received; }
+        }
+
+        //ó‚¯‚Ä‚¢‚éÅ‘å‚Ì•—‚Ì‹­‚³
+        float max;
+        public float Max
+        {
+            set { max = value; }
+            get { return max; }
+        }
     }
+
+    public WindPower windPower;
 
     void Awake()
     {
