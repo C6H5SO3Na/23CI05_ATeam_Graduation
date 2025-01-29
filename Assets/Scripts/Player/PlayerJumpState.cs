@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 /// <summary>
 /// プレイヤージャンプ状態
 /// </summary>
@@ -13,14 +11,15 @@ public class PlayerJumpState : PlayerStateMachine
     //コンストラクタ
     public PlayerJumpState()
     {
-        
+
     }
 
     public override void Initialize(PlayerController player)
     {
         //ジャンプする
         player.sound.PlayOneShot(player.SE.jumpSE);
-        var jumpVec = new Vector3(player.GetInputDirection().x, player.JumpPower, player.GetInputDirection().z);
+        //ジャンプと下からの風の強さ
+        var jumpVec = new Vector3(player.GetInputDirection().x, player.JumpPower + player.windPower.Received, player.GetInputDirection().z);
         player.UpdateMoveDirection(jumpVec);
     }
 
