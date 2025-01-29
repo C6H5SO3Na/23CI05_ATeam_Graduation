@@ -57,7 +57,7 @@ public class AddColliderUpToPositionToCrashedWall : MonoBehaviour
         if(boxCollider)
         {
             //Rayに衝突したオブジェクトをBoxCollider(Trigger)に触れるようにする
-            float boxColliderSize_Z = distanceToCollisionPoint + correctionValue;
+            float boxColliderSize_Z = distanceToCollisionPoint + correctionValue * 2f;
 
             //アタッチしたコライダーのサイズを変更する
             boxCollider.size = new Vector3(1, 1, boxColliderSize_Z);
