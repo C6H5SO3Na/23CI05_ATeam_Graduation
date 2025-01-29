@@ -61,6 +61,6 @@ public class SelectFrameController : MonoBehaviour
             selectNumY -= (int)Mathf.Sign(signY);
             selectNumY = Wrap(selectNumY, 0, maxSelectY);
         }
-        rectTransform.DOAnchorPos(new Vector3(450 * selectNumX - 675, 260 - 200 * selectNumY), 0.5f);//.SetEase(Ease.InOutSine);
+        rectTransform.DOAnchorPos(new Vector3(450 * selectNumX - 675, 200 - 400 * selectNumY), 0.5f);//.SetEase(Ease.InOutSine);
     }
 }
