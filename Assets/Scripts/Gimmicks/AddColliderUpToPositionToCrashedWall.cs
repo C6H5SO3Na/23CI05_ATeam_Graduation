@@ -9,7 +9,7 @@ public class AddColliderUpToPositionToCrashedWall : MonoBehaviour
     // 変数
     //-------------------------------------------------------------------------------
     BoxCollider boxCollider;                // アタッチするBoxCollider
-    float       correctionValue = 0.5f;     // このブロックをアタッチするオブジェクトの大きさの半分の値(Rayをオブジェクトの前から飛ばすため)
+    float       correctionValue = 0.49f;     // このブロックをアタッチするオブジェクトの大きさの半分の値-0.01(隣接したオブジェクトにRayがすり抜けるバグ、このスクリプトをアタッチしているオブジェクトにRayが当たるバグをなくすため)
     [SerializeField]
     bool        shouldAddOntTheTop = false; // Colliderをオブジェクトの上に追加するか(横方向には追加しなくなる)
 
