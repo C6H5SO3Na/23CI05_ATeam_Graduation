@@ -20,7 +20,7 @@ public class PlayerJumpState : PlayerStateMachine
     {
         //ƒWƒƒƒ“ƒv‚·‚é
         player.sound.PlayOneShot(player.SE.jumpSE);
-        var jumpVec = new Vector3(player.GetInputDirection().x, 3f, player.GetInputDirection().z);
+        var jumpVec = new Vector3(player.GetInputDirection().x, player.JumpPower, player.GetInputDirection().z);
         player.UpdateMoveDirection(jumpVec);
     }
 
