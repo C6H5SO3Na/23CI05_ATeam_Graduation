@@ -33,7 +33,7 @@ public class Blinking : MonoBehaviour
     {
         tmpColor = TryGetComponent(out image) ? tmpColor = image.color : tmpColor = text.color;
 
-        tmpColor.a = Mathf.Clamp(tmpColor.a, -0.01f, 1.01f);
+        tmpColor.a = Mathf.Clamp(tmpColor.a, -0.01f, maxA + 0.01f);
         if (!IsWithinRangeExclusive(tmpColor.a, 0f, maxA))
         {
             ChangeSign();

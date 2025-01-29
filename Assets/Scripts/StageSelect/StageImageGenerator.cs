@@ -25,7 +25,7 @@ public class StageImageGenerator : MonoBehaviour
                     stageImage.GetComponent<Image>().sprite = images[i * 4 + j];
                 }
                 stageImage.transform.SetParent(canvas, false);
-                stageImage.transform.localPosition = new Vector3(450 * j - 675, 260 - 200 * i);
+                stageImage.transform.localPosition = new Vector3(450 * j - 675, 200 - 400 * i);
                 stageImage.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"{i + 1}-{j + 1}";
             }
         }
