@@ -8,8 +8,8 @@ public class ObjectsMoveByWind : MonoBehaviour
     // 変数
     //-------------------------------------------------------------------------------
     Rigidbody rb;                               // このスクリプトをアタッチしているオブジェクトのRigidbody
-    private float receivingWindPower = 0f;      // 受けている風の力
-    public float ReceivingWindPower
+    private int receivingWindPower = 0;        // 受けている風の力
+    public int ReceivingWindPower
     {
         set { receivingWindPower = value; }
         get { return receivingWindPower; }

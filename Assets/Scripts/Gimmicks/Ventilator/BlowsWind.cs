@@ -8,13 +8,14 @@ public class BlowsWind : GimmickBase, IStartedOperation
     //-------------------------------------------------------------------------------
     // 変数
     //-------------------------------------------------------------------------------
-    float[] movePowers = {0.1f, 0.5f, 1f};      // オブジェクトを動かす風の力 左から弱、中、強の三種類
-    float[] jumpPowers = { 1f, 2f, 3f };        // プレイヤーのジャンプ力を増やす風の力 左から弱、中、強の三種類
-    int     windPowersIndex = 0;                // 風の力の強弱を決める値
-    bool    shouldProcessGimmick = true;        // 風を吹かせるか
-    Vector3 directionBlowsWind;                 // 風が吹く方向
+    float[] movePowers = {0.1f, 0.5f, 1f};              // オブジェクトを動かす風の力 左から弱、中、強の三種類
+    float[] jumpPowers = { 1f, 2f, 3f };                // プレイヤーのジャンプ力を増やす風の力 左から弱、中、強の三種類
+    int     windPowersIndex = 0;                        // 風の力の強弱を決める値
+    bool    shouldProcessGimmick = true;                // 風を吹かせるか
+    Vector3 directionBlowsWind;                         // 風が吹く方向
+    float   playerAddedMoveForceCorrectionValue = 1.5f; // プレイヤーに風が当たるときの風の強さの補正値
     [SerializeField] 
-    bool    shouldIncreaseJumpPower = false;    // プレイヤーのジャンプ力を増やすか(trueの場合はジャンプ力を上げる代わりに風で移動しなくなる)
+    bool    shouldIncreaseJumpPower = false;            // プレイヤーのジャンプ力を増やすか(trueの場合はジャンプ力を上げる代わりに風で移動しなくなる)
 
     //-------------------------------------------------------------------------------
     // 関数
@@ -28,12 +29,13 @@ public class BlowsWind : GimmickBase, IStartedOperation
 
     void OnTriggerStay(Collider other)
     {
-        //ジャンプ力を上げる場合
-        if (shouldIncreaseJumpPower)
+        Debug.Log("????");
+        //ジャンプ力を増やす場合
+        if(shouldIncreaseJumpPower)
         {
-
+            AddPlayerJumpPower(other);
         }
-        //オブジェクトを移動させる場合
+        //オブジェクトを動かす場合
         else
         {
             //オブジェクトを動かす値を"風で動くオブジェクト"に渡す
@@ -53,12 +55,12 @@ public class BlowsWind : GimmickBase, IStartedOperation
 
     void OnTriggerExit(Collider other)
     {
-        //ジャンプ力を上げていた場合
-        if (shouldIncreaseJumpPower)
+        //ジャンプ力を増やす場合
+        if(shouldIncreaseJumpPower)
         {
-
+            RestorePlayerJumpPower(other);
         }
-        //オブジェクトを移動させていた場合
+        //オブジェクトを動かす場合
         else
         {
             //風が"風で動くオブジェクト"に当たらなくなったら、オブジェクトを移動させないようにする処理
@@ -106,7 +108,10 @@ public class BlowsWind : GimmickBase, IStartedOperation
         MakeToLaunchable();
     }
 
-    //オブジェクトを移動させる処理
+    /// <summary>
+    /// オブジェクトを風で移動させる処理
+    /// </summary>
+    /// <param name="other"> 風に当たっているオブジェクト </param>
     void MoveObject(Collider other)
     {
         //風に当たっているのがプレイヤーの場合
@@ -116,15 +121,17 @@ public class BlowsWind : GimmickBase, IStartedOperation
             if (player)
             {
                 //他の風と同時に当たっている場合、風の数値が強い方を優先する
+                //if (player. <= windPowersIndex)
+                {
+                    //風の吹く向きと強さを計算する
+                    Vector3 windForce = directionBlowsWind * movePowers[windPowersIndex] * playerAddedMoveForceCorrectionValue;
 
-                //風の吹く向きと強さを計算する
-                Vector3 windForce = directionBlowsWind * movePowers[windPowersIndex] * 1.5f;    // 1.5fはプレイヤーに風が当たるときの風の強さの補正値
+                    //風の力の値を風で動くオブジェクトに渡す
+                    //player. = windPowersIndex;
 
-                //風の力の値を風で動くオブジェクトに渡す
-
-
-                //風でオブジェクトが動くようにする
-                player.WindMoveDirection = windForce;
+                    //風でオブジェクトが動くようにする
+                    player.WindMoveDirection = windForce;
+                }
             }
         }
         //プレイヤー以外が風に当たっている場合
@@ -135,13 +142,13 @@ public class BlowsWind : GimmickBase, IStartedOperation
             if (objectMoveByWind)
             {
                 //他の風と同時に当たっている場合、風の数値が強い方を優先する
-                if (objectMoveByWind.ReceivingWindPower <= movePowers[windPowersIndex])
+                if (objectMoveByWind.ReceivingWindPower <= windPowersIndex)
                 {
                     //風の吹く向きと強さを計算する
                     Vector3 windForce = directionBlowsWind * movePowers[windPowersIndex];
 
                     //風の力の値を風で動くオブジェクトに渡す
-                    objectMoveByWind.ReceivingWindPower = movePowers[windPowersIndex];
+                    objectMoveByWind.ReceivingWindPower = windPowersIndex;
 
                     //風でオブジェクトが動くようにする
                     objectMoveByWind.WindForce = windForce;
@@ -150,7 +157,10 @@ public class BlowsWind : GimmickBase, IStartedOperation
         }
     }
 
-    //オブジェクトがColliderの範囲外に出たときに動かなくする処理
+    /// <summary>
+    /// オブジェクトを風で移動させなくする処理
+    /// </summary>
+    /// <param name="other"> 風に当たっているオブジェクト </param>
     void StopMoveObject(Collider other)
     {
         //風に当たっていたのがプレイヤーの場合
@@ -160,6 +170,7 @@ public class BlowsWind : GimmickBase, IStartedOperation
             if (player)
             {
                 //受けている風の力の値をなくす
+                //player. = 0;
 
                 //風でプレイヤーが動かないようにする
                 player.WindMoveDirection = Vector3.zero;
@@ -173,7 +184,7 @@ public class BlowsWind : GimmickBase, IStartedOperation
             if (objectMoveByWind)
             {
                 //受けている風の力の値をなくす
-                objectMoveByWind.ReceivingWindPower = 0f;
+                objectMoveByWind.ReceivingWindPower = 0;
 
                 //風でオブジェクトが動かないようにする
                 objectMoveByWind.WindForce = Vector3.zero;
@@ -181,9 +192,43 @@ public class BlowsWind : GimmickBase, IStartedOperation
         }
     }
 
-    //プレイヤーのジャンプ力を増やす処理
+    /// <summary>
+    /// プレイヤーのジャンプ力を増やす処理
+    /// </summary>
+    void AddPlayerJumpPower(Collider other)
+    {
+        //触れているオブジェクトがプレイヤーかどうか判定する
+        if(other.CompareTag("Player"))
+        {
+            PlayerController player = other.GetComponent<PlayerController>();
+            if (player)
+            {
+                //他の風と同時に当たっている場合、風の数値が強い方を優先する
+                //if (player. < windPowersIndex)
+                {
+                    player.RecievedWindPower = jumpPowers[windPowersIndex];
+                }
+            }
+        }
+    }
 
     //プレイヤーのジャンプ力を元に戻す処理
+    void RestorePlayerJumpPower(Collider other)
+    {
+        //触れているオブジェクトがプレイヤーかどうか判定する
+        if(other.CompareTag("Player"))
+        {
+            PlayerController player = other.GetComponent<PlayerController>();
+            if(player)
+            {
+                //受けている風の力をなくす
+                //player. = 0;
+
+                //ジャンプ力を元に戻す
+                player.RecievedWindPower = 0;
+            }
+        }
+    }
 
     /// <summary>
     /// 風の強さを設定する
