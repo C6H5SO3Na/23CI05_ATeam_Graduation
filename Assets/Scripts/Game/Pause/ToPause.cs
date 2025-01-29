@@ -5,24 +5,25 @@ using UnityEngine;
 public class ToPause : MonoBehaviour
 {
     [SerializeField] GameObject pauseScreen;
-    Canvas canvas;
-
-    void Start()
-    {
-        canvas = GameObject.FindGameObjectWithTag("Canvas").GetComponent<Canvas>();
-    }
+    [SerializeField] GameManager gameManager;
     void Update()
     {
-        if (PauseScreenManager.IsPause) { return; }
+        //ポーズに遷移しない条件を列挙
+        if (PauseScreenManager.IsPause) { return; }//ポーズ画面が既に表示されている
+        if (gameManager.isGameOver) { return; }//ゲームオーバー画面が出ている
+        if (gameManager.isClear) { return; }//ゲームクリア画面が出ている
+
+        //1コン
         if (Input.GetButtonDown("Pause_P1"))
         {
-            GameObject instance = Instantiate(pauseScreen, canvas.transform);
+            GameObject instance = Instantiate(pauseScreen, transform.parent);
             instance.transform.GetChild(0).GetComponent<PauseScreenManager>().SetPause(1);
         }
 
+        //2コン
         if (Input.GetButtonDown("Pause_P2"))
         {
-            GameObject instance = Instantiate(pauseScreen, canvas.transform);
+            GameObject instance = Instantiate(pauseScreen, transform.parent);
             instance.transform.GetChild(0).GetComponent<PauseScreenManager>().SetPause(2);
         }
     }
