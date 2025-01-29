@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,13 +12,13 @@ public class GenerateMap : MonoBehaviour
     {
         mapPrefabDictionary = new Dictionary<int, GameObject>();
         startUpObjectInstances = new List<GameObject>();
-        startGimmickInstances = new List<GameObject>();
+        gimmickInstances = new List<GameObject>();
         mapData = new List<List<List<int>>>();
         gimmickID = new List<int>();
         bootObjectID = new List<int>();
         gimmickAssociationID = new Dictionary<int, int>();
         rotationValue_y = new List<int>();
-        gimmickPowerIndexs = new List<int>();
+        gimmickPowers = new List<int>();
     }
 
     //-------------------------------------------------------------------------------
@@ -28,12 +29,12 @@ public class GenerateMap : MonoBehaviour
 
     Dictionary<int, GameObject> mapPrefabDictionary;  // 値と床のプレハブの紐づけ(生成時の処理を分かりやすくするため)
 
-    public GameObject player1Instance { get; private set; }             // プレイヤー1のインスタンス    
-    public GameObject player2Instance { get; private set; }             // プレイヤー2のインスタンス
-    public GameObject enemyInstance { get; private set; }               // 敵のインスタンス            
-    public GameObject goalInstance { get; private set; }                // ゴールのインスタンス
-    public List<GameObject> startUpObjectInstances { get; private set; } // ギミックを起動させるオブジェクトのインスタンス
-    public List<GameObject> startGimmickInstances { get; private set; } // ギミックのインスタンス
+    public GameObject player1Instance { get; private set; }                 // プレイヤー1のインスタンス    
+    public GameObject player2Instance { get; private set; }                 // プレイヤー2のインスタンス
+    public GameObject enemyInstance { get; private set; }                   // 敵のインスタンス            
+    public GameObject goalInstance { get; private set; }                    // ゴールのインスタンス
+    public List<GameObject> startUpObjectInstances { get; private set; }    // ギミックを起動させるオブジェクトのインスタンス
+    public List<GameObject> gimmickInstances { get; private set; }          // ギミックのインスタンス
 
     int layerWidth = 20 + 2;                    // 層の横幅(床にできる範囲 + 壁を作成する部分)
     int layerHeight = 20 + 2;                   // 層の縦幅(床にできる範囲 + 壁を作成する部分)
@@ -43,7 +44,7 @@ public class GenerateMap : MonoBehaviour
     List<int> bootObjectID;                     // ギミック起動オブジェクトidを格納する
     Dictionary<int, int> gimmickAssociationID;  // ギミックを起動オブジェクトに紐付けるためのidを格納する    
     List<int> rotationValue_y;                  // ギミックのy軸回転の値を格納する
-    List<int> gimmickPowerIndexs;               // ギミックの強さを決める引数を格納する
+    List<int> gimmickPowers;               // ギミックの強さを決める引数を格納する
 
     //-------------------------------------------------------------------------------
     // 関数
@@ -78,7 +79,7 @@ public class GenerateMap : MonoBehaviour
             passInstance.PassInstanceToOtherClass(player1Instance, player2Instance, enemyInstance, goalInstance);
 
             //ギミックのインスタンスをギミックを起動するクラスに渡す
-            passInstance.PassInstanceStartGimmick(startUpObjectInstances, startGimmickInstances, gimmickAssociationID);
+            passInstance.PassInstanceStartGimmick(startUpObjectInstances, gimmickInstances, gimmickAssociationID);
         }
     }
 
@@ -88,7 +89,8 @@ public class GenerateMap : MonoBehaviour
     void Generate()
     {
         //マップ情報を持った配列の要素にアクセスするための変数宣言
-        int rotationValue_yIndex = 0;   // y軸回転の値を格納した配列にの要素にアクセスするための値
+        int rotationValue_yIndex = 0;   // y軸回転の値を格納した配列の要素にアクセスするための値
+        int gimmickPowersIndex = 0;     // ギミックの強さの値を格納した配列の要素にアクセスするための値
 
         //マップ生成
         for (int y = 0; y < layerNumber; ++y)
@@ -146,9 +148,22 @@ public class GenerateMap : MonoBehaviour
                                 goalInstance = Instantiate(prefab, position, Quaternion.identity);
                                 break;
 
-                            case 11:    // レーザーをy軸90度回転して生成
-                                startGimmickInstances.Add(Instantiate(prefab, position, Quaternion.Euler(0, rotationValue_y[rotationValue_yIndex], 0)));
+                            case 11:    // レーザーを生成する
+                                gimmickInstances.Add(Instantiate(prefab, position, Quaternion.Euler(0, rotationValue_y[rotationValue_yIndex], 0)));
                                 rotationValue_yIndex++;
+                                break;
+
+                            case 13:    // 横向きの送風機を生成する
+                                prefab.GetComponent<BlowsWind>().SetWindPowerIndex(gimmickPowers[gimmickPowersIndex]);
+                                gimmickPowersIndex++;
+                                gimmickInstances.Add(Instantiate(prefab, position, Quaternion.Euler(0, rotationValue_y[rotationValue_yIndex], 0)));
+                                rotationValue_yIndex++;
+                                break;
+
+                            case 14:
+                                prefab.GetComponent<BlowsWind>().SetWindPowerIndex(gimmickPowers[gimmickPowersIndex]);
+                                gimmickPowersIndex++;
+                                gimmickInstances.Add(Instantiate(prefab, position, Quaternion.identity));
                                 break;
 
                             default:    // プレイヤー、敵、ゴール、感圧板以外のものを生成する
@@ -162,7 +177,7 @@ public class GenerateMap : MonoBehaviour
                                 //生成したオブジェクトがギミックだったらギミックリストに格納する
                                 else if(generateObject.GetComponent<IStartedOperation>() != null)
                                 {
-                                    startGimmickInstances.Add(generateObject);
+                                    gimmickInstances.Add(generateObject);
                                 }
                                 break;
                         }
@@ -184,7 +199,7 @@ public class GenerateMap : MonoBehaviour
         for (int i = 0; i < gimmickID.Count; ++i)
         {
             //インスタンス毎のid設定
-            startGimmickInstances[i].GetComponent<GimmickBase>().SetID(gimmickID[i]);
+            gimmickInstances[i].GetComponent<GimmickBase>().SetID(gimmickID[i]);
             
             
         }
@@ -210,7 +225,7 @@ public class GenerateMap : MonoBehaviour
     /// <param name="gimmickAssociationID"> ギミックを起動オブジェクトに紐づけるためのid </param>
     /// <param name="rotationValue_y"> ギミックのy軸回転の値 </param>
     /// <param name="gimmickPowerIndexs"> ギミックの強さを決める値 </param>
-    public void SetStageData(int layerWidth, int layerHeight, int layerNumber, List<List<List<int>>> mapData, List<int> gimmickID, List<int> bootObjectID, List<int> gimmickAssociationKey, List<int> gimmickAssociationID, List<int> rotationValue_y, List<int> gimmickPowerIndexs)
+    public void SetStageData(int layerWidth, int layerHeight, int layerNumber, List<List<List<int>>> mapData, List<int> gimmickID, List<int> bootObjectID, List<int> gimmickAssociationKey, List<int> gimmickAssociationID, List<int> rotationValue_y, List<int> gimmickPowers)
     {
         this.layerWidth = layerWidth;
         this.layerHeight = layerHeight;
@@ -223,6 +238,6 @@ public class GenerateMap : MonoBehaviour
             this.gimmickAssociationID[gimmickAssociationKey[i]] = gimmickAssociationID[i];
         }
         this.rotationValue_y = rotationValue_y;
-        this.gimmickPowerIndexs = gimmickPowerIndexs;
+        this.gimmickPowers = gimmickPowers;
     }
 }
