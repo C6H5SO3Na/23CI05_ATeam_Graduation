@@ -5,7 +5,7 @@ using UnityEngine;
 public class StageClear : MonoBehaviour
 {
     GameManager gameManager;    // ゲームマネージャーのインスタンス(Set関数から取得)
-    ParticleSystem particle;
+    [SerializeField] GameObject clearParticle;
     bool isOn_Player1;          // プレイヤー1が乗っているか
     bool isOn_Player2;          // プレイヤー2が乗っているか
 
@@ -13,9 +13,6 @@ public class StageClear : MonoBehaviour
     {
         isOn_Player1 = false;
         isOn_Player2 = false;
-
-        //パーティクルシステム
-        particle = GetComponent<ParticleSystem>();
     }
 
     //ゴールブロックの上に乗ったらクリアする
@@ -51,6 +48,7 @@ public class StageClear : MonoBehaviour
                 {
                     if (gameManager)
                     {
+                        Instantiate(clearParticle,Camera.main.transform);
                         gameManager.ReceiveClearInformation();
                     }
                 }
