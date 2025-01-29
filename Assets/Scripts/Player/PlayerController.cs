@@ -91,6 +91,14 @@ public class PlayerController : MonoBehaviour, IReduceHP
         get { return jumpPower; }
     }
 
+    //Žó‚¯‚½•—‚Ì‹­‚³
+    float recievedWindPower;
+    public float RecievedWindPower
+    {
+        set { recievedWindPower = value; }
+        get { return recievedWindPower; }
+    }
+
     void Awake()
     {
         nowPlayerNum = originalPlayerNum;
