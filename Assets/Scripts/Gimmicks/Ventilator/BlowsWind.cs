@@ -29,7 +29,6 @@ public class BlowsWind : GimmickBase, IStartedOperation
 
     void OnTriggerStay(Collider other)
     {
-        Debug.Log("????");
         //ジャンプ力を増やす場合
         if(shouldIncreaseJumpPower)
         {
@@ -121,13 +120,13 @@ public class BlowsWind : GimmickBase, IStartedOperation
             if (player)
             {
                 //他の風と同時に当たっている場合、風の数値が強い方を優先する
-                //if (player. <= windPowersIndex)
+                if (player.windPower.Max <= windPowersIndex)
                 {
                     //風の吹く向きと強さを計算する
                     Vector3 windForce = directionBlowsWind * movePowers[windPowersIndex] * playerAddedMoveForceCorrectionValue;
 
                     //風の力の値を風で動くオブジェクトに渡す
-                    //player. = windPowersIndex;
+                    player.windPower.Max = windPowersIndex;
 
                     //風でオブジェクトが動くようにする
                     player.WindMoveDirection = windForce;
@@ -170,7 +169,7 @@ public class BlowsWind : GimmickBase, IStartedOperation
             if (player)
             {
                 //受けている風の力の値をなくす
-                //player. = 0;
+                player.windPower.Max = 0;
 
                 //風でプレイヤーが動かないようにする
                 player.WindMoveDirection = Vector3.zero;
@@ -203,11 +202,8 @@ public class BlowsWind : GimmickBase, IStartedOperation
             PlayerController player = other.GetComponent<PlayerController>();
             if (player)
             {
-                //他の風と同時に当たっている場合、風の数値が強い方を優先する
-                //if (player. < windPowersIndex)
-                {
-                    player.RecievedWindPower = jumpPowers[windPowersIndex];
-                }
+                //ジャンプ力を上げる
+                player.windPower.Received = jumpPowers[windPowersIndex];
             }
         }
     }
@@ -221,11 +217,8 @@ public class BlowsWind : GimmickBase, IStartedOperation
             PlayerController player = other.GetComponent<PlayerController>();
             if(player)
             {
-                //受けている風の力をなくす
-                //player. = 0;
-
                 //ジャンプ力を元に戻す
-                player.RecievedWindPower = 0;
+                player.windPower.Received = 0;
             }
         }
     }
