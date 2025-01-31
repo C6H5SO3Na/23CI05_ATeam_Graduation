@@ -371,6 +371,7 @@ public class PlayerController : MonoBehaviour, IReduceHP
     /// </summary>
     public void Hold(GameObject other)
     {
+        sound.PlayOneShot(SE.holdSE);
         switch (other.tag)
         {
             case "ThrowingObject":
