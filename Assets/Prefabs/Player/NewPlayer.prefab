@@ -288,7 +288,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   jumpSE: {fileID: 8300000, guid: d55088fe88823e64e938aa49609c8294, type: 3}
-  holdSE: {fileID: 0}
+  holdSE: {fileID: 8300000, guid: 1ab308c28edc8c647b1b13257cb9fd12, type: 3}
   throwSE: {fileID: 8300000, guid: 28e4b120aea77114bb43c5d05a10983f, type: 3}
   damageSE: {fileID: 8300000, guid: 1b660da3454939c43b49047347cbdcd8, type: 3}
   deadSE: {fileID: 8300000, guid: 9497635c364da834f88b243d7a503746, type: 3}
