@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589246, b: 0.2978263, a: 1}
+  m_IndirectSpecularColor: {r: 0.17276844, g: 0.21589245, b: 0.2978263, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -167,8 +167,6 @@ MonoBehaviour:
   - {fileID: 53740106535157207, guid: 5462d867dbab0a44ca17bb4922b5d722, type: 3}
   - {fileID: 3467628863430339497, guid: 6ef8139e040dce244a421737b3f57076, type: 3}
   - {fileID: 7784192296233873562, guid: 11cc012f2db954f468d20bd3fd3a057a, type: 3}
-  - {fileID: 5548094852855039594, guid: 72a96917a424c5742a9f7f9ca52294e7, type: 3}
-  - {fileID: 8741454858826035921, guid: 4421617d585cbaa4fab60d4c3fc08238, type: 3}
 --- !u!4 &243274140
 Transform:
   m_ObjectHideFlags: 0
@@ -692,7 +690,6 @@ GameObject:
   - component: {fileID: 827223768}
   - component: {fileID: 827223767}
   - component: {fileID: 827223769}
-  - component: {fileID: 827223770}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: GameManager
@@ -743,21 +740,6 @@ MonoBehaviour:
   mainBGM: {fileID: 8300000, guid: 9d8eaaca4190acc4599415b4ad5508b0, type: 3}
   gameOverBGM: {fileID: 8300000, guid: b09621a4bb3a2954ba0a547f4ce6f6f4, type: 3}
   stageClearBGM: {fileID: 8300000, guid: c55a6ec5361e2314e8bf1194f8189dd0, type: 3}
---- !u!114 &827223770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 827223766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 969392c576e554248b757ac87e0f03c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pauseScreen: {fileID: 6350569512814578303, guid: fa899ac1d22733b4db13f658e6c18796,
-    type: 3}
-  gameManager: {fileID: 0}
 --- !u!1 &1130665835
 GameObject:
   m_ObjectHideFlags: 0
@@ -904,6 +886,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1249084104}
   - component: {fileID: 1249084105}
+  - component: {fileID: 1249084106}
   m_Layer: 5
   m_Name: GameUIManager
   m_TagString: Untagged
@@ -949,6 +932,21 @@ MonoBehaviour:
   gameOverPrefab: {fileID: 7796390757591306710, guid: e22fc1674ea69ca40b87094f34cb8e21,
     type: 3}
   fade: {fileID: 4921652492412623905, guid: ae82267f5e6ce484f96f11c3b1f35c2f, type: 3}
+--- !u!114 &1249084106
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1249084103}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 969392c576e554248b757ac87e0f03c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pauseScreen: {fileID: 6350569512814578303, guid: fa899ac1d22733b4db13f658e6c18796,
+    type: 3}
+  gameManager: {fileID: 827223767}
 --- !u!1 &1351277290
 GameObject:
   m_ObjectHideFlags: 0
