@@ -12,6 +12,12 @@ public class TransparencyAndSubstantiation : GimmickBase, IStartedOperation
     bool isTransparentize;  // 透明化するか
     float alpha;            // α値(0～1の範囲)
 
+    static bool isPressed;         // 押されたかどうか
+    static bool isLeft;            // 離れたかどうか
+
+    AudioSource audioSource;// AudioSource
+    TransparencyBlockSE SE; // SE
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +33,12 @@ public class TransparencyAndSubstantiation : GimmickBase, IStartedOperation
         //Colliderを取得する
         thisCollider = GetComponent<Collider>();
 
+        //AudioSourceを取得する
+        audioSource = GameObject.FindGameObjectWithTag("SE").GetComponent<AudioSource>();
+
+        //SEを取得する
+        SE = GetComponent<TransparencyBlockSE>();
+
         //透明状態で開始するとき
         if (isTransparentize)
         {
@@ -35,7 +47,7 @@ public class TransparencyAndSubstantiation : GimmickBase, IStartedOperation
         }
     }
 
-    //透明化、または実体化する
+    //透明化、または実体化する　　　
     public void ProcessWhenPressed()
     {
         //一度処理したら感圧板等を押し続けている場合は押すのをやめるまで処理しない
@@ -45,13 +57,32 @@ public class TransparencyAndSubstantiation : GimmickBase, IStartedOperation
             if (isTransparentize)
             {
                 Substantiation();
+                if (!isPressed)
+                {
+                    //SEを再生
+                    audioSource.PlayOneShot(SE.appearSE);
+                    isLeft = false;
+                    isPressed = true;
+                }
             }
             //透明化していないとき
             else
             {
                 //透明化する
                 Transparency();
+
+                if (!isPressed)
+                {
+                    //SEを再生
+                    audioSource.PlayOneShot(SE.disappearSE);
+                    isLeft = false;
+                    isPressed = true;
+                }
             }
+        }
+        else
+        {
+            isPressed = false;
         }
     }
 
@@ -62,12 +93,26 @@ public class TransparencyAndSubstantiation : GimmickBase, IStartedOperation
         if (isTransparentize)
         {
             Substantiation();
+
+            if (!isLeft)
+            {
+                //SEを再生
+                audioSource.PlayOneShot(SE.appearSE);
+                isLeft = true;
+            }
         }
         //透明化していないとき
         else
         {
             //透明化する
             Transparency();
+
+            if (!isLeft)
+            {
+                //SEを再生
+                audioSource.PlayOneShot(SE.disappearSE);
+                isLeft = true;
+            }
         }
 
         //また感圧板などを押したらギミックを起動できるようにする
