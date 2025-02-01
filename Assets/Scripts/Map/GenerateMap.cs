@@ -154,10 +154,10 @@ public class GenerateMap : MonoBehaviour
                                 break;
 
                             case 13:    // ‰¡Œü‚«‚Ì‘—•—‹@‚ğ¶¬‚·‚é
-                                prefab.GetComponent<BlowsWind>().SetWindPowerIndex(gimmickPowers[gimmickPowersIndex]);
-                                gimmickPowersIndex++;
                                 gimmickInstances.Add(Instantiate(prefab, position, Quaternion.Euler(0, rotationValue_y[rotationValue_yIndex], 0)));
                                 rotationValue_yIndex++;
+                                prefab.GetComponent<BlowsWind>().SetWindPowerIndex(gimmickPowers[gimmickPowersIndex]);
+                                gimmickPowersIndex++;
                                 break;
 
                             case 14:
