@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 3908485215915902430}
   - component: {fileID: 6699569839560474827}
   - component: {fileID: -246748918291955275}
+  - component: {fileID: 7386747407862056518}
   m_Layer: 0
   m_Name: TransparencyBlock_Red
   m_TagString: Untagged
@@ -34,7 +35,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &635257229044869734
 MeshFilter:
@@ -216,3 +217,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &7386747407862056518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8430031736925310845}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57e215d18bac4c54786d1855408f0b36, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  appearSE: {fileID: 8300000, guid: 29e43253f5180694f82d0ab930923d04, type: 3}
+  disappearSE: {fileID: 8300000, guid: 52515e6461a33d542aa75b76e20b9ebd, type: 3}
