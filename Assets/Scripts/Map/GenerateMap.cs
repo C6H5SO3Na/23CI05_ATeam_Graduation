@@ -104,6 +104,7 @@ public class GenerateMap : MonoBehaviour
                     {
                         //配置する位置を設定
                         Vector3 position = new Vector3(x, y, (layerHeight - 1) - z);    // layerHeight - 1はmapDataの形通りにマップを作るために必要
+                        GameObject gimmickTmp;                                          // ギミックのスクリプトに値を渡したいときは一旦この変数にインスタンスを格納する
 
                         switch (mapData[y][z][x])
                         {
@@ -154,16 +155,18 @@ public class GenerateMap : MonoBehaviour
                                 break;
 
                             case 13:    // 横向きの送風機を生成する
-                                gimmickInstances.Add(Instantiate(prefab, position, Quaternion.Euler(0, rotationValue_y[rotationValue_yIndex], 0)));
+                                gimmickTmp = Instantiate(prefab, position, Quaternion.Euler(0, rotationValue_y[rotationValue_yIndex], 0));
                                 rotationValue_yIndex++;
-                                prefab.GetComponent<BlowsWind>().SetWindPowerIndex(gimmickPowers[gimmickPowersIndex]);
+                                gimmickTmp.GetComponent<BlowsWind>().SetWindPowerIndex(gimmickPowers[gimmickPowersIndex]);
                                 gimmickPowersIndex++;
+                                gimmickInstances.Add(gimmickTmp);
                                 break;
 
                             case 14:
-                                prefab.GetComponent<BlowsWind>().SetWindPowerIndex(gimmickPowers[gimmickPowersIndex]);
+                                gimmickTmp = Instantiate(prefab, position, Quaternion.identity);
+                                gimmickTmp.GetComponent<BlowsWind>().SetWindPowerIndex(gimmickPowers[gimmickPowersIndex]);
                                 gimmickPowersIndex++;
-                                gimmickInstances.Add(Instantiate(prefab, position, Quaternion.identity));
+                                gimmickInstances.Add(gimmickTmp);
                                 break;
 
                             default:    // プレイヤー、敵、ゴール、感圧板以外のものを生成する
