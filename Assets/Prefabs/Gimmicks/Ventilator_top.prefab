@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 545706188148589844}
   - component: {fileID: 617426974376003606}
   m_Layer: 0
-  m_Name: Ventilator_top
+  m_Name: Ventilator_Top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
