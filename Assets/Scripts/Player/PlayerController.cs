@@ -15,7 +15,7 @@ public class PlayerController : MonoBehaviour, IReduceHP
     PlayerAnimation playerAnimation;
     PlayerStateMachine state;//状態
 
-    PlayerParticle particle;
+    public PlayerParticle particle;
 
     public PlayerStateMachine State//プロパティ
     {

@@ -5,8 +5,7 @@ using UnityEngine;
 public class PlayerParticle : MonoBehaviour
 {
     public GameObject moveParticle;
-    public GameObject jumpParticle;
-    public GameObject landParticle;
+    public GameObject jumpAndLandParticle;
     public GameObject damageParticle;
 
     /// <summary>
