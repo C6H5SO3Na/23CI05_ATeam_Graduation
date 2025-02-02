@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3789095379615631798}
   - component: {fileID: 8488934973779412259}
   - component: {fileID: 303584225919398390}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TransparencyBlock_Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}

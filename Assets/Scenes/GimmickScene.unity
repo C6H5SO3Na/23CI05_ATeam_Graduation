@@ -1804,17 +1804,17 @@ PrefabInstance:
     - target: {fileID: 143280211273536448, guid: 70181243728a84a41b4bdccaa6d10e7c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4.3043737
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 143280211273536448, guid: 70181243728a84a41b4bdccaa6d10e7c,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.7266288
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 143280211273536448, guid: 70181243728a84a41b4bdccaa6d10e7c,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.36306745
+      value: -5
       objectReference: {fileID: 0}
     - target: {fileID: 143280211273536448, guid: 70181243728a84a41b4bdccaa6d10e7c,
         type: 3}
@@ -1855,6 +1855,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TransparencyBlock_Blue
+      objectReference: {fileID: 0}
+    - target: {fileID: 4251495620201291638, guid: 70181243728a84a41b4bdccaa6d10e7c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1950,17 +1955,17 @@ PrefabInstance:
     - target: {fileID: 6805554740252961328, guid: 0ae48e949f34e4647bbbdd9acf38d754,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -7.2275224
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6805554740252961328, guid: 0ae48e949f34e4647bbbdd9acf38d754,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5424185
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6805554740252961328, guid: 0ae48e949f34e4647bbbdd9acf38d754,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 7.7515335
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 6805554740252961328, guid: 0ae48e949f34e4647bbbdd9acf38d754,
         type: 3}
@@ -2001,6 +2006,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: TransparencyBlock_Red
+      objectReference: {fileID: 0}
+    - target: {fileID: 8430031736925310845, guid: 0ae48e949f34e4647bbbdd9acf38d754,
+        type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2043,17 +2053,17 @@ PrefabInstance:
     - target: {fileID: 6656845547537718253, guid: 6ef8139e040dce244a421737b3f57076,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 6656845547537718253, guid: 6ef8139e040dce244a421737b3f57076,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6656845547537718253, guid: 6ef8139e040dce244a421737b3f57076,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 6656845547537718253, guid: 6ef8139e040dce244a421737b3f57076,
         type: 3}
@@ -2068,7 +2078,7 @@ PrefabInstance:
     - target: {fileID: 6656845547537718253, guid: 6ef8139e040dce244a421737b3f57076,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 270
       objectReference: {fileID: 0}
     - target: {fileID: 6656845547537718253, guid: 6ef8139e040dce244a421737b3f57076,
         type: 3}
