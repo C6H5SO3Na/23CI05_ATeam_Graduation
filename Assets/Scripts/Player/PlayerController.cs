@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour, IReduceHP
     public GameManager gameManager;
     PlayerAnimation playerAnimation;
     PlayerStateMachine state;//状態
+
+    public PlayerParticle particle;
+
     public PlayerStateMachine State//プロパティ
     {
         private set { state = value; }
@@ -51,7 +54,7 @@ public class PlayerController : MonoBehaviour, IReduceHP
     Vector3 windMoveDirection;//風の動き
     public Vector3 WindMoveDirection
     {
-        set { windMoveDirection = value;}
+        set { windMoveDirection = value; }
         get { return windMoveDirection; }
     }
     int invincibleCnt = 0;
@@ -111,6 +114,8 @@ public class PlayerController : MonoBehaviour, IReduceHP
 
     public WindPower windPower;
 
+    int animationCount = 0;//アニメーション用のカウント
+
     void Awake()
     {
         nowPlayerNum = originalPlayerNum;
@@ -129,10 +134,13 @@ public class PlayerController : MonoBehaviour, IReduceHP
         sound = GetComponent<AudioSource>();
         SE = GetComponent<PlayerSE>();
 
+        particle = GetComponent<PlayerParticle>();
+
         isHolding = false;
         gameManager.PlayersHP = 3;
 
         playerAnimation = transform.GetChild(0).GetChild(0).GetComponent<PlayerAnimation>();
+        animationCount = 0;
     }
 
     void Update()
@@ -288,11 +296,23 @@ public class PlayerController : MonoBehaviour, IReduceHP
     public void Walk()
     {
         Vector3 inputDirection = GetInputDirection();
+        //入力のベクトルの正規化
+        if (inputDirection.magnitude > 1f)
+        {
+            inputDirection = inputDirection.normalized;
+        }
         UpdateMoveDirection(new Vector3(inputDirection.x, moveDirection.y, inputDirection.z));
 
         //回転
         float normalizedDir = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0.0f, moveDirection.x + normalizedDir, 0.0f);
+
+        //アニメーション
+        ++animationCount;
+        if (animationCount % (int)(15f / inputDirection.magnitude) == 0)//最大0.25秒に1回エフェクトを出す
+        {
+            particle.PlayParticle(particle.moveParticle, Vector3.zero, transform);
+        }
     }
 
     /// <summary>
@@ -484,6 +504,10 @@ public class PlayerController : MonoBehaviour, IReduceHP
     public void ReduceHP(int damage)
     {
         if (isInvincible || gameManager.PlayersHP <= 0) { return; }
+
+        var position = new Vector3(0f, 1f, 0f);
+        particle.PlayParticle(particle.damageParticle, position, transform);
+
         sound.PlayOneShot(SE.damageSE);
         isInvincible = true;
         invincibleCnt = 100;

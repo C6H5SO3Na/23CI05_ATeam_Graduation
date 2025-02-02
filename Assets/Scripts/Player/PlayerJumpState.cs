@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
+using UnityEngine.UIElements;
 /// <summary>
 /// プレイヤージャンプ状態
 /// </summary>
 public class PlayerJumpState : PlayerStateMachine
 {
+    //着地用変数
+    bool isLand = false;
 
+    //地面を離れたか
+    bool isLeft = false;
     //コンストラクタ
     public PlayerJumpState()
     {
@@ -18,15 +24,18 @@ public class PlayerJumpState : PlayerStateMachine
     {
         //ジャンプする
         player.sound.PlayOneShot(player.SE.jumpSE);
+        player.particle.PlayParticle(player.particle.jumpAndLandParticle, Vector3.zero, player.transform);
         //ジャンプと下からの風の強さ
         var jumpVec = new Vector3(player.GetInputDirection().x, player.JumpPower + player.windPower.Received, player.GetInputDirection().z);
         player.UpdateMoveDirection(jumpVec);
+
+        isLand = false;
     }
 
     public override void Think(PlayerController player)
     {
         //地面に着地したら遷移
-        if (player.GetComponent<CharacterController>().isGrounded)
+        if (isLand)
         {
             player.ChangeState(player.PreState);
         }
@@ -44,6 +53,21 @@ public class PlayerJumpState : PlayerStateMachine
 
     public override void Move(PlayerController player)
     {
+        //地面に着地したらエフェクトを出す
+        if (player.GetComponent<CharacterController>().isGrounded)
+        {
+            //ジャンプ状態になった最初は着地した扱いになるため
+            if (!isLeft)
+            {
+                isLeft = true;
+            }
+            //着地したときはこちら
+            else
+            {
+                player.particle.PlayParticle(player.particle.jumpAndLandParticle, Vector3.zero, player.transform);
+                isLand = true;
+            }
+        }
         //移動
         if (player.IsInputStick())
         {
