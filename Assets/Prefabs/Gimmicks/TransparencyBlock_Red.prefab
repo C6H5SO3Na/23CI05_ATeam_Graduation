@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6699569839560474827}
   - component: {fileID: -246748918291955275}
   - component: {fileID: 7386747407862056518}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TransparencyBlock_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
