@@ -14,6 +14,9 @@ public class PlayerController : MonoBehaviour, IReduceHP
     public GameManager gameManager;
     PlayerAnimation playerAnimation;
     PlayerStateMachine state;//状態
+
+    PlayerParticle particle;
+
     public PlayerStateMachine State//プロパティ
     {
         private set { state = value; }
@@ -51,7 +54,7 @@ public class PlayerController : MonoBehaviour, IReduceHP
     Vector3 windMoveDirection;//風の動き
     public Vector3 WindMoveDirection
     {
-        set { windMoveDirection = value;}
+        set { windMoveDirection = value; }
         get { return windMoveDirection; }
     }
     int invincibleCnt = 0;
@@ -128,6 +131,8 @@ public class PlayerController : MonoBehaviour, IReduceHP
 
         sound = GetComponent<AudioSource>();
         SE = GetComponent<PlayerSE>();
+
+        particle = GetComponent<PlayerParticle>();
 
         isHolding = false;
         gameManager.PlayersHP = 3;
@@ -484,6 +489,10 @@ public class PlayerController : MonoBehaviour, IReduceHP
     public void ReduceHP(int damage)
     {
         if (isInvincible || gameManager.PlayersHP <= 0) { return; }
+
+        var position = new Vector3(0f, 1f, 0f);
+        particle.PlayParticle(particle.damageParticle, position, transform);
+
         sound.PlayOneShot(SE.damageSE);
         isInvincible = true;
         invincibleCnt = 100;
