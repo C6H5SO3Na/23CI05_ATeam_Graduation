@@ -114,6 +114,8 @@ public class PlayerController : MonoBehaviour, IReduceHP
 
     public WindPower windPower;
 
+    int animationCount = 0;//アニメーション用のカウント
+
     void Awake()
     {
         nowPlayerNum = originalPlayerNum;
@@ -138,6 +140,7 @@ public class PlayerController : MonoBehaviour, IReduceHP
         gameManager.PlayersHP = 3;
 
         playerAnimation = transform.GetChild(0).GetChild(0).GetComponent<PlayerAnimation>();
+        animationCount = 0;
     }
 
     void Update()
@@ -293,11 +296,23 @@ public class PlayerController : MonoBehaviour, IReduceHP
     public void Walk()
     {
         Vector3 inputDirection = GetInputDirection();
+        //入力のベクトルの正規化
+        if (inputDirection.magnitude > 1f)
+        {
+            inputDirection = inputDirection.normalized;
+        }
         UpdateMoveDirection(new Vector3(inputDirection.x, moveDirection.y, inputDirection.z));
 
         //回転
         float normalizedDir = Mathf.Atan2(moveDirection.x, moveDirection.z) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0.0f, moveDirection.x + normalizedDir, 0.0f);
+
+        //アニメーション
+        ++animationCount;
+        if (animationCount % (int)(15f / inputDirection.magnitude) == 0)//最大0.25秒に1回エフェクトを出す
+        {
+            particle.PlayParticle(particle.moveParticle, Vector3.zero, transform);
+        }
     }
 
     /// <summary>
