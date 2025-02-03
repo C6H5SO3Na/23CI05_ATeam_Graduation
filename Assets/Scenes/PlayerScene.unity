@@ -2409,13 +2409,19 @@ PrefabInstance:
         type: 3}
       propertyPath: moveParticle
       value: 
-      objectReference: {fileID: 1037864198121816, guid: 724414d58489d5a42b3b0b0370d54829,
+      objectReference: {fileID: 1037864198121816, guid: 6838b07809f9d3f4481d7687c0b3a6ba,
         type: 3}
     - target: {fileID: 5424729933749652246, guid: db6de929772293b4c893ac8645fbf565,
         type: 3}
       propertyPath: damageParticle
       value: 
       objectReference: {fileID: 1803324797696400, guid: 51fa4fc7934b85740af5d6cce9f70c68,
+        type: 3}
+    - target: {fileID: 5424729933749652246, guid: db6de929772293b4c893ac8645fbf565,
+        type: 3}
+      propertyPath: jumpAndLandParticle
+      value: 
+      objectReference: {fileID: 1037864198121816, guid: 724414d58489d5a42b3b0b0370d54829,
         type: 3}
     - target: {fileID: 5916322736771213020, guid: db6de929772293b4c893ac8645fbf565,
         type: 3}

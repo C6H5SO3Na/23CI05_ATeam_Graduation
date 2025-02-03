@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.Rendering;
 
@@ -148,6 +149,9 @@ public class PlayerController : MonoBehaviour, IReduceHP
         if (PauseScreenManager.IsPause) { return; }//ポーズ中は停止
         state.Think(this);
         state.Move(this);
+
+        //アニメーション速度更新
+        playerAnimation.UpdateAnimationSpeed(state);
 
         //実際に動く
         //Debug.Log($"moveDirection:{moveDirection} state:{state}");
