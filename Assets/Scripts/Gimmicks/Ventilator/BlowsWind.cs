@@ -8,14 +8,15 @@ public class BlowsWind : GimmickBase, IStartedOperation
     //-------------------------------------------------------------------------------
     // 変数
     //-------------------------------------------------------------------------------
-    float[] movePowers = {0.1f, 0.5f, 1f};              // オブジェクトを動かす風の力 左から弱、中、強の三種類
+    float[] movePowers = { 0.1f, 0.5f, 1f };              // オブジェクトを動かす風の力 左から弱、中、強の三種類
     float[] jumpPowers = { 1f, 2f, 3f };                // プレイヤーのジャンプ力を増やす風の力 左から弱、中、強の三種類
-    int     windPowersIndex = 0;                        // 風の力の強弱を決める値
-    bool    shouldProcessGimmick = true;                // 風を吹かせるか
+    int windPowersIndex = 0;                        // 風の力の強弱を決める値
+    bool shouldProcessGimmick = true;                // 風を吹かせるか
     Vector3 directionBlowsWind;                         // 風が吹く方向
-    float   playerAddedMoveForceCorrectionValue = 1.5f; // プレイヤーに風が当たるときの風の強さの補正値
-    [SerializeField] 
-    bool    shouldIncreaseJumpPower = false;            // プレイヤーのジャンプ力を増やすか(trueの場合はジャンプ力を上げる代わりに風で移動しなくなる)
+    float playerAddedMoveForceCorrectionValue = 1.5f; // プレイヤーに風が当たるときの風の強さの補正値
+    [SerializeField]
+    bool shouldIncreaseJumpPower = false;            // プレイヤーのジャンプ力を増やすか(trueの場合はジャンプ力を上げる代わりに風で移動しなくなる)
+    ParticleSystem particle;
 
     //-------------------------------------------------------------------------------
     // 関数
@@ -25,12 +26,15 @@ public class BlowsWind : GimmickBase, IStartedOperation
     {
         //風が吹く方向を取得
         directionBlowsWind = transform.forward;
+
+        //エフェクト
+        particle = transform.GetChild(0).GetComponent<ParticleSystem>();
     }
 
     void OnTriggerStay(Collider other)
     {
         //ジャンプ力を増やす場合
-        if(shouldIncreaseJumpPower)
+        if (shouldIncreaseJumpPower)
         {
             AddPlayerJumpPower(other);
         }
@@ -55,7 +59,7 @@ public class BlowsWind : GimmickBase, IStartedOperation
     void OnTriggerExit(Collider other)
     {
         //ジャンプ力を増やす場合
-        if(shouldIncreaseJumpPower)
+        if (shouldIncreaseJumpPower)
         {
             RestorePlayerJumpPower(other);
         }
@@ -102,7 +106,7 @@ public class BlowsWind : GimmickBase, IStartedOperation
             //また風を吹かせる
             shouldProcessGimmick = true;
         }
-        
+
         //また感圧板などを押したらギミックを起動できるようにする
         MakeToLaunchable();
     }
@@ -197,7 +201,7 @@ public class BlowsWind : GimmickBase, IStartedOperation
     void AddPlayerJumpPower(Collider other)
     {
         //触れているオブジェクトがプレイヤーかどうか判定する
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             PlayerController player = other.GetComponent<PlayerController>();
             if (player)
@@ -212,10 +216,10 @@ public class BlowsWind : GimmickBase, IStartedOperation
     void RestorePlayerJumpPower(Collider other)
     {
         //触れているオブジェクトがプレイヤーかどうか判定する
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             PlayerController player = other.GetComponent<PlayerController>();
-            if(player)
+            if (player)
             {
                 //ジャンプ力を元に戻す
                 player.windPower.Received = 0;
@@ -230,21 +234,25 @@ public class BlowsWind : GimmickBase, IStartedOperation
     public void SetWindPowerIndex(int index)
     {
         //ジャンプ力を上げるとき
-        if(shouldIncreaseJumpPower)
+        if (shouldIncreaseJumpPower)
         {
             //indexが"0～ジャンプ力を増やす風の力の配列の要素数-1"の範囲の時のみ値を設定する
             if (0 <= index && index <= jumpPowers.Length - 1)
             {
                 windPowersIndex = index;
+                var main = particle.main;
+                main.startSpeed = 10 + 12 * index;
             }
         }
         //オブジェクトを移動させるとき
         else
         {
             //indexが"0～オブジェクトを動かす風の力の配列の要素数-1"の範囲の時のみ値を設定する
-            if(0 <= index && index <= movePowers.Length - 1)
+            if (0 <= index && index <= movePowers.Length - 1)
             {
                 windPowersIndex = index;
+                var main = particle.main;
+                main.startSpeed = 10 + 12 * index;
             }
         }
     }
