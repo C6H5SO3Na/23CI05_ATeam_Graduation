@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6406968093934117397}
   - component: {fileID: 6044692829309860403}
   m_Layer: 0
-  m_Name: Ventilator_Horizontal
+  m_Name: Ventilator_Horizontal_On
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -161,3 +161,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shouldIncreaseJumpPower: 0
+  isBlowsWindToFirst: 1
