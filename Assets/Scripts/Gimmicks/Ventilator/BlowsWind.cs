@@ -8,15 +8,16 @@ public class BlowsWind : GimmickBase, IStartedOperation
     //-------------------------------------------------------------------------------
     // 変数
     //-------------------------------------------------------------------------------
-    float[] movePowers = { 0.1f, 0.5f, 1f };              // オブジェクトを動かす風の力 左から弱、中、強の三種類
+    float[] movePowers = {0.1f, 0.5f, 1f};              // オブジェクトを動かす風の力 左から弱、中、強の三種類
     float[] jumpPowers = { 1f, 2f, 3f };                // プレイヤーのジャンプ力を増やす風の力 左から弱、中、強の三種類
-    int windPowersIndex = 0;                        // 風の力の強弱を決める値
-    bool shouldProcessGimmick = true;                // 風を吹かせるか
+    int     windPowersIndex = 0;                        // 風の力の強弱を決める値
+    bool    shouldProcessGimmick;                       // 風を吹かせるか
     Vector3 directionBlowsWind;                         // 風が吹く方向
-    float playerAddedMoveForceCorrectionValue = 1.5f; // プレイヤーに風が当たるときの風の強さの補正値
+    float   playerAddedMoveForceCorrectionValue = 1.5f; // プレイヤーに風が当たるときの風の強さの補正値
+    [SerializeField] 
+    bool    shouldIncreaseJumpPower;                    // プレイヤーのジャンプ力を増やすか(trueの場合はジャンプ力を上げる代わりに風で移動しなくなる)
     [SerializeField]
-    bool shouldIncreaseJumpPower = false;            // プレイヤーのジャンプ力を増やすか(trueの場合はジャンプ力を上げる代わりに風で移動しなくなる)
-    ParticleSystem particle;
+    bool    isBlowsWindToFirst;                         // 最初から風を吹かせるか
 
     //-------------------------------------------------------------------------------
     // 関数
@@ -24,17 +25,25 @@ public class BlowsWind : GimmickBase, IStartedOperation
     // Start is called before the first frame update
     void Start()
     {
+        //最初から風を吹かせる
+        if(isBlowsWindToFirst)
+        {
+            shouldProcessGimmick = true;
+        }
+        //最初から風を吹かせない
+        else
+        {
+            shouldProcessGimmick = false;
+        }
+
         //風が吹く方向を取得
         directionBlowsWind = transform.forward;
-
-        //エフェクト
-        particle = transform.GetChild(0).GetComponent<ParticleSystem>();
     }
 
     void OnTriggerStay(Collider other)
     {
         //ジャンプ力を増やす場合
-        if (shouldIncreaseJumpPower)
+        if(shouldIncreaseJumpPower)
         {
             AddPlayerJumpPower(other);
         }
@@ -59,7 +68,7 @@ public class BlowsWind : GimmickBase, IStartedOperation
     void OnTriggerExit(Collider other)
     {
         //ジャンプ力を増やす場合
-        if (shouldIncreaseJumpPower)
+        if(shouldIncreaseJumpPower)
         {
             RestorePlayerJumpPower(other);
         }
@@ -92,8 +101,17 @@ public class BlowsWind : GimmickBase, IStartedOperation
             //オブジェクトを移動させる場合
             else
             {
-                //風に当たったオブジェクトを動かさないようにする
-                shouldProcessGimmick = false;
+                //最初に風が吹いている場合、風が吹かないようにする(風に当たったオブジェクトを動かさないようにする)
+                if (isBlowsWindToFirst)
+                {
+                    shouldProcessGimmick = false;
+                }
+                //最初に風が吹いていない場合、風が吹くようにする(風に当たったオブジェクトを動くようにする)
+                else
+                {
+                    shouldProcessGimmick = true;
+                }
+
             }
         }
     }
@@ -103,10 +121,18 @@ public class BlowsWind : GimmickBase, IStartedOperation
         //オブジェクトを移動させる場合
         if (!shouldIncreaseJumpPower)
         {
-            //また風を吹かせる
-            shouldProcessGimmick = true;
+            //最初に風が吹いていた場合、また風が吹くようにする(風に当たったオブジェクトを動くようにする)
+            if(isBlowsWindToFirst)
+            {
+                shouldProcessGimmick = true;
+            }
+            //最初に風が吹いていない場合、また風が吹かないようにする(風に当たったオブジェクトを動かさないようにする)
+            else
+            {
+                shouldProcessGimmick = false;
+            }
         }
-
+        
         //また感圧板などを押したらギミックを起動できるようにする
         MakeToLaunchable();
     }
@@ -201,7 +227,7 @@ public class BlowsWind : GimmickBase, IStartedOperation
     void AddPlayerJumpPower(Collider other)
     {
         //触れているオブジェクトがプレイヤーかどうか判定する
-        if (other.CompareTag("Player"))
+        if(other.CompareTag("Player"))
         {
             PlayerController player = other.GetComponent<PlayerController>();
             if (player)
@@ -216,10 +242,10 @@ public class BlowsWind : GimmickBase, IStartedOperation
     void RestorePlayerJumpPower(Collider other)
     {
         //触れているオブジェクトがプレイヤーかどうか判定する
-        if (other.CompareTag("Player"))
+        if(other.CompareTag("Player"))
         {
             PlayerController player = other.GetComponent<PlayerController>();
-            if (player)
+            if(player)
             {
                 //ジャンプ力を元に戻す
                 player.windPower.Received = 0;
@@ -234,25 +260,21 @@ public class BlowsWind : GimmickBase, IStartedOperation
     public void SetWindPowerIndex(int index)
     {
         //ジャンプ力を上げるとき
-        if (shouldIncreaseJumpPower)
+        if(shouldIncreaseJumpPower)
         {
             //indexが"0～ジャンプ力を増やす風の力の配列の要素数-1"の範囲の時のみ値を設定する
             if (0 <= index && index <= jumpPowers.Length - 1)
             {
                 windPowersIndex = index;
-                var main = particle.main;
-                main.startSpeed = 10 + 12 * index;
             }
         }
         //オブジェクトを移動させるとき
         else
         {
             //indexが"0～オブジェクトを動かす風の力の配列の要素数-1"の範囲の時のみ値を設定する
-            if (0 <= index && index <= movePowers.Length - 1)
+            if(0 <= index && index <= movePowers.Length - 1)
             {
                 windPowersIndex = index;
-                var main = particle.main;
-                main.startSpeed = 10 + 12 * index;
             }
         }
     }
