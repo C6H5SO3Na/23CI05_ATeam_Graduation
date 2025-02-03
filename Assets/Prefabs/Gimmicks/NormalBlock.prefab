@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 2968142282134080023}
   - component: {fileID: 2318851718393910130}
   - component: {fileID: 8331945655085211959}
+  - component: {fileID: 8946415971762816367}
   m_Layer: 3
   m_Name: NormalBlock
   m_TagString: ThrowingObject
@@ -144,5 +145,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 79bdd3694ea37354d9a6f56dea0f5556, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &8946415971762816367
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7680406051955426657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1a38c2f423c2264a8554d10054c1cf7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
