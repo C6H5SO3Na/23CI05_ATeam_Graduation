@@ -18,10 +18,19 @@ public class BlowsWind : GimmickBase, IStartedOperation
     bool    shouldIncreaseJumpPower;                    // プレイヤーのジャンプ力を増やすか(trueの場合はジャンプ力を上げる代わりに風で移動しなくなる)
     [SerializeField]
     bool    isBlowsWindToFirst;                         // 最初から風を吹かせるか
-
+    ParticleSystem particle;
+    AudioSource audioSource;
+    VentilatorSE SE;
     //-------------------------------------------------------------------------------
     // 関数
     //-------------------------------------------------------------------------------
+    void Awake()
+    {
+        particle = transform.GetChild(0).GetComponent<ParticleSystem>();
+        audioSource = GetComponent<AudioSource>();
+        SE = GetComponent<VentilatorSE>();
+    }
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -266,6 +275,14 @@ public class BlowsWind : GimmickBase, IStartedOperation
             if (0 <= index && index <= jumpPowers.Length - 1)
             {
                 windPowersIndex = index;
+
+                //パーティクルの設定
+                var main = particle.main;
+                main.startSpeed = 10 + index * 8;
+
+                //SE再生
+                audioSource.clip = SE.ventilatorSE[index];
+                audioSource.Play();
             }
         }
         //オブジェクトを移動させるとき
@@ -275,6 +292,14 @@ public class BlowsWind : GimmickBase, IStartedOperation
             if(0 <= index && index <= movePowers.Length - 1)
             {
                 windPowersIndex = index;
+
+                //パーティクルの設定
+                var main = particle.main;
+                main.startSpeed = 10 + index * 8;
+
+                //SE再生
+                audioSource.clip = SE.ventilatorSE[index];
+                audioSource.Play();
             }
         }
     }
