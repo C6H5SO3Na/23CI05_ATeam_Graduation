@@ -36,4 +36,11 @@ public class ObjectsMoveByWind : MonoBehaviour
             rb.MovePosition(rb.position + WindForce * Time.fixedDeltaTime);
         }
     }
+
+    //•—‚Ì”ÍˆÍ‚©‚ç”²‚¯‚½Žž
+    void OnCollisionExit(Collision collision)
+    {
+        //Žó‚¯‚Ä‚¢‚é•—‚Ì‹­‚³‚ð0‚É‚·‚é
+        WindForce = Vector3.zero;
+    }
 }

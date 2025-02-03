@@ -154,7 +154,7 @@ public class GenerateMap : MonoBehaviour
                                 rotationValue_yIndex++;
                                 break;
 
-                            case 13:    // 横向きの送風機を生成する
+                            case 13:    // 最初から風を吹く横向きの送風機を生成する
                                 gimmickTmp = Instantiate(prefab, position, Quaternion.Euler(0, rotationValue_y[rotationValue_yIndex], 0));
                                 rotationValue_yIndex++;
                                 gimmickTmp.GetComponent<BlowsWind>().SetWindPowerIndex(gimmickPowers[gimmickPowersIndex]);
@@ -162,7 +162,15 @@ public class GenerateMap : MonoBehaviour
                                 gimmickInstances.Add(gimmickTmp);
                                 break;
 
-                            case 14:
+                            case 14:    // 最初は風が吹かない横向きの送風機を生成する
+                                gimmickTmp = Instantiate(prefab, position, Quaternion.Euler(0, rotationValue_y[rotationValue_yIndex], 0));
+                                rotationValue_yIndex++;
+                                gimmickTmp.GetComponent<BlowsWind>().SetWindPowerIndex(gimmickPowers[gimmickPowersIndex]);
+                                gimmickPowersIndex++;
+                                gimmickInstances.Add(gimmickTmp);
+                                break;
+
+                            case 15:    // 上向きの送風機を生成する
                                 gimmickTmp = Instantiate(prefab, position, Quaternion.identity);
                                 gimmickTmp.GetComponent<BlowsWind>().SetWindPowerIndex(gimmickPowers[gimmickPowersIndex]);
                                 gimmickPowersIndex++;

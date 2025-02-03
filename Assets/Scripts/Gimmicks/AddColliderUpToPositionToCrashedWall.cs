@@ -12,6 +12,7 @@ public class AddColliderUpToPositionToCrashedWall : MonoBehaviour
     float       correctionValue = 0.49f;    // このブロックをアタッチするオブジェクトの大きさの半分の値-0.01(隣接したオブジェクトにRayがすり抜けるバグ、このスクリプトをアタッチしているオブジェクトにRayが当たるバグをなくすため)
     [SerializeField]
     bool        shouldAddOntTheTop = false; // Colliderをオブジェクトの上に追加するか(横方向には追加しなくなる)
+    bool        shouldStopRayCast = false;  // RayCastを止めてBoxColliderのサイズ変更をやめるか
 
     //-------------------------------------------------------------------------------
     // 関数
@@ -39,8 +40,12 @@ public class AddColliderUpToPositionToCrashedWall : MonoBehaviour
         //Colliderがオブジェクトの横に追加されるとき
         if(!shouldAddOntTheTop)
         {
-            //Rayの当たった位置までの長さのBoxColliderを生成する
-            AddBoxCollider_Horizontal();
+            //コライダーのサイズをRayが当たった距離までのサイズに変更するとき
+            if(!shouldStopRayCast)
+            {
+                //Rayの当たった位置までの長さのBoxColliderを生成する
+                AddBoxCollider_Horizontal();
+            }
         }
     }
 
@@ -87,8 +92,35 @@ public class AddColliderUpToPositionToCrashedWall : MonoBehaviour
         Vector3 boxColliderSize = new Vector3(0.95f, 0.1f, 0.95f);
         float boxColliderCenter_Y = 0.55f;
 
-        //アタッチしたコライダーのサイズ、中央の位置を変更する
-        boxCollider.size = boxColliderSize;
-        boxCollider.center = new Vector3(0, boxColliderCenter_Y, 0);
+        if(boxCollider)
+        {
+            //アタッチしたコライダーのサイズ、中央の位置を変更する
+            boxCollider.size = boxColliderSize;
+            boxCollider.center = new Vector3(0, boxColliderCenter_Y, 0);
+        }
+    }
+
+    /// <summary>
+    /// アタッチしたコライダーに衝突判定をさせないようにする
+    /// </summary>
+    public void MakeAddColliderSizeToZero()
+    {
+        shouldStopRayCast = true;
+
+        //アタッチしたコライダーのサイズを０にする
+        if (boxCollider)
+        {
+            //アタッチしたコライダーのサイズ、中央の位置を変更する
+            boxCollider.size = Vector3.zero;
+            boxCollider.center = Vector3.zero;
+        }
+    }
+
+    /// <summary>
+    /// もう一度アタッチしたコライダーに衝突判定をさせるようにする
+    /// </summary>
+    public void RestartRaycast()
+    {
+        shouldStopRayCast = false;
     }
 }

@@ -1616,6 +1616,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2968142282134080023, guid: 4fa96e382df7841408fa0867e56f65e5,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 0.95
+      objectReference: {fileID: 0}
+    - target: {fileID: 2968142282134080023, guid: 4fa96e382df7841408fa0867e56f65e5,
+        type: 3}
+      propertyPath: m_Size.z
+      value: 0.95
+      objectReference: {fileID: 0}
     - target: {fileID: 7680406051955426657, guid: 4fa96e382df7841408fa0867e56f65e5,
         type: 3}
       propertyPath: m_Name
@@ -1798,6 +1808,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ventilator
+      objectReference: {fileID: 0}
+    - target: {fileID: 6789599314077183471, guid: 23862beda03780548937195232847db9,
+        type: 3}
+      propertyPath: isBlowsWindToFirst
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7836046635140951817, guid: 23862beda03780548937195232847db9,
         type: 3}

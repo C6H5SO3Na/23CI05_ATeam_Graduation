@@ -56,11 +56,15 @@ public class BlowsWind : GimmickBase, IStartedOperation
                 //風が"風で動くオブジェクト"に当たっていたら、オブジェクトを移動させる処理
                 MoveObject(other);
             }
-            //オブジェクトが風に当たっている時に風を吹かせるのをやめたとき、オブジェクトが移動しないようにする
             else
             {
-                //風が"風で動くオブジェクト"に当たらなくなったら、オブジェクトを移動させないようにする処理
-                StopMoveObject(other);
+                //風の当たり判定を消す
+                AddColliderUpToPositionToCrashedWall windCollider = GetComponent<AddColliderUpToPositionToCrashedWall>();
+                if(windCollider)
+                {
+                    //風の当たり判定を消す
+                    windCollider.MakeAddColliderSizeToZero();
+                }
             }
         }
     }
@@ -110,8 +114,14 @@ public class BlowsWind : GimmickBase, IStartedOperation
                 else
                 {
                     shouldProcessGimmick = true;
-                }
 
+                    //風の当たり判定を再生成する
+                    AddColliderUpToPositionToCrashedWall windCollider = GetComponent<AddColliderUpToPositionToCrashedWall>();
+                    if (windCollider)
+                    {
+                        windCollider.RestartRaycast();
+                    }
+                }
             }
         }
     }
@@ -125,6 +135,13 @@ public class BlowsWind : GimmickBase, IStartedOperation
             if(isBlowsWindToFirst)
             {
                 shouldProcessGimmick = true;
+
+                //風の当たり判定を再生成する
+                AddColliderUpToPositionToCrashedWall windCollider = GetComponent<AddColliderUpToPositionToCrashedWall>();
+                if (windCollider)
+                {
+                    windCollider.RestartRaycast();
+                }
             }
             //最初に風が吹いていない場合、また風が吹かないようにする(風に当たったオブジェクトを動かさないようにする)
             else
