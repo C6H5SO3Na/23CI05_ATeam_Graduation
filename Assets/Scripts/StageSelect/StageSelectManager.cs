@@ -114,7 +114,7 @@ public class StageSelectManager : MonoBehaviour
                 if (Input.GetButtonDown("Submit"))
                 {
                     AppManager.StageName = canvas.transform.GetChild(canvas.transform.childCount - 1).GetChild(0).GetComponent<TextMeshProUGUI>().text;
-                    se.PlayOneShot(sound.enlargeSE);
+                    se.PlayOneShot(sound.choiceSE);
                     phase = Phase.StageChoice;
                 }
                 break;
