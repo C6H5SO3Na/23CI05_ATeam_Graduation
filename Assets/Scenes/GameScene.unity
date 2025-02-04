@@ -154,7 +154,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   normalCamera: {fileID: 6386776097948605091, guid: a5f93cbce803bde4aaa2e9cf2580cbf3,
     type: 3}
-  ueCamera: {fileID: 425317577612457418, guid: f30f2595fef651c4eaa71da9b59594d7, type: 3}
+  topViewCamera: {fileID: 425317577612457418, guid: f30f2595fef651c4eaa71da9b59594d7,
+    type: 3}
 --- !u!4 &173308891
 Transform:
   m_ObjectHideFlags: 0
@@ -600,6 +601,7 @@ GameObject:
   - component: {fileID: 1356456039}
   - component: {fileID: 1356456041}
   - component: {fileID: 1356456040}
+  - component: {fileID: 1356456042}
   m_Layer: 5
   m_Name: Operation
   m_TagString: Untagged
@@ -725,6 +727,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1356456038}
   m_CullTransparentMesh: 1
+--- !u!114 &1356456042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1356456038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fa451aa5cd13d8b42b76955bab5511b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1781217480
 GameObject:
   m_ObjectHideFlags: 0

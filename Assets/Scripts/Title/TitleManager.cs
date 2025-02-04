@@ -145,7 +145,7 @@ public class TitleManager : MonoBehaviour
 
             //マルチプレイ
             case (int)Select.MultiPlay:
-                GameManager.isMultiPlay = false;
+                GameManager.isMultiPlay = true;
                 selectImage.ChangeBlinkSpeed(5f);
                 phase = Phase.PreFadeOut;
                 break;

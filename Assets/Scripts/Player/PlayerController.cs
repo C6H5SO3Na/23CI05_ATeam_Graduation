@@ -117,10 +117,6 @@ public class PlayerController : MonoBehaviour, IReduceHP
 
     int animationCount = 0;//アニメーション用のカウント
 
-    void Awake()
-    {
-        nowPlayerNum = originalPlayerNum;
-    }
 
     void Start()
     {
