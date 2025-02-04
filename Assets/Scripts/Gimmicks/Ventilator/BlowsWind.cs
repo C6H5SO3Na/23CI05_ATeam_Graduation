@@ -73,6 +73,9 @@ public class BlowsWind : GimmickBase, IStartedOperation
                 {
                     //風の当たり判定を消す
                     windCollider.MakeAddColliderSizeToZero();
+
+                    //エフェクトを止める
+                    particle.Stop();
                 }
             }
         }
@@ -263,8 +266,10 @@ public class BlowsWind : GimmickBase, IStartedOperation
             }
         }
     }
-
-    //プレイヤーのジャンプ力を元に戻す処理
+    /// <summary>
+    /// プレイヤーのジャンプ力を元に戻す処理
+    /// </summary>
+    /// <param name="other"></param>
     void RestorePlayerJumpPower(Collider other)
     {
         //触れているオブジェクトがプレイヤーかどうか判定する
