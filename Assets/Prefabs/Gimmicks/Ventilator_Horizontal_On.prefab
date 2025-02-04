@@ -297,6 +297,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1645123201969997355, guid: c2be7a37f02652e4ca29b5db5ed6e47e,
         type: 3}
+      propertyPath: playOnAwake
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1645123201969997355, guid: c2be7a37f02652e4ca29b5db5ed6e47e,
+        type: 3}
       propertyPath: ForceModule.y.scalar
       value: 0
       objectReference: {fileID: 0}
@@ -334,6 +339,11 @@ PrefabInstance:
         type: 3}
       propertyPath: InitialModule.startLifetime.scalar
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1645123201969997355, guid: c2be7a37f02652e4ca29b5db5ed6e47e,
+        type: 3}
+      propertyPath: CollisionModule.collidesWith.m_Bits
+      value: 2147483647
       objectReference: {fileID: 0}
     - target: {fileID: 1645123201969997355, guid: c2be7a37f02652e4ca29b5db5ed6e47e,
         type: 3}
