@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 3022443659752800447}
   - component: {fileID: 1259096401754707043}
   - component: {fileID: 4546180114238601403}
+  - component: {fileID: 3925388687485386557}
   m_Layer: 5
   m_Name: StageNum
   m_TagString: Untagged
@@ -213,3 +214,17 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &3925388687485386557
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7533249078852397163}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d35c1a9a29614074fac13f49279877f4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  blinkSpeed: 1
+  maxA: 1

@@ -1255,9 +1255,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectFrame: {fileID: 1998089384}
   canvas: {fileID: 487525024}
-  targetScale: 4
+  targetScale: 3.5
   duration: 1
   fade: {fileID: 4921652492412623905, guid: ae82267f5e6ce484f96f11c3b1f35c2f, type: 3}
+  operationText: {fileID: 1605909289}
 --- !u!4 &1831810684
 Transform:
   m_ObjectHideFlags: 0
