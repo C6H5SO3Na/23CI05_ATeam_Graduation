@@ -2568,7 +2568,7 @@ PrefabInstance:
     - target: {fileID: 3405931851017985491, guid: bf29a6faf24bdbd48b42cf396fbc8210,
         type: 3}
       propertyPath: maxSelect
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4916634984900272777, guid: bf29a6faf24bdbd48b42cf396fbc8210,
         type: 3}

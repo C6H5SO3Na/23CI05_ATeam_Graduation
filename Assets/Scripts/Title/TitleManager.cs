@@ -6,17 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class TitleManager : MonoBehaviour
 {
-    [SerializeField] SelectImageManager selectImage;
-    AudioSource bgm;
-    AudioSource se;
-    TitleSound sound;
-    [SerializeField] GameObject fade;
-    [SerializeField] Canvas canvas;
-    Fade fadeInstance;
+    [SerializeField] SelectImageManager selectImage; //選択枠
+    AudioSource bgm;  //BGM用
+    AudioSource se;   //SE用
+    TitleSound sound; //タイトルのサウンド一覧
+    [SerializeField] GameObject fade; //フェード
+    [SerializeField] Canvas canvas;   //キャンバス
+    Fade fadeInstance; //フェードのインスタンスを代入
     float tookTime = 0f;
     enum Select
     {
-        SinglePlay = 0, MultiPlay, Option, Credit, Exit
+        SinglePlay = 0, MultiPlay, Exit
     }
 
     enum Phase
@@ -51,6 +51,7 @@ public class TitleManager : MonoBehaviour
         //段階ごとに処理を分ける
         switch (phase)
         {
+            //フェードイン
             case Phase.FadeIn:
                 if (!fadeInstance.DoFade())
                 {
@@ -58,10 +59,12 @@ public class TitleManager : MonoBehaviour
                 }
                 break;
 
+            //選択
             case Phase.Select:
                 Selecting();
                 break;
 
+            //フェードアウト前の待機
             case Phase.PreFadeOut:
                 tookTime += Time.deltaTime;
                 if (tookTime >= 1f)
@@ -73,6 +76,7 @@ public class TitleManager : MonoBehaviour
                 }
                 break;
 
+            //フェードアウト中
             case Phase.FadeOut:
 
                 if (!fadeInstance.DoFade())
@@ -112,13 +116,13 @@ public class TitleManager : MonoBehaviour
         switch (selectImage.SelectNum)
         {
             //シーン遷移は共通
-            case (int)Select.SinglePlay:
-            case (int)Select.MultiPlay:
+            case (int)Select.SinglePlay: //シングルプレイ
+            case (int)Select.MultiPlay:  //マルチプレイ
                 bgm.Stop();
                 SceneManager.LoadScene("StageSelectScene");
                 break;
 
-            case (int)Select.Exit:
+            case (int)Select.Exit:  //終わる
                 EndGame();
                 break;
         }
@@ -132,26 +136,21 @@ public class TitleManager : MonoBehaviour
         se.PlayOneShot(sound.choiceSE);
         switch (selectImage.SelectNum)
         {
+            //シングルプレイ
             case (int)Select.SinglePlay:
                 GameManager.isMultiPlay = false;
                 selectImage.ChangeBlinkSpeed(5f);
                 phase = Phase.PreFadeOut;
                 break;
 
+            //マルチプレイ
             case (int)Select.MultiPlay:
                 GameManager.isMultiPlay = false;
                 selectImage.ChangeBlinkSpeed(5f);
                 phase = Phase.PreFadeOut;
                 break;
 
-            case (int)Select.Option:
-
-                break;
-
-            case (int)Select.Credit:
-                //β版では未実装
-                break;
-
+            //終わる
             case (int)Select.Exit:
                 selectImage.ChangeBlinkSpeed(5f);
                 phase = Phase.PreFadeOut;
@@ -164,9 +163,11 @@ public class TitleManager : MonoBehaviour
     /// </summary>
     void EndGame()
     {
+        //エディター上では
 #if UNITY_EDITOR
         UnityEditor.EditorApplication.isPlaying = false;
 #else
+        //実行ファイル上では
         Application.Quit();
 #endif
     }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class TitleSound : MonoBehaviour
 {
-    public AudioClip selectSE;
-    public AudioClip choiceSE;
-    public AudioClip titleBGM;
+    public AudioClip selectSE; //‘I‘ð‚·‚é
+    public AudioClip choiceSE; //Œˆ’è‚·‚é
+    public AudioClip titleBGM; //BGM
 }
