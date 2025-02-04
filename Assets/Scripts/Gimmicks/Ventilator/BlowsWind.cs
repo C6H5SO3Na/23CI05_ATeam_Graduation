@@ -75,7 +75,7 @@ public class BlowsWind : GimmickBase, IStartedOperation
                     windCollider.MakeAddColliderSizeToZero();
 
                     //エフェクトを止める
-                    particle.Stop();
+                    //particle.Stop();
                 }
             }
         }
