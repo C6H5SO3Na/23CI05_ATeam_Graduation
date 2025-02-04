@@ -42,12 +42,24 @@ public class SelectFrameController : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
     }
 
+    /// <summary>
+    /// 指定の値の間をラップする
+    /// </summary>
+    /// <param name="value">変数</param>
+    /// <param name="low">最小値</param>
+    /// <param name="high">最大値</param>
+    /// <returns></returns>
     int Wrap(int value, int low, int high)
     {
         int n = (value - low) % (high - low);
         return (n >= 0) ? (n + low) : (n + high);
     }
 
+    /// <summary>
+    /// 枠を動かす
+    /// </summary>
+    /// <param name="signX">x座標の符号</param>
+    /// <param name="signY">y座標の符号</param>
     public void Move(float signX, float signY)
     {
         if (signX != 0f)

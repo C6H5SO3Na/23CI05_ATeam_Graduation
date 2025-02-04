@@ -13,8 +13,8 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField] float targetScale; // 目標スケール
     [SerializeField] float duration; // アニメーションの持続時間
 
-    AudioSource bgm;
-    AudioSource se;
+    AudioSource bgm; //BGM用
+    AudioSource se;  //SE用
 
     StageSelectSound sound;
 
@@ -27,6 +27,8 @@ public class StageSelectManager : MonoBehaviour
     string nextSceneName;
     float tookTime = 0f;
 
+    [SerializeField] TextMeshProUGUI operationText;
+
     enum Phase
     {
         FadeIn, SelectStage, PreEntry, Entry, CancelEntry, Cancel, StageChoice, FadeOut
@@ -35,6 +37,7 @@ public class StageSelectManager : MonoBehaviour
 
     void Start()
     {
+        //BGMとSEそれぞれのオブジェクトを読み込み
         bgm = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
         se = GameObject.FindGameObjectWithTag("SE").GetComponent<AudioSource>();
         sound = GetComponent<StageSelectSound>();
@@ -53,6 +56,8 @@ public class StageSelectManager : MonoBehaviour
         switch (phase)
         {
             case Phase.FadeIn:
+                operationText.text = "B:決定 A:タイトルへ戻る";
+                //フェードし終わるまで
                 if (!fadeInstance.DoFade())
                 {
                     phase = Phase.SelectStage;
@@ -60,6 +65,7 @@ public class StageSelectManager : MonoBehaviour
                 break;
 
             case Phase.SelectStage:
+                operationText.text = "B:決定 A:タイトルへ戻る";
                 //タイトルへ戻る
                 if (Input.GetButtonDown("Jump_P1"))
                 {
@@ -86,6 +92,7 @@ public class StageSelectManager : MonoBehaviour
 
 
             case Phase.PreEntry:
+                operationText.text = "";
                 //イージングが終わるまで待機
                 if (!DOTween.IsTweening(targetImage.transform))
                 {
@@ -94,6 +101,7 @@ public class StageSelectManager : MonoBehaviour
                 break;
 
             case Phase.Entry:
+                operationText.text = "B:決定 A:戻る";
                 //キャンセル
                 if (Input.GetButtonDown("Jump_P1"))
                 {
@@ -112,6 +120,7 @@ public class StageSelectManager : MonoBehaviour
                 break;
 
             case Phase.CancelEntry:
+                operationText.text = "";
                 //イージングが終わるまで待機
                 if (!DOTween.IsTweening(targetImage.transform))
                 {
@@ -122,6 +131,7 @@ public class StageSelectManager : MonoBehaviour
                 break;
 
             case Phase.Cancel:
+                operationText.text = "";
                 tookTime += Time.deltaTime;
                 if (tookTime >= 1f)
                 {
@@ -133,6 +143,7 @@ public class StageSelectManager : MonoBehaviour
                 break;
 
             case Phase.StageChoice:
+                operationText.text = "";
                 tookTime += Time.deltaTime;
                 if (tookTime >= 1f)
                 {
@@ -144,6 +155,7 @@ public class StageSelectManager : MonoBehaviour
                 break;
 
             case Phase.FadeOut:
+                operationText.text = "";
                 if (!fadeInstance.DoFade())
                 {
                     bgm.Stop();
@@ -167,6 +179,8 @@ public class StageSelectManager : MonoBehaviour
             preSiblingIndex = targetImage.GetSiblingIndex();
             targetImage.SetAsLastSibling();
         });
+
+        targetImage.GetChild(0).GetComponent<Blinking>().enabled = true;
     }
 
     /// <summary>
@@ -179,5 +193,10 @@ public class StageSelectManager : MonoBehaviour
 
         targetImage.DOAnchorPos(prePosition, duration).SetEase(Ease.OutQuad);
         targetImage.DOScale(new Vector3(1f, 1f, 1f), duration).SetEase(Ease.OutQuad);
+
+        Transform stageNum = targetImage.GetChild(0);
+        stageNum.GetComponent<Blinking>().enabled = false;
+        stageNum.GetComponent<TextMeshProUGUI>().color = Color.white;
+
     }
 }
