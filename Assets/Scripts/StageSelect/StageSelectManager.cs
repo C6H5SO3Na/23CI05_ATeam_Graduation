@@ -13,8 +13,8 @@ public class StageSelectManager : MonoBehaviour
     [SerializeField] float targetScale; // 目標スケール
     [SerializeField] float duration; // アニメーションの持続時間
 
-    AudioSource bgm;
-    AudioSource se;
+    AudioSource bgm; //BGM用
+    AudioSource se;  //SE用
 
     StageSelectSound sound;
 
@@ -37,6 +37,7 @@ public class StageSelectManager : MonoBehaviour
 
     void Start()
     {
+        //BGMとSEそれぞれのオブジェクトを読み込み
         bgm = GameObject.FindGameObjectWithTag("BGM").GetComponent<AudioSource>();
         se = GameObject.FindGameObjectWithTag("SE").GetComponent<AudioSource>();
         sound = GetComponent<StageSelectSound>();
@@ -56,6 +57,7 @@ public class StageSelectManager : MonoBehaviour
         {
             case Phase.FadeIn:
                 operationText.text = "B:決定 A:タイトルへ戻る";
+                //フェードし終わるまで
                 if (!fadeInstance.DoFade())
                 {
                     phase = Phase.SelectStage;
