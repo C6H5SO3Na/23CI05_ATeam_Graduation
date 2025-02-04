@@ -296,6 +296,7 @@ public class BlowsWind : GimmickBase, IStartedOperation
                 //パーティクルの設定
                 var main = particle.main;
                 main.startSpeed = 10 + index * 8;
+                particle.Play();
 
                 //SE再生
                 audioSource.clip = SE.ventilatorSE[index];
@@ -313,6 +314,7 @@ public class BlowsWind : GimmickBase, IStartedOperation
                 //パーティクルの設定
                 var main = particle.main;
                 main.startSpeed = 10 + index * 8;
+                particle.Play();
 
                 //SE再生
                 audioSource.clip = SE.ventilatorSE[index];
