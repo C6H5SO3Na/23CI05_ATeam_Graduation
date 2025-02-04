@@ -81,6 +81,7 @@ public class BlowsWind : GimmickBase, IStartedOperation
         }
     }
 
+    //•—‚Ì“–‚½‚é”ÍˆÍ‚©‚ç”²‚¯‚½‚Æ‚«
     void OnTriggerExit(Collider other)
     {
         //ƒWƒƒƒ“ƒv—Í‚ğ‘‚â‚·ê‡
