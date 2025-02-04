@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 2665782635581835269}
   - component: {fileID: 6549178233564285397}
   - component: {fileID: 6789599314077183471}
+  - component: {fileID: 621603938183025682}
   m_Layer: 0
   m_Name: Ventilator_Horizontal_Off
   m_TagString: Untagged
@@ -163,6 +164,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shouldIncreaseJumpPower: 0
   isBlowsWindToFirst: 0
+--- !u!114 &621603938183025682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4327561405546372965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37b98001c9bcfe44a8d78424e80082fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ventilatorSE:
+  - {fileID: 8300000, guid: 5c84236e8e59adf4fb21ea38add61be3, type: 3}
+  - {fileID: 8300000, guid: 8896d68d45ee92440a561beb7a107fb5, type: 3}
+  - {fileID: 8300000, guid: 768183e9c8e775c4985f16e27dd0facb, type: 3}
 --- !u!1001 &8555301579590410161
 PrefabInstance:
   m_ObjectHideFlags: 0
