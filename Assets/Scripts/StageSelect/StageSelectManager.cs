@@ -196,7 +196,7 @@ public class StageSelectManager : MonoBehaviour
 
         Transform stageNum = targetImage.GetChild(0);
         stageNum.GetComponent<Blinking>().enabled = false;
-        stageNum.GetComponent<TextMeshProUGUI>().color = Color.white;
+        stageNum.GetComponent<TextMeshProUGUI>().color = Color.blue;
 
     }
 }
