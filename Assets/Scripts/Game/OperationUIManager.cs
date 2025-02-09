@@ -13,7 +13,7 @@ public class OperationUIManager : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.isMultiPlay)
+        if (!GameManager.isMultiPlay)
         {
             text.text = "B:持つ/投げる\nA:ジャンプ\nY:操作キャラ\n切り替え\nX:置く\n左スティック\n:移動\nSTART:ポーズ";
         }
